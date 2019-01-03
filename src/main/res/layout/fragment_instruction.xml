@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:elevation="4dp"
+    android:gravity="center_horizontal"
+    android:padding="8dp">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView_InstructionNumber"
+            style="@style/InstructionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="#1:"
+            android:layout_marginRight="8dp"
+            app:layout_constraintEnd_toStartOf="@id/textView_InstructionA"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textView_InstructionA"
+            style="@style/InstructionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tap the "
+            app:layout_constraintEnd_toStartOf="@id/textView_InstructionB"
+            app:layout_constraintStart_toEndOf="@id/textView_InstructionNumber" />
+
+        <TextView
+            android:id="@+id/InstructionHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Swipe left if you don't see the card."
+            android:textSize="12sp"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView_InstructionA" />
+
+        <TextView
+            android:id="@+id/textView_InstructionB"
+            style="@style/InstructionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Black"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/textView_InstructionC"
+            app:layout_constraintStart_toEndOf="@id/textView_InstructionA" />
+
+        <TextView
+            android:id="@+id/textView_InstructionC"
+            style="@style/InstructionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" card"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/textView_InstructionB" />
+    </android.support.constraint.ConstraintLayout>
+
+</RelativeLayout>
