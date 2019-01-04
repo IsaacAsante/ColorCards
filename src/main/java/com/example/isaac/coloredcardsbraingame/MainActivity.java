@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements Communicator {
     @Override
     public void presentNewChallenge() {
         fragmentCards.shuffleColorCardList(); // Shuffle the list of cards
-        fragmentInstruction.increaseQuestionNumber(); // Increase the ID of the question
+        // fragmentInstruction.increaseQuestionNumber(); // Increase the ID of the question
         changeTextColor(fragmentCards.selectRandomColor());
         changeTextInstruction(fragmentCards.selectRandomColorName()); // Change the name of the color to select
         resetProgressBar();
