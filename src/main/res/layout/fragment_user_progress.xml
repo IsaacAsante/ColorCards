@@ -2,17 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:paddingTop="8dp"
-    android:paddingBottom="8dp">
+    android:orientation="horizontal">
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.5">
+        android:layout_weight="0.5"
+        android:background="@color/colorPrimaryDark"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
 
         <TextView
             android:id="@+id/textView_LevelPointsLabel"
+            style="@style/MetaData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -20,18 +22,21 @@
 
         <TextView
             android:id="@+id/textView_LevelPoints"
+            style="@style/MetaData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0" />
 
         <TextView
             android:id="@+id/textView_LevelPointsSlash"
+            style="@style/MetaData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=" / " />
 
         <TextView
             android:id="@+id/textView_LevelPointsToReach"
+            style="@style/MetaData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=" 1000" />
@@ -44,6 +49,7 @@
 
         <TextView
             android:id="@+id/textView_TimeLeft"
+            style="@style/MetaData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -51,6 +57,7 @@
 
         <TextView
             android:id="@+id/textView_Timer"
+            style="@style/MetaData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="" />
