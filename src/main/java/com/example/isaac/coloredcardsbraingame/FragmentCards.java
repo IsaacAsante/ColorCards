@@ -36,7 +36,7 @@ public class FragmentCards extends Fragment {
         return view;
     }
 
-    public void setCommunicator (Context context) {
+    public void setCommunicator(Context context) {
         communicator = (Communicator) context;
     }
 
@@ -76,16 +76,13 @@ public class FragmentCards extends Fragment {
     }
 
     public int selectRandomColor() {
-        if (!colorCards.isEmpty()) {
-            int cardIndex = new Random().nextInt(colorCards.size());
-            int randomColor = colorCards.get(cardIndex).getColor();
-            return randomColor;
-        }
-        return R.color.black;
+        int cardIndex = new Random().nextInt(colorCards.size());
+        int randomColor = colorCards.get(cardIndex).getColor();
+        return randomColor;
     }
 
     public void shuffleColorCardList() {
-        if(!colorCards.isEmpty() || colorCards != null) {
+        if (!colorCards.isEmpty() || colorCards != null) {
             Collections.shuffle(colorCards);
             adapter.notifyDataSetChanged();
         }
