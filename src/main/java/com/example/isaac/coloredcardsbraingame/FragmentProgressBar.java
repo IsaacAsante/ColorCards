@@ -27,7 +27,7 @@ public class FragmentProgressBar extends Fragment {
         mhandler = new Handler();
         progressBar = view.findViewById(R.id.determinateBar_Shuffling);
         status = 100; // Full progress bar
-        statusUpdateInterval = 40; // Milliseconds
+        statusUpdateInterval = 20; // Milliseconds
         return view;
     }
 
