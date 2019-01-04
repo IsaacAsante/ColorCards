@@ -2,13 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:layout_marginTop="4dp">
 
     <LinearLayout
+        style="@style/MetaData"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="0.5"
-        android:background="@color/colorPrimaryDark"
+        android:gravity="center_horizontal"
         android:paddingTop="8dp"
         android:paddingBottom="8dp">
 
@@ -18,14 +20,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
-            android:text="Level Points: " />
+            android:text="Level Points: "
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/textView_LevelPoints"
             style="@style/MetaData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0" />
+            android:text="0 "
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/textView_LevelPointsSlash"
@@ -39,13 +45,20 @@
             style="@style/MetaData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" 1000" />
+            android:text=" 1000"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp" />
     </LinearLayout>
 
     <LinearLayout
+        style="@style/MetaData"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.5">
+        android:layout_weight="0.5"
+        android:background="@color/white"
+        android:gravity="center_horizontal"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
 
         <TextView
             android:id="@+id/textView_TimeLeft"
@@ -53,14 +66,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
-            android:text="Time left: " />
+            android:text="Time left: "
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/textView_Timer"
             style="@style/MetaData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="" />
+            android:text=""
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp" />
     </LinearLayout>
 
 </LinearLayout>

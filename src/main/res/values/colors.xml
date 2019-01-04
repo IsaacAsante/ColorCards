@@ -6,8 +6,9 @@
     <color name="colorSecondary">#fafafa</color>
     <color name="colorSecondaryDark">#ffffff</color>
     <color name="colorAccent">#c7c7c7</color>
-    <color name="primaryTextColor">#000000</color>
-    <color name="secondaryTextColor">#ffffff</color>
+    <color name="primaryTextColor">#ffffff</color>
+    <color name="secondaryTextColor">#000000</color>
+    <color name="darkTextColor">#212121</color>
     <color name="red">#e53935</color>
     <color name="pink">#d81b60</color>
     <color name="purple">#8e24aa</color>
