@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements Communicator {
         else if (fragment instanceof FragmentResults) {
             FragmentResults fragmentResults = (FragmentResults) fragment;
             fragmentResults.setCommunicator(this);
+            System.out.println("Fragment Results communicator context.");
         }
         else if (fragment instanceof FragmentUserProgress) {
             FragmentUserProgress fragmentTimer = (FragmentUserProgress) fragment;

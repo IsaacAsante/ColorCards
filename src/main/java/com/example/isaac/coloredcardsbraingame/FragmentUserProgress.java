@@ -81,7 +81,6 @@ public class FragmentUserProgress extends Fragment {
     }
 
     public void increaseUserPoints() {
-        System.out.println("Increase user points method called.");
         pointsAccumulated += pointsIncrementor;
         totalPoints += pointsIncrementor;
         textView_PointsAccumulated.setText(String.valueOf(pointsAccumulated));
@@ -89,7 +88,6 @@ public class FragmentUserProgress extends Fragment {
     }
 
     public void decreaseUserPoints() {
-        System.out.println("Decrease user points method called.");
         if (pointsAccumulated - pointsDeductor >= 0) {
             pointsAccumulated -= pointsDeductor;
         } else {

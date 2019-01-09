@@ -29,6 +29,7 @@ public class FragmentResults extends Fragment {
         textView_CorrectAnswerResult = view.findViewById(R.id.textView_CorrectResult);
         textView_WrongAnswerResult = view.findViewById(R.id.textView_WrongResult);
         textView_SkippedAnswerResult = view.findViewById(R.id.textView_SkippedResult);
+        System.out.println("Fragment Results loaded.");
         return view;
     }
 
@@ -39,6 +40,7 @@ public class FragmentResults extends Fragment {
     public void increaseCorrectAnswerCount() {
         correctAnswerCount++;
         textView_CorrectAnswerResult.setText("Correct: " + Integer.toString(correctAnswerCount));
+        System.out.println("Fragment Results Correct Count method.");
     }
 
     public void increaseWrongAnswerCount() {

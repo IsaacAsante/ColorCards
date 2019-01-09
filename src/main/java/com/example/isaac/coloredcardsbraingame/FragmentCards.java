@@ -45,6 +45,7 @@ public class FragmentCards extends Fragment {
         adapter = new CardsRecyclerAdapter((Context) getActivity(), colorCards);
         recyclerView.setLayoutManager(new GridLayoutManager((Context) getActivity(), 2));
         recyclerView.setAdapter(adapter);
+        recyclerView.setHasFixedSize(true); // The size does not change when the adapter contents change.
         adapter.setOnCardClickListener(new CardsRecyclerAdapter.OnCardClickListener() {
             @Override
             public void onCardClick(int position) {
