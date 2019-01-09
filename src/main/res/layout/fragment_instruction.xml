@@ -33,18 +33,6 @@
             app:layout_constraintStart_toEndOf="@id/textView_InstructionNumber" />
 
         <TextView
-            android:id="@+id/InstructionHint"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:text="Swipe left if you don't see the card."
-            android:textSize="12sp"
-            android:textStyle="italic"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textView_InstructionA" />
-
-        <TextView
             android:id="@+id/textView_InstructionB"
             style="@style/InstructionText"
             android:layout_width="wrap_content"

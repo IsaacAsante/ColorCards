@@ -9,6 +9,10 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 public class MainActivity extends AppCompatActivity implements Communicator {
 
     private FragmentCards fragmentCards;
@@ -25,6 +29,8 @@ public class MainActivity extends AppCompatActivity implements Communicator {
     private MediaPlayer wrongFX;
 
     private boolean timeUp;
+
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +49,14 @@ public class MainActivity extends AppCompatActivity implements Communicator {
 
         timeUp = true;
         ConnectFragments();
+
+        // Initialize Mobile Ads
+        // TODO: Update the App ID to reflect the one from my AdMob account in the production app
+        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
+
+        mAdView = findViewById(R.id.bottomAdViewBanner);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     private void ConnectFragments() {
