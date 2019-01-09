@@ -66,7 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
-            android:drawableLeft="@mipmap/clock"
+            android:drawableLeft="@drawable/alarm-clock-24"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="16sp" />
 
