@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements Communicator {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setTitle("Color Match");
         imageViewCorrect = (ImageView) findViewById(R.id.imageView_Correct);
         imageViewCorrect.setBackgroundResource(R.drawable.correct);
         correctAnimation = (AnimationDrawable) imageViewCorrect.getBackground();

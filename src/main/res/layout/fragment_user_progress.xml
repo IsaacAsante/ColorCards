@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:layout_marginTop="4dp">
+    android:layout_marginTop="2dp"
+    android:orientation="horizontal">
 
     <LinearLayout
         style="@style/MetaData"
@@ -20,6 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
+            android:layout_marginTop="6dp"
             android:text="Points: "
             android:textColor="@color/colorPrimaryDark"
             android:textSize="16sp" />
@@ -29,24 +30,27 @@
             style="@style/MetaData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0 "
+            android:layout_marginTop="6dp"
+            android:text="0"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="16sp" />
 
         <TextView
             android:id="@+id/textView_LevelPointsSlash"
             style="@style/MetaData"
-            android:textSize="16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" / " />
+            android:layout_marginTop="6dp"
+            android:text=" / "
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/textView_LevelPointsToReach"
             style="@style/MetaData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" 1000"
+            android:layout_marginTop="6dp"
+            android:text="1000"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="16sp" />
     </LinearLayout>
@@ -61,31 +65,45 @@
         android:paddingTop="8dp"
         android:paddingBottom="8dp">
 
-        <ImageView
-            android:layout_width="20sp"
-            android:layout_height="20sp"
-            android:src="@drawable/alarm_clock_20"
-            android:layout_marginTop="2dp"/>
-
-        <TextView
-            android:id="@+id/textView_TimeLeft"
-            style="@style/MetaData"
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:text="Time: "
-            android:drawablePadding="8dp"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="16sp" />
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/textView_Timer"
-            style="@style/MetaData"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="16sp" />
+            <ImageView
+                android:id="@+id/imageView_Time"
+                android:layout_width="20sp"
+                android:layout_height="20sp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/alarm_clock_20" />
+
+            <TextView
+                android:id="@+id/textView_Timer"
+                style="@style/MetaData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/imageView_Time"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="6dp"
+                android:layout_toEndOf="@id/imageView_Time"
+                android:text="00:00"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/textView_Bonus"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_alignBaseline="@id/imageView_Time"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@id/textView_Timer"
+                android:background="@color/colorPrimaryLight"
+                android:text="+10s"
+                android:textAllCaps="false"
+                android:textColor="@color/primaryTextColor"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
     </LinearLayout>
 
 </LinearLayout>
