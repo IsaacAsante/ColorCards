@@ -26,7 +26,7 @@
     <FrameLayout
         android:id="@+id/frameLayout_RecycleView"
         android:layout_width="match_parent"
-        android:layout_height="336dp"
+        android:layout_height="324dp"
         android:layout_below="@id/frameLayout_Instruction"
         android:layout_marginTop="8dp" />
 
