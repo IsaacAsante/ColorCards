@@ -1,5 +1,6 @@
 package com.example.isaac.coloredcardsbraingame;
 
+import android.animation.TimeAnimator;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.support.v4.app.Fragment;
@@ -7,13 +8,17 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.TabHost;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 
-public class MainActivity extends AppCompatActivity implements Communicator {
+public class MainActivity extends AppCompatActivity implements Communicator, RewardedVideoAdListener {
 
     private FragmentCards fragmentCards;
     private FragmentInstruction fragmentInstruction;
@@ -30,7 +35,9 @@ public class MainActivity extends AppCompatActivity implements Communicator {
 
     private boolean timeUp;
 
+    // Admob ad units
     private AdView mAdView;
+    private RewardedVideoAd mRewardedVideoAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +65,15 @@ public class MainActivity extends AppCompatActivity implements Communicator {
         mAdView = findViewById(R.id.bottomAdViewBanner);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+        mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
+        mRewardedVideoAd.setRewardedVideoAdListener(this);
+        loadRewardedVideoAd();
+    }
+
+    private void loadRewardedVideoAd() {
+        mRewardedVideoAd.loadAd("ca-app-pub-3940256099942544/5224354917",
+                new AdRequest.Builder().build());
     }
 
     private void ConnectFragments() {
@@ -198,5 +214,50 @@ public class MainActivity extends AppCompatActivity implements Communicator {
             wrongFX.seekTo(0);
         }
         wrongFX.start();
+    }
+
+
+    // AdMob Rewarded Video Ad events' methods
+    @Override
+    public void onRewardedVideoAdLoaded() {
+        Toast.makeText(this, "Reward Video ad loaded.", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRewardedVideoAdOpened() {
+        Toast.makeText(this, "Reward Video opened", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRewardedVideoStarted() {
+        Toast.makeText(this, "Reward Video started", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRewardedVideoAdClosed() {
+        Toast.makeText(this, "Reward Video closed", Toast.LENGTH_SHORT).show();
+        // Load the next video
+        loadRewardedVideoAd();
+    }
+
+    @Override
+    public void onRewarded(RewardItem rewardItem) {
+        Toast.makeText(this, "Reward sent! Currency: " + rewardItem.getType()
+                + " Amount: " + rewardItem.getAmount(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRewardedVideoAdLeftApplication() {
+        Toast.makeText(this, "Reward Video Left Application", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRewardedVideoAdFailedToLoad(int i) {
+        Toast.makeText(this, "Reward Video Ad Failed", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRewardedVideoCompleted() {
+        Toast.makeText(this, "Reward Video Completed", Toast.LENGTH_SHORT).show();
     }
 }

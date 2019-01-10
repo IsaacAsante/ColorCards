@@ -90,7 +90,7 @@
                 android:textSize="16sp" />
 
             <Button
-                android:id="@+id/textView_Bonus"
+                android:id="@+id/button_Bonus"
                 android:layout_width="wrap_content"
                 android:layout_height="32dp"
                 android:layout_alignBaseline="@id/imageView_Time"
