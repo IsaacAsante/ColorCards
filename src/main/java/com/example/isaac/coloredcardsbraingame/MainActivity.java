@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.Toast;
 
+import com.applovin.sdk.AppLovinSdk;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements Communicator {
     private MediaPlayer correctFX;
     private MediaPlayer wrongFX;
 
-    private boolean timeUp;
+    private boolean timeIsUp;
 
     // AdMob ad units
     private AdView mAdView;
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements Communicator {
         correctFX = MediaPlayer.create(this, R.raw.correct);
         wrongFX = MediaPlayer.create(this, R.raw.error);
 
-        timeUp = true;
+        timeIsUp = false;
         ConnectFragments();
 
         // Initialize Mobile Ads
@@ -65,6 +66,10 @@ public class MainActivity extends AppCompatActivity implements Communicator {
         mAdView = findViewById(R.id.bottomAdViewBanner);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+        // AppLovin
+        // TODO: Set up AppLovin Rewarded Video.
+        // AppLovinSdk.initializeSdk(MainActivity.this);
     }
 
     private void ConnectFragments() {
@@ -118,25 +123,27 @@ public class MainActivity extends AppCompatActivity implements Communicator {
 
     @Override
     public void verifyAnswer(String colorName) {
-        if (fragmentInstruction.isCorrect(colorName)) {
-            if (correctAnimation.isRunning()) {
-                correctAnimation.stop(); // Guarantee animation restart effect
-            }
-            correctAnimation.start();
-            playCorrectSound();
-            updateUserPoints(AnswerResult.CORRECT);
+        if (timeIsUp == false) {
+            if (fragmentInstruction.isCorrect(colorName)) {
+                if (correctAnimation.isRunning()) {
+                    correctAnimation.stop(); // Guarantee animation restart effect
+                }
+                correctAnimation.start();
+                playCorrectSound();
+                updateUserPoints(AnswerResult.CORRECT);
 
-            fragmentResults.increaseCorrectAnswerCount(); // Increase the count of correct taps
-        } else {
-            Toast.makeText(this, "The answer is wrong", Toast.LENGTH_SHORT).show(); // DEBUGGING PURPOSES
-            if (wrongAnimation.isRunning()) {
-                wrongAnimation.stop();
-            }
-            wrongAnimation.start();
-            playWrongSound();
-            updateUserPoints(AnswerResult.WRONG);
+                fragmentResults.increaseCorrectAnswerCount(); // Increase the count of correct taps
+            } else {
+                Toast.makeText(this, "The answer is wrong", Toast.LENGTH_SHORT).show(); // DEBUGGING PURPOSES
+                if (wrongAnimation.isRunning()) {
+                    wrongAnimation.stop();
+                }
+                wrongAnimation.start();
+                playWrongSound();
+                updateUserPoints(AnswerResult.WRONG);
 
-            fragmentResults.increaseWrongAnswerCount(); // Increase the count of wrong taps
+                fragmentResults.increaseWrongAnswerCount(); // Increase the count of wrong taps
+            }
         }
     }
 
@@ -147,11 +154,15 @@ public class MainActivity extends AppCompatActivity implements Communicator {
 
     @Override
     public boolean gameIsRunning() {
-        return timeUp;
+        if (timeIsUp == false) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void setTimeUp(boolean status) {
-        timeUp = status;
+        timeIsUp = status;
     }
 
     @Override
@@ -175,11 +186,13 @@ public class MainActivity extends AppCompatActivity implements Communicator {
 
     @Override
     public void presentNewChallenge() {
-        fragmentCards.shuffleColorCardList(); // Shuffle the list of cards
-        // fragmentInstruction.increaseQuestionNumber(); // Increase the ID of the question
-        changeTextColor(fragmentCards.selectRandomColor());
-        changeTextInstruction(fragmentCards.selectRandomColorName()); // Change the name of the color to select
-        resetProgressBar();
+        if (timeIsUp == false) {
+            fragmentCards.shuffleColorCardList(); // Shuffle the list of cards
+            // fragmentInstruction.increaseQuestionNumber(); // Increase the ID of the question
+            changeTextColor(fragmentCards.selectRandomColor());
+            changeTextInstruction(fragmentCards.selectRandomColorName()); // Change the name of the color to select
+            resetProgressBar();
+        }
     }
 
     @Override

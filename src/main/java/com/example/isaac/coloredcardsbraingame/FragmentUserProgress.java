@@ -139,7 +139,7 @@ public class FragmentUserProgress extends Fragment {
 
             @Override
             public void onFinish() {
-                communicator.setTimeUp(false);
+                communicator.setTimeUp(true);
             }
         }.start();
     }
