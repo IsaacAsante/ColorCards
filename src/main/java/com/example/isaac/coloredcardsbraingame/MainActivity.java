@@ -18,7 +18,7 @@ import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 
-public class MainActivity extends AppCompatActivity implements Communicator, RewardedVideoAdListener {
+public class MainActivity extends AppCompatActivity implements Communicator {
 
     private FragmentCards fragmentCards;
     private FragmentInstruction fragmentInstruction;
@@ -35,9 +35,9 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
 
     private boolean timeUp;
 
-    // Admob ad units
+    // AdMob ad units
     private AdView mAdView;
-    private RewardedVideoAd mRewardedVideoAd;
+    // private RewardedVideoAd mRewardedVideoAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,15 +65,6 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         mAdView = findViewById(R.id.bottomAdViewBanner);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-
-        mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
-        mRewardedVideoAd.setRewardedVideoAdListener(this);
-        loadRewardedVideoAd();
-    }
-
-    private void loadRewardedVideoAd() {
-        mRewardedVideoAd.loadAd("ca-app-pub-3940256099942544/5224354917",
-                new AdRequest.Builder().build());
     }
 
     private void ConnectFragments() {
@@ -97,17 +88,14 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         if (fragment instanceof FragmentCards) {
             FragmentCards fragmentCards = (FragmentCards) fragment;
             fragmentCards.setCommunicator(this); // MainActivity for FragmentCards
-        }
-        else if (fragment instanceof FragmentProgressBar) {
+        } else if (fragment instanceof FragmentProgressBar) {
             FragmentProgressBar fragmentProgressBar = (FragmentProgressBar) fragment;
             fragmentProgressBar.setCommunicator(this);
-        }
-        else if (fragment instanceof FragmentResults) {
+        } else if (fragment instanceof FragmentResults) {
             FragmentResults fragmentResults = (FragmentResults) fragment;
             fragmentResults.setCommunicator(this);
             System.out.println("Fragment Results communicator context.");
-        }
-        else if (fragment instanceof FragmentUserProgress) {
+        } else if (fragment instanceof FragmentUserProgress) {
             FragmentUserProgress fragmentTimer = (FragmentUserProgress) fragment;
             fragmentTimer.setCommunicator(this);
         }
@@ -139,8 +127,7 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
             updateUserPoints(AnswerResult.CORRECT);
 
             fragmentResults.increaseCorrectAnswerCount(); // Increase the count of correct taps
-        }
-        else {
+        } else {
             Toast.makeText(this, "The answer is wrong", Toast.LENGTH_SHORT).show(); // DEBUGGING PURPOSES
             if (wrongAnimation.isRunning()) {
                 wrongAnimation.stop();
@@ -214,50 +201,5 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
             wrongFX.seekTo(0);
         }
         wrongFX.start();
-    }
-
-
-    // AdMob Rewarded Video Ad events' methods
-    @Override
-    public void onRewardedVideoAdLoaded() {
-        Toast.makeText(this, "Reward Video ad loaded.", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onRewardedVideoAdOpened() {
-        Toast.makeText(this, "Reward Video opened", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onRewardedVideoStarted() {
-        Toast.makeText(this, "Reward Video started", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onRewardedVideoAdClosed() {
-        Toast.makeText(this, "Reward Video closed", Toast.LENGTH_SHORT).show();
-        // Load the next video
-        loadRewardedVideoAd();
-    }
-
-    @Override
-    public void onRewarded(RewardItem rewardItem) {
-        Toast.makeText(this, "Reward sent! Currency: " + rewardItem.getType()
-                + " Amount: " + rewardItem.getAmount(), Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onRewardedVideoAdLeftApplication() {
-        Toast.makeText(this, "Reward Video Left Application", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onRewardedVideoAdFailedToLoad(int i) {
-        Toast.makeText(this, "Reward Video Ad Failed", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onRewardedVideoCompleted() {
-        Toast.makeText(this, "Reward Video Completed", Toast.LENGTH_SHORT).show();
     }
 }

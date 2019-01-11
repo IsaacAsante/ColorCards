@@ -21,7 +21,6 @@ public class FragmentUserProgress extends Fragment {
     private TextView textView_PointsAccumulated;
     private TextView textView_PointsToReach;
     private TextView textView_TimeLeft;
-    private Button button_GetBonusTime;
 
     // Points-related fields
     private int pointsAccumulated; // Level-related points accumulated by the user. Must be reset at each level.
@@ -48,7 +47,6 @@ public class FragmentUserProgress extends Fragment {
         textView_PointsAccumulated = view.findViewById(R.id.textView_LevelPoints);
         textView_PointsToReach = view.findViewById(R.id.textView_LevelPointsToReach);
         textView_TimeLeft = view.findViewById(R.id.textView_Timer);
-        button_GetBonusTime = view.findViewById(R.id.button_Bonus);
         millisForCurrentLevel = 60000; // Level 1
         timeUp = false;
         pointsToReach = INITIAL_POINTS_TO_REACH;
