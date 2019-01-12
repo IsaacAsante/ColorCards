@@ -89,7 +89,6 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="16sp" />
 
-            <!--
             Button below should be enabled for Rewarded Ad Video.
             <Button
                 android:id="@+id/button_Bonus"
@@ -99,11 +98,11 @@
                 android:layout_marginStart="8dp"
                 android:layout_toEndOf="@id/textView_Timer"
                 android:background="@color/colorPrimaryLight"
-                android:text="+10s"
+                android:text="+1min"
                 android:textAllCaps="false"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="16sp"
-                android:textStyle="bold" /> -->
+                android:textStyle="bold" />
 
         </RelativeLayout>
     </LinearLayout>

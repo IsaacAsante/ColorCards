@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.Toast;
 
+import com.applovin.sdk.AppLovinPrivacySettings;
 import com.applovin.sdk.AppLovinSdk;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -19,7 +20,7 @@ import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 
-public class MainActivity extends AppCompatActivity implements Communicator {
+public class MainActivity extends AppCompatActivity implements Communicator, RewardedVideoAdListener {
 
     private FragmentCards fragmentCards;
     private FragmentInstruction fragmentInstruction;
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements Communicator {
 
     // AdMob ad units
     private AdView mAdView;
-    // private RewardedVideoAd mRewardedVideoAd;
+    private RewardedVideoAd mRewardedVideoAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,17 +60,34 @@ public class MainActivity extends AppCompatActivity implements Communicator {
         timeIsUp = false;
         ConnectFragments();
 
-        // Initialize Mobile Ads
-        // TODO: Update the App ID to reflect the one from my AdMob account in the production app
-        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
+        // AppLovin User Consent (EU Laws)
+        AppLovinPrivacySettings.setHasUserConsent(true, MainActivity.this);
+
+        // AppLovin enable test ads
+        final AppLovinSdk sdk = AppLovinSdk.getInstance(MainActivity.this);
+        sdk.getSettings().setTestAdsEnabled(true);
+
+        // Initialize Mobile Ads - Real App ID used
+        MobileAds.initialize(this, "ca-app-pub-4887590264879985~8379773466");
 
         mAdView = findViewById(R.id.bottomAdViewBanner);
-        AdRequest adRequest = new AdRequest.Builder().build();
+        // Test ads with my Nokia
+        // TODO: Remove the test device
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("922A17FEBA1721235EF6CB6AFDD947AB")
+                .build();
         mAdView.loadAd(adRequest);
 
+        System.out.println("THE TEST DEVICE IS WORKING");
+
         // AppLovin
-        // TODO: Set up AppLovin Rewarded Video.
-        // AppLovinSdk.initializeSdk(MainActivity.this);
+        // TODO: Cancel Test Ads from AppLovin and show Live Ads.
+        AppLovinSdk.initializeSdk(MainActivity.this);
+
+        // Load Rewarded Videos
+        mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(MainActivity.this);
+        mRewardedVideoAd.setRewardedVideoAdListener(MainActivity.this);
+        loadRewardedVideoAd();
     }
 
     private void ConnectFragments() {
@@ -200,6 +218,13 @@ public class MainActivity extends AppCompatActivity implements Communicator {
         fragmentResults.increaseSkippedAnswerCount();
     }
 
+    @Override
+    public void showRewardedVideoAd() {
+        if (mRewardedVideoAd.isLoaded()) {
+            mRewardedVideoAd.show();
+        }
+    }
+
     public void playCorrectSound() {
         // Audio source: https://freesound.org/people/LittleRainySeasons/sounds/335908/
         if (correctFX.isPlaying()) {
@@ -214,5 +239,60 @@ public class MainActivity extends AppCompatActivity implements Communicator {
             wrongFX.seekTo(0);
         }
         wrongFX.start();
+    }
+
+    // AdMob Rewarded Video - Real App Unit ID
+    // TODO: Remove the test device method
+    private void loadRewardedVideoAd() {
+        mRewardedVideoAd.loadAd("ca-app-pub-4887590264879985/5045460278",
+                new AdRequest.Builder()
+                        .addTestDevice("922A17FEBA1721235EF6CB6AFDD947AB")
+                        .build());
+    }
+
+    @Override
+    public void onRewardedVideoAdLoaded() {
+        fragmentUserProgress.setBonusButtonVisibility(1); // Make the bonus visible
+        Toast.makeText(this, "onRewardedVideoAdLoaded", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRewardedVideoAdOpened() {
+        Toast.makeText(this, "onRewardedVideoAdOpened", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRewardedVideoStarted() {
+        Toast.makeText(this, "onRewardedVideoStarted", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRewardedVideoAdClosed() {
+        fragmentUserProgress.setBonusButtonVisibility(0); // Hide the bonus button again until the ad is ready
+        loadRewardedVideoAd();
+        Toast.makeText(this, "onRewardedVideoAdClosed", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRewarded(RewardItem rewardItem) {
+        Toast.makeText(this, "onRewarded! currency: " + rewardItem.getType() + "  amount: " +
+                rewardItem.getAmount(), Toast.LENGTH_SHORT).show();
+        // Reward the user.
+    }
+
+    @Override
+    public void onRewardedVideoAdLeftApplication() {
+        Toast.makeText(this, "onRewardedVideoAdLeftApplication",
+                Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRewardedVideoAdFailedToLoad(int i) {
+        Toast.makeText(this, "onRewardedVideoAdFailedToLoad", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRewardedVideoCompleted() {
+        Toast.makeText(this, "onRewardedVideoCompleted", Toast.LENGTH_SHORT).show();
     }
 }

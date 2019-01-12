@@ -18,4 +18,7 @@ public interface Communicator {
 
     public void updateMissedCount();
 
+    // AdMob
+    public void showRewardedVideoAd();
+
 }

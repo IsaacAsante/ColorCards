@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Locale;
 
@@ -21,6 +22,7 @@ public class FragmentUserProgress extends Fragment {
     private TextView textView_PointsAccumulated;
     private TextView textView_PointsToReach;
     private TextView textView_TimeLeft;
+    private Button button_BonusTime;
 
     // Points-related fields
     private int pointsAccumulated; // Level-related points accumulated by the user. Must be reset at each level.
@@ -47,11 +49,17 @@ public class FragmentUserProgress extends Fragment {
         textView_PointsAccumulated = view.findViewById(R.id.textView_LevelPoints);
         textView_PointsToReach = view.findViewById(R.id.textView_LevelPointsToReach);
         textView_TimeLeft = view.findViewById(R.id.textView_Timer);
+        button_BonusTime = view.findViewById(R.id.button_Bonus);
+        // By default, the bonus button should be hidden until the Rewarded Video Ad has finished loading.
+        button_BonusTime.setVisibility(View.INVISIBLE);
+
+        // Countdown-related variables
         millisForCurrentLevel = 60000; // Level 1
         timeUp = false;
         pointsToReach = INITIAL_POINTS_TO_REACH;
         pointsIncrementor = INITIAL_POINTS_INCREMENTOR;
         pointsDeductor = INITIAL_POINTS_DEDUCTOR;
+
         return view;
     }
 
@@ -59,10 +67,29 @@ public class FragmentUserProgress extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         startTimer(); // Start the timer
+
+        if (button_BonusTime != null) {
+            button_BonusTime.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    communicator.showRewardedVideoAd();
+                }
+            });
+        }
     }
 
     public void setCommunicator(Context context) {
         this.communicator = (Communicator) context;
+    }
+
+    public void setBonusButtonVisibility(int visibility) {
+        if (visibility == 1) {
+            button_BonusTime.setVisibility(View.VISIBLE);
+        } else if (visibility == 0) {
+            button_BonusTime.setVisibility(View.INVISIBLE);
+        } else {
+            Toast.makeText(getActivity(), "Error showing the bonus button", Toast.LENGTH_SHORT).show();
+        }
     }
 
     // Methods for the points below
