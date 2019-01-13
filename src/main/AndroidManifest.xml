@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.isaac.coloredcardsbraingame">
+    package="com.nexrank.isaac.coloredcardsbraingame">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="18" />
@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name="com.nexrank.isaac.coloredcardsbraingame.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,7 +28,7 @@
         <meta-data android:name="applovin.sdk.key"
             android:value="lfeQQPe2hVpPaWqW8rDO9sKhVG27SVrVM7fOEXW5ZeOR_dz-sE59sNwta0Hh7NAqeNpaWNKNDnF2ZZXzx8iQBH"  />
 
-        <activity android:name=".GameResultActivity"></activity>
+        <activity android:name="com.nexrank.isaac.coloredcardsbraingame.GameResultActivity"></activity>
 
         <activity android:name="com.applovin.adview.AppLovinInterstitialActivity"
             android:configChanges="orientation|screenSize"/>

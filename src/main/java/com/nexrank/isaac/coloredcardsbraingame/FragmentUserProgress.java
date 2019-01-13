@@ -1,4 +1,4 @@
-package com.example.isaac.coloredcardsbraingame;
+package com.nexrank.isaac.coloredcardsbraingame;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -37,8 +37,10 @@ public class FragmentUserProgress extends Fragment {
     private final double DECREMENT_COEFFICIENT = 2; // Points lost will be multiplied by that value at each level increase
 
     // Countdown-related fields
+    private CountDownTimer timer;
     private long millisForCurrentLevel;
     private final long COUNTDOWN_INTERVAL = 1000;
+    private final long BONUS_TIME = 60000;
 
     private Communicator communicator;
 
@@ -68,6 +70,7 @@ public class FragmentUserProgress extends Fragment {
         super.onActivityCreated(savedInstanceState);
         startTimer(); // Start the timer
 
+        // Show the Rewarded Video Ad when the bonus button is clicked
         if (button_BonusTime != null) {
             button_BonusTime.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -153,7 +156,7 @@ public class FragmentUserProgress extends Fragment {
     }
 
     public void startTimer() {
-        CountDownTimer timer = new CountDownTimer(millisForCurrentLevel, COUNTDOWN_INTERVAL) {
+        timer = new CountDownTimer(millisForCurrentLevel, COUNTDOWN_INTERVAL) {
             @Override
             public void onTick(long millisUntilFinished) {
                 millisForCurrentLevel = millisUntilFinished;
@@ -166,9 +169,20 @@ public class FragmentUserProgress extends Fragment {
 
             @Override
             public void onFinish() {
+
                 communicator.setTimeUp(true);
             }
         }.start();
+    }
+
+    public void cancelTimer() {
+        if(timer != null) {
+            timer.cancel();
+        }
+    }
+
+    public void addBonusTime() {
+        millisForCurrentLevel += BONUS_TIME;
     }
 
 

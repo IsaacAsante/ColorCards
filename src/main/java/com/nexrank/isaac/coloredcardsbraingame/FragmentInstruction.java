@@ -1,4 +1,4 @@
-package com.example.isaac.coloredcardsbraingame;
+package com.nexrank.isaac.coloredcardsbraingame;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

@@ -1,4 +1,4 @@
-package com.example.isaac.coloredcardsbraingame;
+package com.nexrank.isaac.coloredcardsbraingame;
 
 public interface Communicator {
     // The methods below are mainly called individually by FragmentCards

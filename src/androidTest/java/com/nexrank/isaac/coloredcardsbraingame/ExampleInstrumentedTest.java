@@ -1,4 +1,4 @@
-package com.example.isaac.coloredcardsbraingame;
+package com.nexrank.isaac.coloredcardsbraingame;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.isaac.coloredcardsbraingame", appContext.getPackageName());
+        assertEquals("com.nexrank.isaac.coloredcardsbraingame", appContext.getPackageName());
     }
 }

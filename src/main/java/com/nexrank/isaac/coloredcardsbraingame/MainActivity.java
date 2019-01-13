@@ -1,6 +1,5 @@
-package com.example.isaac.coloredcardsbraingame;
+package com.nexrank.isaac.coloredcardsbraingame;
 
-import android.animation.TimeAnimator;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.support.v4.app.Fragment;
@@ -8,7 +7,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
-import android.widget.TabHost;
 import android.widget.Toast;
 
 import com.applovin.sdk.AppLovinPrivacySettings;
@@ -259,6 +257,7 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
     @Override
     public void onRewardedVideoAdOpened() {
         Toast.makeText(this, "onRewardedVideoAdOpened", Toast.LENGTH_SHORT).show();
+        fragmentUserProgress.cancelTimer();
     }
 
     @Override
@@ -268,6 +267,9 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
 
     @Override
     public void onRewardedVideoAdClosed() {
+        // Add the bonus time, and restart the timer
+        fragmentUserProgress.addBonusTime();
+        fragmentUserProgress.startTimer();
         fragmentUserProgress.setBonusButtonVisibility(0); // Hide the bonus button again until the ad is ready
         loadRewardedVideoAd();
         Toast.makeText(this, "onRewardedVideoAdClosed", Toast.LENGTH_SHORT).show();
@@ -275,8 +277,8 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
 
     @Override
     public void onRewarded(RewardItem rewardItem) {
-        Toast.makeText(this, "onRewarded! currency: " + rewardItem.getType() + "  amount: " +
-                rewardItem.getAmount(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "You have " + rewardItem.getAmount() + " more " + rewardItem.getType(),
+                Toast.LENGTH_SHORT).show();
         // Reward the user.
     }
 

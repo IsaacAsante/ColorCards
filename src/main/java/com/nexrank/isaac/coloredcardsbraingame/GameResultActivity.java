@@ -1,4 +1,4 @@
-package com.example.isaac.coloredcardsbraingame;
+package com.nexrank.isaac.coloredcardsbraingame;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
