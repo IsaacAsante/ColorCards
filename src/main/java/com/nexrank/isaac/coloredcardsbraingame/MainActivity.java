@@ -20,13 +20,20 @@ import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 
 public class MainActivity extends AppCompatActivity implements Communicator, RewardedVideoAdListener {
 
+    // TODO: Remove all hardcoded strings from layout files
+    // Fragments
     private FragmentCards fragmentCards;
     private FragmentInstruction fragmentInstruction;
     private FragmentProgressBar fragmentProgressBar;
     private FragmentResults fragmentResults;
     private FragmentUserProgress fragmentUserProgress;
+    private CustomDialogFragment gameOverDialog;
+
+    // Views
     private ImageView imageViewCorrect;
     private ImageView imageViewWrong;
+
+    // Animations
     private AnimationDrawable correctAnimation;
     private AnimationDrawable wrongAnimation;
 
@@ -221,6 +228,16 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         if (mRewardedVideoAd.isLoaded()) {
             mRewardedVideoAd.show();
         }
+    }
+
+    @Override
+    public void showGameOverAlert(GameResult result) {
+        if (result == GameResult.Win) {
+            gameOverDialog = CustomDialogFragment.newInstance(true, "The title", "The message");
+        } else {
+            gameOverDialog = CustomDialogFragment.newInstance(false, "The title", "The message");
+        }
+        getSupportFragmentManager().beginTransaction().add(gameOverDialog, "GameOverDialog").commit();
     }
 
     public void playCorrectSound() {

@@ -30,7 +30,7 @@ public class FragmentUserProgress extends Fragment {
     private int pointsIncrementor; // The amount of points by which a correct answer will increase the points
     private int pointsDeductor; // The amount of points by which a wrong answer will decrease the points
     private int totalPoints; // Sum of all level-related points collected. Must be increased throughout the game
-    private final int INITIAL_POINTS_TO_REACH = 1000;
+    private final int INITIAL_POINTS_TO_REACH = 100;
     private final int INITIAL_POINTS_INCREMENTOR = 20;
     private final int INITIAL_POINTS_DEDUCTOR = 25;
     private final double INCREMENT_COEFFICIENT = 1.5; // Points accumulated will be multiplied by that value at each level increase
@@ -52,11 +52,16 @@ public class FragmentUserProgress extends Fragment {
         textView_PointsToReach = view.findViewById(R.id.textView_LevelPointsToReach);
         textView_TimeLeft = view.findViewById(R.id.textView_Timer);
         button_BonusTime = view.findViewById(R.id.button_Bonus);
+
+        // Assigning values to the views
+        textView_PointsAccumulated.setText(String.valueOf(pointsAccumulated));
+        textView_PointsToReach.setText(String.valueOf(pointsToReach));
+
         // By default, the bonus button should be hidden until the Rewarded Video Ad has finished loading.
         button_BonusTime.setVisibility(View.INVISIBLE);
 
         // Countdown-related variables
-        millisForCurrentLevel = 60000; // Level 1
+        millisForCurrentLevel = 20000; // Level 1
         timeUp = false;
         pointsToReach = INITIAL_POINTS_TO_REACH;
         pointsIncrementor = INITIAL_POINTS_INCREMENTOR;
@@ -171,8 +176,18 @@ public class FragmentUserProgress extends Fragment {
             public void onFinish() {
 
                 communicator.setTimeUp(true);
+                // Calculate points
+                calculatePoints();
             }
         }.start();
+    }
+
+    private void calculatePoints() {
+        if (pointsAccumulated >= pointsToReach) {
+            communicator.showGameOverAlert(GameResult.Win);
+        } else {
+            communicator.showGameOverAlert(GameResult.Loss);
+        }
     }
 
     public void cancelTimer() {

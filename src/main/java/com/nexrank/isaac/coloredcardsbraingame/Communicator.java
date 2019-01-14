@@ -1,7 +1,7 @@
 package com.nexrank.isaac.coloredcardsbraingame;
 
 public interface Communicator {
-    // The methods below are mainly called individually by FragmentCards
+    // Gameplay
     public void increaseQuestionID();
     public void changeTextColor(int color);
     public void changeTextInstruction(String colorName);
@@ -20,5 +20,9 @@ public interface Communicator {
 
     // AdMob
     public void showRewardedVideoAd();
+
+    // Alerts
+    public void showGameOverAlert(GameResult result);
+
 
 }
