@@ -73,6 +73,7 @@ public class FragmentUserProgress extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        setInitialPointValues(); // Add values to the point-related TextViews
         startTimer(); // Start the timer
 
         // Show the Rewarded Video Ad when the bonus button is clicked
@@ -84,6 +85,11 @@ public class FragmentUserProgress extends Fragment {
                 }
             });
         }
+    }
+
+    public void setInitialPointValues() {
+        textView_PointsAccumulated.setText(String.valueOf(pointsAccumulated));
+        textView_PointsToReach.setText(String.valueOf(pointsToReach));
     }
 
     public void setCommunicator(Context context) {
