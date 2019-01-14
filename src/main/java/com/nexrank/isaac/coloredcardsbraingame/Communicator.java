@@ -11,6 +11,8 @@ public interface Communicator {
     public void setTimeUp(boolean status); // Let the timer determine when the game should stop
     public void updateUserPoints(AnswerResult answer);
     public void resetPointsTextColor(); // Set the text color for points to grey
+    public GameLevel getLevelDetails();
+    public void increaseGameLevel();
 
 
     // Other fragments may use the following method.

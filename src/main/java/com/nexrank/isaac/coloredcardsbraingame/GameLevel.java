@@ -26,4 +26,21 @@ public class GameLevel {
                 return new GameLevel("Level 1", "Beginner", 1);
         }
     }
+
+    public String getLevelName() {
+        return levelName;
+    }
+
+    public String getLevelNickname() {
+        return levelNickname;
+    }
+
+    public int getLevelNo() {
+        return levelNo;
+    }
+
+    public String printLevel() {
+        return levelName + " (" + levelNickname + ")";
+    }
+
 }

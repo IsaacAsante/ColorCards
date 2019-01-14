@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
     private MediaPlayer wrongFX;
 
     private boolean timeIsUp;
+    private int gameLevelNo;
 
     // AdMob ad units
     private AdView mAdView;
@@ -63,6 +64,8 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         wrongFX = MediaPlayer.create(this, R.raw.error);
 
         timeIsUp = false;
+        gameLevelNo = 1;
+
         ConnectFragments();
 
         // AppLovin User Consent (EU Laws)
@@ -205,6 +208,17 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
     @Override
     public void resetPointsTextColor() {
         fragmentUserProgress.resetUserPointsTextColor();
+    }
+
+    @Override
+    public GameLevel getLevelDetails() {
+        GameLevel level = GameLevel.newInstance(gameLevelNo);
+        return level;
+    }
+
+    @Override
+    public void increaseGameLevel() {
+        gameLevelNo++;
     }
 
     @Override
