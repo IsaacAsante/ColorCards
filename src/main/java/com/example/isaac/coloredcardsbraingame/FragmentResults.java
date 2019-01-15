@@ -39,18 +39,18 @@ public class FragmentResults extends Fragment {
 
     public void increaseCorrectAnswerCount() {
         correctAnswerCount++;
-        textView_CorrectAnswerResult.setText("Correct: " + Integer.toString(correctAnswerCount));
+        textView_CorrectAnswerResult.setText(String.valueOf(correctAnswerCount));
         System.out.println("Fragment Results Correct Count method.");
     }
 
     public void increaseWrongAnswerCount() {
         wrongAnswerCount++;
-        textView_WrongAnswerResult.setText("Wrong: " + Integer.toString(wrongAnswerCount));
+        textView_WrongAnswerResult.setText(String.valueOf(wrongAnswerCount));
     }
 
     public void increaseSkippedAnswerCount() {
         skippedAnswerCount++;
-        textView_SkippedAnswerResult.setText("Passed: " + Integer.toString(skippedAnswerCount));
+        textView_SkippedAnswerResult.setText(String.valueOf(skippedAnswerCount));
     }
 
     public int getCorrectAnswerCount() {
