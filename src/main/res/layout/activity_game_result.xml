@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GameResultActivity"
+    android:gravity="center">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView_YourLevelPoints_Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Level points:"
+            style="@style/GameResultLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guideline"/>
+
+
+        <TextView
+            android:id="@+id/textView_YourLevelPoints"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2043"
+            style="@style/GameResultData"
+            app:layout_constraintStart_toEndOf="@id/guideline"/>
+
+        <TextView
+            android:id="@+id/textView_YourLevelTime_Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Completed in:"
+            style="@style/GameResultLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView_YourLevelPoints_Label"
+            app:layout_constraintEnd_toStartOf="@id/guideline"/>
+
+
+        <TextView
+            android:id="@+id/textView_YourLevelTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="46 seconds"
+            style="@style/GameResultData"
+            app:layout_constraintTop_toBottomOf="@id/textView_YourLevelPoints"
+            app:layout_constraintStart_toEndOf="@id/guideline"/>
+
+        <TextView
+            android:id="@+id/textView_YourCorrectAnswers_Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Correct cards"
+            style="@style/GameResultData"
+            app:layout_constraintTop_toBottomOf="@id/textView_YourLevelTime_Label"
+            app:layout_constraintStart_toEndOf="@id/guideline"/>
+
+        <TextView
+            android:id="@+id/textView_YourCorrectAnswers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="46 seconds"
+            style="@style/GameResultData"
+            app:layout_constraintTop_toBottomOf="@id/textView_YourLevelPoints"
+            app:layout_constraintStart_toEndOf="@id/guideline"/>
+
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</RelativeLayout>

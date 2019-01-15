@@ -5,14 +5,14 @@
     android:background="@color/colorSecondary">
 
     <TextView
-        android:id="@+id/textView_Progress"
+        android:id="@+id/textView_GameLevel"
         style="@style/MetaData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Level 1"
+        android:text=""
         android:textColor="@color/darkTextColor"
         android:textSize="16sp" />
 
@@ -21,7 +21,7 @@
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="match_parent"
         android:layout_height="4dp"
-        android:layout_below="@id/textView_Progress"
+        android:layout_below="@id/textView_GameLevel"
         android:background="@color/white"
         android:max="100"
         android:progress="10"

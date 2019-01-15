@@ -1,4 +1,4 @@
-package com.example.isaac.coloredcardsbraingame;
+package com.nexrank.isaac.coloredcardsbraingame;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -29,28 +29,11 @@ public class FragmentResults extends Fragment {
         textView_CorrectAnswerResult = view.findViewById(R.id.textView_CorrectResult);
         textView_WrongAnswerResult = view.findViewById(R.id.textView_WrongResult);
         textView_SkippedAnswerResult = view.findViewById(R.id.textView_SkippedResult);
-        System.out.println("Fragment Results loaded.");
         return view;
     }
 
     public void setCommunicator (Context context) {
         communicator = (Communicator) context;
-    }
-
-    public void increaseCorrectAnswerCount() {
-        correctAnswerCount++;
-        textView_CorrectAnswerResult.setText(String.valueOf(correctAnswerCount));
-        System.out.println("Fragment Results Correct Count method.");
-    }
-
-    public void increaseWrongAnswerCount() {
-        wrongAnswerCount++;
-        textView_WrongAnswerResult.setText(String.valueOf(wrongAnswerCount));
-    }
-
-    public void increaseSkippedAnswerCount() {
-        skippedAnswerCount++;
-        textView_SkippedAnswerResult.setText(String.valueOf(skippedAnswerCount));
     }
 
     public int getCorrectAnswerCount() {
@@ -63,6 +46,21 @@ public class FragmentResults extends Fragment {
 
     public int getSkippedAnswerCount() {
         return skippedAnswerCount;
+    }
+
+    public void increaseCorrectAnswerCount() {
+        correctAnswerCount++;
+        textView_CorrectAnswerResult.setText(String.valueOf(correctAnswerCount));
+    }
+
+    public void increaseWrongAnswerCount() {
+        wrongAnswerCount++;
+        textView_WrongAnswerResult.setText(String.valueOf(wrongAnswerCount));
+    }
+
+    public void increaseSkippedAnswerCount() {
+        skippedAnswerCount++;
+        textView_SkippedAnswerResult.setText(String.valueOf(skippedAnswerCount));
     }
 
 }

@@ -1,4 +1,4 @@
-package com.example.isaac.coloredcardsbraingame;
+package com.nexrank.isaac.coloredcardsbraingame;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,21 +10,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 public class FragmentProgressBar extends Fragment {
     private final int MAXIMUM_STATUS = 100;
     private Handler mhandler;
     private int status;
     private int statusUpdateInterval;
+
+    // Views
+    TextView textView_levelNo;
     ProgressBar progressBar;
 
     private Communicator communicator;
+
+    private GameLevel currentLevel;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_progressbar, container, false);
         mhandler = new Handler();
+        textView_levelNo = view.findViewById(R.id.textView_GameLevel);
         progressBar = view.findViewById(R.id.determinateBar_Shuffling);
         status = 100; // Full progress bar
         statusUpdateInterval = 20; // Milliseconds
@@ -35,9 +42,15 @@ public class FragmentProgressBar extends Fragment {
         this.communicator = (Communicator) context;
     }
 
+    public void displayLevelDetails() {
+        currentLevel = communicator.getLevelDetails();
+        textView_levelNo.setText(currentLevel.printLevel());
+    }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        displayLevelDetails(); // Display Level 1
         mhandler.postDelayed(runnable, statusUpdateInterval);
     }
 
