@@ -271,9 +271,9 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
     @Override
     public void showGameOverAlert(GameResult result) {
         if (result == GameResult.Win) {
-            gameOverDialog = CustomDialogFragment.newInstance(true);
+            gameOverDialog = CustomDialogFragment.newInstance(true, gameLevelNo);
         } else {
-            gameOverDialog = CustomDialogFragment.newInstance(false);
+            gameOverDialog = CustomDialogFragment.newInstance(false, gameLevelNo);
         }
         getSupportFragmentManager().beginTransaction().add(gameOverDialog, "GameOverDialog").commitAllowingStateLoss();
     }

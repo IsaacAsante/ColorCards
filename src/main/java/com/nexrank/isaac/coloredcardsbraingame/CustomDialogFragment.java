@@ -13,15 +13,18 @@ import android.widget.Toast;
 public class CustomDialogFragment extends DialogFragment {
 
     private static final String ARGS_VICTORY = "argsVictory";
+    private static final String ARGS_CURRENT_LEVEL = "argsCurrentLevel";
 
-    private Boolean gameResultVictory; // True for Win / False for Loss
+    private boolean gameResultVictory; // True for Win / False for Loss
+    private int gameCurrentLevelNo; // Just-ended level
 
     private Communicator communicator;
 
-    public static CustomDialogFragment newInstance(Boolean victory) {
+    public static CustomDialogFragment newInstance(Boolean victory, int levelNo) {
         CustomDialogFragment dialogFragment = new CustomDialogFragment();
         Bundle args = new Bundle();
         args.putBoolean(ARGS_VICTORY, victory);
+        args.putInt(ARGS_CURRENT_LEVEL, levelNo);
         dialogFragment.setArguments(args);
         return dialogFragment;
     }
@@ -33,17 +36,22 @@ public class CustomDialogFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        // Receive result from the activity if arguments are set
         if (getArguments() != null) {
             gameResultVictory = getArguments().getBoolean(ARGS_VICTORY);
+            gameCurrentLevelNo = getArguments().getInt(ARGS_CURRENT_LEVEL);
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
+        // TODO: Test how the Alert shows after Level 5 (the last level)
         // If the player won
         if (gameResultVictory) {
-            builder.setTitle("You've passed Level 1")
-                    .setMessage("Congratulations! You've completed Level 1. You are now an Intermediate player. It's now time to prove yourself in Level 2!")
-                    .setPositiveButton("Move to Level 2", new DialogInterface.OnClickListener() {
+            int nextLevelNo = gameCurrentLevelNo + 1;
+            builder.setTitle("You've passed Level " + gameCurrentLevelNo)
+                    .setMessage("Congratulations! You've completed Level " + gameCurrentLevelNo
+                            + ". Now, it's time prove yourself in Level " + nextLevelNo + "!")
+                    .setPositiveButton("Move to Level " + nextLevelNo, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             communicator.increaseGameLevel();

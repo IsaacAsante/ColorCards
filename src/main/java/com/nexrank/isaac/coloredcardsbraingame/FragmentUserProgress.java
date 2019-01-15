@@ -181,7 +181,6 @@ public class FragmentUserProgress extends Fragment {
                 millisForCurrentLevel = millisUntilFinished;
                 int minutes = (int) (millisUntilFinished / 60000);
                 int seconds = (int) (millisUntilFinished / 1000) % 60;
-                System.out.println("The seconds passed " + seconds);
 
                 String timeLeft = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
                 textView_TimeLeft.setText(timeLeft);
