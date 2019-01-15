@@ -12,6 +12,9 @@ public interface Communicator {
     public void updateUserPoints(AnswerResult answer);
     public void resetPointsTextColor(); // Set the text color for points to grey
     public GameLevel getLevelDetails();
+
+    // Important method (multiple methods called at once)
+    public void restartGameLevel();
     public void increaseGameLevel();
 
 

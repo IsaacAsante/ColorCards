@@ -30,7 +30,7 @@ public class CustomDialogFragment extends DialogFragment {
         return dialogFragment;
     }
 
-    public void setCommunicator (Context context) {
+    public void setCommunicator(Context context) {
         communicator = (Communicator) context;
     }
 
@@ -61,10 +61,12 @@ public class CustomDialogFragment extends DialogFragment {
                     .setNegativeButton("Not Now", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            // TODO: Direct the player to the Results screen
                             Toast.makeText(getActivity(), "Your progress has been saved for next time", Toast.LENGTH_SHORT).show();
                         }
                     });
         } else {
+            // TODO: Pass the level's point accumulated and points to reach to update the message.
             builder.setTitle("You failed")
                     .setMessage("You failed to collect 1000 points in this level. But no worries, just collect 1 extra minute to complete your progress, or simply retry.")
                     .setPositiveButton("View Results", new DialogInterface.OnClickListener() {
@@ -82,7 +84,7 @@ public class CustomDialogFragment extends DialogFragment {
                     .setNegativeButton("Retry", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Toast.makeText(getActivity(), "You have decided to stop playing", Toast.LENGTH_SHORT).show();
+                            communicator.restartGameLevel();
                         }
                     });
         }

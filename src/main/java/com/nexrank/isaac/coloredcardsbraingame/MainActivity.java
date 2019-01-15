@@ -229,6 +229,7 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
 
     @Override
     public void increaseGameLevel() {
+        // Similar to restartGameLevel(), but this one increases the game level, points to reach and level time.
         ++gameLevelNo;
         fragmentProgressBar.displayLevelDetails(); // Display new level
         fragmentUserProgress.resetUserPoints(); // Back to 0
@@ -243,6 +244,22 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         setTimeUp(false); // Enable the player to interact with the game
         presentNewChallenge(); // Shuffle cards, refresh instructions and refill the progress bar
         fragmentUserProgress.startTimer(); // Must be the last method
+    }
+
+    @Override
+    public void restartGameLevel() {
+        fragmentUserProgress.resetUserPoints(); // Back to 0
+        fragmentUserProgress.displayPointAccumulated(); // Update user points
+        fragmentUserProgress.displayPointToReach(); // Update points
+        fragmentUserProgress.cancelTimer(); // It needs to restart
+        fragmentUserProgress.increaseGameLevelTime(gameLevelNo); // Current level * default time
+        fragmentResults.resetResults(); // Set them all to 0
+        fragmentResults.showAllResults(); // Update the results
+
+        setTimeUp(false); // Enable the player to interact with the game
+        presentNewChallenge(); // Shuffle cards, refresh instructions and refill the progress bar
+        fragmentUserProgress.startTimer(); // Must be the last method
+
     }
 
     @Override

@@ -214,6 +214,7 @@ public class FragmentUserProgress extends Fragment {
         millisForCurrentLevel += BONUS_TIME;
     }
 
+    // May be used for both restarts and new levels
     public void increaseGameLevelTime(int currentGameLevelNo) {
         millisForCurrentLevel = INITIAL_TIME * currentGameLevelNo;
     }
