@@ -32,6 +32,12 @@ public class FragmentResults extends Fragment {
         return view;
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        showAllResults(); // Making sure the values are not empty
+    }
+
     public void setCommunicator (Context context) {
         communicator = (Communicator) context;
     }
@@ -67,6 +73,12 @@ public class FragmentResults extends Fragment {
         correctAnswerCount = 0;
         wrongAnswerCount = 0;
         skippedAnswerCount = 0;
+    }
+
+    public void showAllResults() {
+        textView_CorrectAnswerResult.setText(String.valueOf(correctAnswerCount));
+        textView_WrongAnswerResult.setText(String.valueOf(wrongAnswerCount));
+        textView_SkippedAnswerResult.setText(String.valueOf(skippedAnswerCount));
     }
 
 }
