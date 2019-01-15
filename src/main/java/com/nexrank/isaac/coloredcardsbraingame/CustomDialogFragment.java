@@ -26,6 +26,7 @@ public class CustomDialogFragment extends DialogFragment {
         args.putBoolean(ARGS_VICTORY, victory);
         args.putInt(ARGS_CURRENT_LEVEL, levelNo);
         dialogFragment.setArguments(args);
+        dialogFragment.setCancelable(false); // Prevent the fragment from closing when the user taps outside
         return dialogFragment;
     }
 
