@@ -39,6 +39,7 @@ public class FragmentUserProgress extends Fragment {
     // Countdown-related fields
     private CountDownTimer timer;
     private long millisForCurrentLevel;
+    private final long INITIAL_TIME = 60000; // 1min
     private final long COUNTDOWN_INTERVAL = 1000;
     private final long BONUS_TIME = 60000;
 
@@ -61,7 +62,7 @@ public class FragmentUserProgress extends Fragment {
         button_BonusTime.setVisibility(View.INVISIBLE);
 
         // Countdown-related variables
-        millisForCurrentLevel = 20000; // Level 1
+        millisForCurrentLevel = INITIAL_TIME; // Level 1
         timeUp = false;
         pointsToReach = INITIAL_POINTS_TO_REACH;
         pointsIncrementor = INITIAL_POINTS_INCREMENTOR;
@@ -73,7 +74,11 @@ public class FragmentUserProgress extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setInitialPointValues(); // Add values to the point-related TextViews
+
+        // Add values to the point-related TextViews
+        displayPointAccumulated();
+        displayPointToReach();
+
         startTimer(); // Start the timer
 
         // Show the Rewarded Video Ad when the bonus button is clicked
@@ -87,8 +92,11 @@ public class FragmentUserProgress extends Fragment {
         }
     }
 
-    public void setInitialPointValues() {
+    public void displayPointAccumulated() {
         textView_PointsAccumulated.setText(String.valueOf(pointsAccumulated));
+    }
+
+    public void displayPointToReach() {
         textView_PointsToReach.setText(String.valueOf(pointsToReach));
     }
 
@@ -125,7 +133,7 @@ public class FragmentUserProgress extends Fragment {
     public void increaseUserPoints() {
         pointsAccumulated += pointsIncrementor;
         totalPoints += pointsIncrementor;
-        textView_PointsAccumulated.setText(String.valueOf(pointsAccumulated));
+        displayPointAccumulated();
         textView_PointsAccumulated.setTextColor(ContextCompat.getColor(getActivity(), R.color.green));
     }
 
@@ -141,13 +149,12 @@ public class FragmentUserProgress extends Fragment {
         } else {
             totalPoints = 0;
         }
-        textView_PointsAccumulated.setText(String.valueOf(pointsAccumulated));
+        displayPointAccumulated();
         textView_PointsAccumulated.setTextColor(ContextCompat.getColor(getActivity(), R.color.red));
     }
 
     public void increasePointsToReach() {
         pointsToReach *= INCREMENT_COEFFICIENT;
-        textView_PointsToReach.setText(String.valueOf(pointsToReach));
     }
 
     public void increaseUserPointsAccumulation() {
@@ -204,6 +211,14 @@ public class FragmentUserProgress extends Fragment {
 
     public void addBonusTime() {
         millisForCurrentLevel += BONUS_TIME;
+    }
+
+    public void increaseGameLevelTime(int currentGameLevelNo) {
+        millisForCurrentLevel = INITIAL_TIME * currentGameLevelNo;
+    }
+
+    public void resetTime() {
+        millisForCurrentLevel = INITIAL_TIME;
     }
 
 

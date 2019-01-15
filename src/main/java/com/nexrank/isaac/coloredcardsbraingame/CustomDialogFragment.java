@@ -2,6 +2,7 @@ package com.nexrank.isaac.coloredcardsbraingame;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,12 +16,18 @@ public class CustomDialogFragment extends DialogFragment {
 
     private Boolean gameResultVictory; // True for Win / False for Loss
 
+    private Communicator communicator;
+
     public static CustomDialogFragment newInstance(Boolean victory) {
         CustomDialogFragment dialogFragment = new CustomDialogFragment();
         Bundle args = new Bundle();
         args.putBoolean(ARGS_VICTORY, victory);
         dialogFragment.setArguments(args);
         return dialogFragment;
+    }
+
+    public void setCommunicator (Context context) {
+        communicator = (Communicator) context;
     }
 
     @NonNull
@@ -39,7 +46,7 @@ public class CustomDialogFragment extends DialogFragment {
                     .setPositiveButton("Move to Level 2", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Toast.makeText(getActivity(), "You have moved to the next level", Toast.LENGTH_SHORT).show();
+                            communicator.increaseGameLevel();
                         }
                     })
                     .setNegativeButton("Not Now", new DialogInterface.OnClickListener() {

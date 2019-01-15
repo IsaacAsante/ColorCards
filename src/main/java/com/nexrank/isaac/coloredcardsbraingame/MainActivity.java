@@ -129,6 +129,9 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         } else if (fragment instanceof FragmentUserProgress) {
             FragmentUserProgress fragmentTimer = (FragmentUserProgress) fragment;
             fragmentTimer.setCommunicator(this);
+        } else if (fragment instanceof CustomDialogFragment) {
+            CustomDialogFragment customDialogFragment = (CustomDialogFragment) fragment;
+            customDialogFragment.setCommunicator(this);
         }
     }
 
@@ -218,7 +221,18 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
 
     @Override
     public void increaseGameLevel() {
-        gameLevelNo++;
+        ++gameLevelNo;
+        fragmentProgressBar.displayLevelDetails(); // Display new level
+        fragmentUserProgress.resetUserPoints(); // Back to 0
+        fragmentUserProgress.displayPointAccumulated(); // Update user points
+        fragmentUserProgress.increasePointsToReach(); // Add to the game's difficulty
+        fragmentUserProgress.displayPointToReach(); // Update points
+        fragmentUserProgress.cancelTimer(); // It needs to restart
+        fragmentUserProgress.increaseGameLevelTime(gameLevelNo); // New level * default time
+        presentNewChallenge(); // Shuffle cards, refresh instructions and refill the progress bar
+
+        setTimeUp(false); // Enable the player to interact with the game
+        fragmentUserProgress.startTimer(); // Must be the last method
     }
 
     @Override
@@ -251,7 +265,7 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         } else {
             gameOverDialog = CustomDialogFragment.newInstance(false);
         }
-        getSupportFragmentManager().beginTransaction().add(gameOverDialog, "GameOverDialog").commit();
+        getSupportFragmentManager().beginTransaction().add(gameOverDialog, "GameOverDialog").commitAllowingStateLoss();
     }
 
     public void playCorrectSound() {

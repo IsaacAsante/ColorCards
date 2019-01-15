@@ -37,22 +37,6 @@ public class FragmentResults extends Fragment {
         communicator = (Communicator) context;
     }
 
-    public void increaseCorrectAnswerCount() {
-        correctAnswerCount++;
-        textView_CorrectAnswerResult.setText("Correct: " + Integer.toString(correctAnswerCount));
-        System.out.println("Fragment Results Correct Count method.");
-    }
-
-    public void increaseWrongAnswerCount() {
-        wrongAnswerCount++;
-        textView_WrongAnswerResult.setText("Wrong: " + Integer.toString(wrongAnswerCount));
-    }
-
-    public void increaseSkippedAnswerCount() {
-        skippedAnswerCount++;
-        textView_SkippedAnswerResult.setText("Passed: " + Integer.toString(skippedAnswerCount));
-    }
-
     public int getCorrectAnswerCount() {
         return correctAnswerCount;
     }
@@ -63,6 +47,22 @@ public class FragmentResults extends Fragment {
 
     public int getSkippedAnswerCount() {
         return skippedAnswerCount;
+    }
+
+    public void increaseCorrectAnswerCount() {
+        correctAnswerCount++;
+        textView_CorrectAnswerResult.setText("Correct: " + String.valueOf(correctAnswerCount));
+        System.out.println("Fragment Results Correct Count method.");
+    }
+
+    public void increaseWrongAnswerCount() {
+        wrongAnswerCount++;
+        textView_WrongAnswerResult.setText("Wrong: " + String.valueOf(wrongAnswerCount));
+    }
+
+    public void increaseSkippedAnswerCount() {
+        skippedAnswerCount++;
+        textView_SkippedAnswerResult.setText("Passed: " + String.valueOf(skippedAnswerCount));
     }
 
 }
