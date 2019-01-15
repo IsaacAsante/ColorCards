@@ -229,6 +229,7 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         fragmentUserProgress.displayPointToReach(); // Update points
         fragmentUserProgress.cancelTimer(); // It needs to restart
         fragmentUserProgress.increaseGameLevelTime(gameLevelNo); // New level * default time
+        fragmentResults.resetResults();
         presentNewChallenge(); // Shuffle cards, refresh instructions and refill the progress bar
 
         setTimeUp(false); // Enable the player to interact with the game

@@ -63,4 +63,10 @@ public class FragmentResults extends Fragment {
         textView_SkippedAnswerResult.setText(String.valueOf(skippedAnswerCount));
     }
 
+    public void resetResults() {
+        correctAnswerCount = 0;
+        wrongAnswerCount = 0;
+        skippedAnswerCount = 0;
+    }
+
 }
