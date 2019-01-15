@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.Random;
+
 
 public class FragmentInstruction extends Fragment {
 
@@ -28,6 +30,20 @@ public class FragmentInstruction extends Fragment {
         textView2_Color = view.findViewById(R.id.textView_InstructionB);
         textView3 = view.findViewById(R.id.textView_InstructionC);
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        forceRandomInstruction(); // Give one first instruction
+    }
+
+    public void forceRandomInstruction() {
+        String[] colorNames = { "RED", "PINK", "PURPLE", "BLUE"};
+        int[] colors = { R.color.red, R.color.pink, R.color.purple, R.color.blue };
+        int randomNo = new Random().nextInt(4);
+        textView2_Color.setText(colorNames[randomNo]);
+        textView2_Color.setTextColor(ContextCompat.getColor(getActivity(), colors[randomNo]));
     }
 
     public void increaseQuestionNumber() {

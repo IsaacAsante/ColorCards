@@ -21,6 +21,8 @@ import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 public class MainActivity extends AppCompatActivity implements Communicator, RewardedVideoAdListener {
 
     // TODO: Remove all hardcoded strings from layout files
+    // TODO: Put all strings into Strings.xml
+    // TODO: Fix all warnings in the code
     // Fragments
     private FragmentCards fragmentCards;
     private FragmentInstruction fragmentInstruction;
@@ -116,24 +118,30 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
 
     @Override
     public void onAttachFragment(Fragment fragment) {
-        if (fragment instanceof FragmentCards) {
-            FragmentCards fragmentCards = (FragmentCards) fragment;
-            fragmentCards.setCommunicator(this); // MainActivity for FragmentCards
-        } else if (fragment instanceof FragmentProgressBar) {
+        if (fragment instanceof FragmentProgressBar) {
             FragmentProgressBar fragmentProgressBar = (FragmentProgressBar) fragment;
             fragmentProgressBar.setCommunicator(this);
-        } else if (fragment instanceof FragmentResults) {
-            FragmentResults fragmentResults = (FragmentResults) fragment;
-            fragmentResults.setCommunicator(this);
-            System.out.println("Fragment Results communicator context.");
+            System.out.println("FragmentProgressBar onAttachFragment");
         } else if (fragment instanceof FragmentUserProgress) {
             FragmentUserProgress fragmentTimer = (FragmentUserProgress) fragment;
             fragmentTimer.setCommunicator(this);
+            System.out.println("FragmentUserProgress onAttachFragment");
+        } else if (fragment instanceof FragmentCards) {
+            FragmentCards fragmentCards = (FragmentCards) fragment;
+            fragmentCards.setCommunicator(this); // MainActivity for FragmentCards
+            System.out.println("FragmentCards onAttachFragment");
+        } else if (fragment instanceof FragmentResults) {
+            FragmentResults fragmentResults = (FragmentResults) fragment;
+            fragmentResults.setCommunicator(this);
+            System.out.println("FragmentResults onAttachFragment");
         } else if (fragment instanceof CustomDialogFragment) {
             CustomDialogFragment customDialogFragment = (CustomDialogFragment) fragment;
             customDialogFragment.setCommunicator(this);
+            System.out.println("CustomDialogFragment onAttachFragment");
         }
     }
+
+
 
     @Override
     public void increaseQuestionID() {
@@ -229,10 +237,11 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         fragmentUserProgress.displayPointToReach(); // Update points
         fragmentUserProgress.cancelTimer(); // It needs to restart
         fragmentUserProgress.increaseGameLevelTime(gameLevelNo); // New level * default time
-        fragmentResults.resetResults();
-        presentNewChallenge(); // Shuffle cards, refresh instructions and refill the progress bar
+        fragmentResults.resetResults(); // Set them all to 0
+        fragmentResults.showAllResults(); // Update the results
 
         setTimeUp(false); // Enable the player to interact with the game
+        presentNewChallenge(); // Shuffle cards, refresh instructions and refill the progress bar
         fragmentUserProgress.startTimer(); // Must be the last method
     }
 
@@ -241,8 +250,8 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         if (timeIsUp == false) {
             fragmentCards.shuffleColorCardList(); // Shuffle the list of cards
             // fragmentInstruction.increaseQuestionNumber(); // Increase the ID of the question
-            changeTextColor(fragmentCards.selectRandomColor());
             changeTextInstruction(fragmentCards.selectRandomColorName()); // Change the name of the color to select
+            changeTextColor(fragmentCards.selectRandomColor());
             resetProgressBar();
         }
     }

@@ -25,13 +25,14 @@ public class FragmentCards extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_cards, container, false);
         colorCards = new ArrayList<ColorCard>();
-
-        // Set up the RecycleView
-        buildRecycleView(view);
         // Create the list of card objects
         populateColorCardsList();
+
+        View view = inflater.inflate(R.layout.fragment_cards, container, false);
+        // Set up the RecycleView
+        buildRecycleView(view);
+
 
         return view;
     }
@@ -68,16 +69,13 @@ public class FragmentCards extends Fragment {
     }
 
     public String selectRandomColorName() {
-        if (!colorCards.isEmpty()) {
-            int cardIndex = new Random().nextInt(4);
-            String colorName = colorCards.get(cardIndex).getColorName();
-            return colorName;
-        }
-        return "Black";
+        int cardIndex = new Random().nextInt(4);
+        String colorName = colorCards.get(cardIndex).getColorName();
+        return colorName;
     }
 
     public int selectRandomColor() {
-        int cardIndex = new Random().nextInt(colorCards.size());
+        int cardIndex = new Random().nextInt(4);
         int randomColor = colorCards.get(cardIndex).getColor();
         return randomColor;
     }

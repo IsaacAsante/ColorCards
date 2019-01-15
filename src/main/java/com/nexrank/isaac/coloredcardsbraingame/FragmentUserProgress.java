@@ -174,12 +174,14 @@ public class FragmentUserProgress extends Fragment {
     }
 
     public void startTimer() {
+        System.out.println("Starting the timer now");
         timer = new CountDownTimer(millisForCurrentLevel, COUNTDOWN_INTERVAL) {
             @Override
             public void onTick(long millisUntilFinished) {
                 millisForCurrentLevel = millisUntilFinished;
                 int minutes = (int) (millisUntilFinished / 60000);
                 int seconds = (int) (millisUntilFinished / 1000) % 60;
+                System.out.println("The seconds passed " + seconds);
 
                 String timeLeft = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
                 textView_TimeLeft.setText(timeLeft);
@@ -190,12 +192,12 @@ public class FragmentUserProgress extends Fragment {
 
                 communicator.setTimeUp(true);
                 // Calculate points
-                calculatePoints();
+                selectDialogFragmentToShow();
             }
         }.start();
     }
 
-    private void calculatePoints() {
+    private void selectDialogFragmentToShow() {
         if (pointsAccumulated >= pointsToReach) {
             communicator.showGameOverAlert(GameResult.Win);
         } else {

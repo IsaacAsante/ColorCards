@@ -37,7 +37,7 @@
             style="@style/InstructionText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Black"
+            android:text=""
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@id/textView_InstructionC"
             app:layout_constraintStart_toEndOf="@id/textView_InstructionA" />
