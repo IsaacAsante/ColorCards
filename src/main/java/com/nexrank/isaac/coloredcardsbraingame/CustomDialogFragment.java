@@ -8,6 +8,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class CustomDialogFragment extends DialogFragment {
@@ -17,6 +22,9 @@ public class CustomDialogFragment extends DialogFragment {
 
     private boolean gameResultVictory; // True for Win / False for Loss
     private int gameCurrentLevelNo; // Just-ended level
+
+    private TextView textView_dialogTitle;
+    private TextView textView_dialogMsg;
 
     private Communicator communicator;
 
@@ -28,6 +36,13 @@ public class CustomDialogFragment extends DialogFragment {
         dialogFragment.setArguments(args);
         dialogFragment.setCancelable(false); // Prevent the fragment from closing when the user taps outside
         return dialogFragment;
+    }
+
+    public View getCustomDialogView() {
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.game_over_dialogfragment, null);
+        textView_dialogTitle = view.findViewById(R.id.textView_CustomDialogTitle);
+        textView_dialogMsg = view.findViewById(R.id.textView_CustomDialogMsg);
+        return view;
     }
 
     public void setCommunicator(Context context) {
@@ -44,15 +59,22 @@ public class CustomDialogFragment extends DialogFragment {
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setView(getCustomDialogView()); // Initialize the TextViews as well
 
         // TODO: Test how the Alert shows after Level 5 (the last level)
         // If the player won
         if (gameResultVictory) {
+            // Create the victory messages to show
             int nextLevelNo = gameCurrentLevelNo + 1;
-            builder.setTitle("You've passed Level " + gameCurrentLevelNo)
-                    .setMessage("Congratulations! You've completed Level " + gameCurrentLevelNo
-                            + ". Now, it's time prove yourself in Level " + nextLevelNo + "!")
-                    .setPositiveButton("Move to Level " + nextLevelNo, new DialogInterface.OnClickListener() {
+            String dialogTitle = "You've passed Level " + gameCurrentLevelNo;
+            String dialogMsg = "Congratulations! You've completed Level " + gameCurrentLevelNo
+                    + ". Now, it's time prove yourself in Level " + nextLevelNo + "!";
+
+            // Set TextView values
+            textView_dialogTitle.setText(dialogTitle);
+            textView_dialogMsg.setText(dialogMsg);
+
+            builder.setPositiveButton("Move to Level " + nextLevelNo, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             communicator.increaseGameLevel();
@@ -89,6 +111,11 @@ public class CustomDialogFragment extends DialogFragment {
                     });
         }
 
-        return builder.create();
+        Dialog customDialog = builder.create();
+
+        // Disable default title
+        customDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        return customDialog;
     }
 }
