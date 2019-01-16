@@ -68,7 +68,7 @@ public class CustomDialogFragment extends DialogFragment {
             gameCurrentLevelNo = getArguments().getInt(ARGS_CURRENT_LEVEL);
         }
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(getCustomDialogViews()); // Initialize the TextViews as well
 
         // TODO: Test how the Alert shows after Level 5 (the last level)
@@ -95,6 +95,7 @@ public class CustomDialogFragment extends DialogFragment {
                 @Override
                 public void onClick(View v) {
                     communicator.increaseGameLevel();
+                    dismiss(); // Dismiss the fragment
                 }
             });
 
