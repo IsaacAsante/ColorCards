@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -89,7 +90,22 @@ public class CustomDialogFragment extends DialogFragment {
             button_1.setText(button1Text);
             button_2.setText(button2Text);
 
-            // TODO: Implement communicator.increaseGameLevel();
+            // Action when the user clicks on "Next Level"
+            button_1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    communicator.increaseGameLevel();
+                }
+            });
+
+            // Action when the user clicks on "View Results"
+            button_2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent (getActivity(), GameResultActivity.class);
+                    startActivity(intent);
+                }
+            });
 
         } else {
             // TODO: Pass the level's point accumulated and points to reach to update the message.
