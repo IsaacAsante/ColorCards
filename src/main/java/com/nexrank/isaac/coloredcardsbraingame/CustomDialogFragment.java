@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +25,7 @@ public class CustomDialogFragment extends DialogFragment {
     private int gameCurrentLevelNo; // Just-ended level
 
     private TextView textView_dialogTitle;
-    private TextView textView_dialogMsg;
+    private ImageView imageView_dialogMsg;
 
     private Communicator communicator;
 
@@ -41,7 +42,7 @@ public class CustomDialogFragment extends DialogFragment {
     public View getCustomDialogView() {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.game_over_dialogfragment, null);
         textView_dialogTitle = view.findViewById(R.id.textView_CustomDialogTitle);
-        textView_dialogMsg = view.findViewById(R.id.textView_CustomDialogMsg);
+        imageView_dialogMsg = view.findViewById(R.id.imageView_LevelResult);
         return view;
     }
 
@@ -72,21 +73,10 @@ public class CustomDialogFragment extends DialogFragment {
 
             // Set TextView values
             textView_dialogTitle.setText(dialogTitle);
-            textView_dialogMsg.setText(dialogMsg);
+            imageView_dialogMsg.setImageResource(R.drawable.level_complete);
 
-            builder.setPositiveButton("Move to Level " + nextLevelNo, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            communicator.increaseGameLevel();
-                        }
-                    })
-                    .setNegativeButton("Not Now", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            // TODO: Direct the player to the Results screen
-                            Toast.makeText(getActivity(), "Your progress has been saved for next time", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+            // TODO: Implement communicator.increaseGameLevel();
+
         } else {
             // TODO: Pass the level's point accumulated and points to reach to update the message.
             builder.setTitle("You failed")

@@ -1,39 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/customDialogFragmentContainer"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:id="@+id/customDialogFragmentContainer">
+    android:layout_height="wrap_content">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/textView_CustomDialogTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/green"
         android:gravity="center"
-        android:paddingStart="8dp"
-        android:paddingTop="4dp"
-        android:paddingEnd="8dp"
-        android:paddingBottom="4dp">
+        android:padding="8dp"
+        android:text="GAME OVER"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/textView_CustomDialogTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="GAME OVER"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/imageView_LevelResult"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/level_complete"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView_CustomDialogTitle"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.5" />
 
     <TextView
-        android:id="@+id/textView_CustomDialogMsg"
-        android:layout_width="match_parent"
+        android:id="@+id/textView_CustomDialogMessage"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="You have completed Level 1! Now, move on to Level 2"
-        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:text="Congratulations! You are now a Superstar!"
+        android:textColor="@color/grey"
         android:gravity="center"
-        android:layout_margin="8dp"
-        android:textSize="16sp"/>
+        android:layout_marginTop="8sp"
+        app:layout_constraintTop_toBottomOf="@id/imageView_LevelResult"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_percent="0.8"
+        app:layout_constraintWidth_default="percent"/>
 
-</LinearLayout>
+    <Button
+        android:id="@+id/button_Positive"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Replay"
+        android:textSize="16sp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView_CustomDialogMessage"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.5"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <Button
+        android:id="@+id/button_Negative"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Next Level"
+        android:textSize="16sp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toEndOf="@id/button_Positive"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.5"
+        app:layout_constraintTop_toBottomOf="@id/textView_CustomDialogMessage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</android.support.constraint.ConstraintLayout>

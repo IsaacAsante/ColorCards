@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
     // TODO: Remove all hardcoded strings from layout files
     // TODO: Put all strings into Strings.xml
     // TODO: Fix all warnings in the code
+    // TODO: Create an account on AppAnie for ASO
     // Fragments
     private FragmentCards fragmentCards;
     private FragmentInstruction fragmentInstruction;
