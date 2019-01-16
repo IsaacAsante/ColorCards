@@ -10,11 +10,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.common.util.Base64Utils;
 
 public class CustomDialogFragment extends DialogFragment {
 
@@ -25,7 +27,10 @@ public class CustomDialogFragment extends DialogFragment {
     private int gameCurrentLevelNo; // Just-ended level
 
     private TextView textView_dialogTitle;
-    private ImageView imageView_dialogMsg;
+    private TextView textView_dialogMessage;
+    private ImageView imageView_dialogMessage;
+    private Button button_1;
+    private Button button_2;
 
     private Communicator communicator;
 
@@ -39,10 +44,13 @@ public class CustomDialogFragment extends DialogFragment {
         return dialogFragment;
     }
 
-    public View getCustomDialogView() {
+    public View getCustomDialogViews() {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.game_over_dialogfragment, null);
         textView_dialogTitle = view.findViewById(R.id.textView_CustomDialogTitle);
-        imageView_dialogMsg = view.findViewById(R.id.imageView_LevelResult);
+        textView_dialogMessage = view.findViewById(R.id.textView_CustomDialogMessage);
+        imageView_dialogMessage = view.findViewById(R.id.imageView_LevelResult);
+        button_1 = view.findViewById(R.id.button_Positive);
+        button_2 = view.findViewById(R.id.button_Negative);
         return view;
     }
 
@@ -60,20 +68,26 @@ public class CustomDialogFragment extends DialogFragment {
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(getCustomDialogView()); // Initialize the TextViews as well
+        builder.setView(getCustomDialogViews()); // Initialize the TextViews as well
 
         // TODO: Test how the Alert shows after Level 5 (the last level)
         // If the player won
         if (gameResultVictory) {
             // Create the victory messages to show
             int nextLevelNo = gameCurrentLevelNo + 1;
-            String dialogTitle = "You've passed Level " + gameCurrentLevelNo;
-            String dialogMsg = "Congratulations! You've completed Level " + gameCurrentLevelNo
-                    + ". Now, it's time prove yourself in Level " + nextLevelNo + "!";
+            String nextLevelNickname = GameLevel.newInstance(nextLevelNo).getLevelNickname();
+            String dialogTitle = "You've passed Level " + gameCurrentLevelNo + "!";
+            String dialogMsg = "Congratulations! \nYour new rank is: " + nextLevelNickname + "!";
+            String button1Text = "NEXT LEVEL";
+            String button2Text = "VIEW RESULTS";
+
 
             // Set TextView values
             textView_dialogTitle.setText(dialogTitle);
-            imageView_dialogMsg.setImageResource(R.drawable.level_complete);
+            textView_dialogMessage.setText(dialogMsg);
+            imageView_dialogMessage.setImageResource(R.drawable.level_complete);
+            button_1.setText(button1Text);
+            button_2.setText(button2Text);
 
             // TODO: Implement communicator.increaseGameLevel();
 
