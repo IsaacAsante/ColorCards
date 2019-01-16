@@ -220,7 +220,9 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
 
     @Override
     public void resetPointsTextColor() {
-        fragmentUserProgress.resetUserPointsTextColor();
+        if (timeIsUp == false) {
+            fragmentUserProgress.resetUserPointsTextColor();
+        }
     }
 
     @Override
@@ -370,5 +372,11 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
     @Override
     public void onRewardedVideoCompleted() {
         Toast.makeText(this, "onRewardedVideoCompleted", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        timeIsUp = true; // End the game
+        super.onBackPressed();
     }
 }
