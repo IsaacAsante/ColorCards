@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -29,6 +30,8 @@ public class CustomDialogFragment extends DialogFragment {
     // Strings
     private final String NEXT_LEVEL = "NEXT LEVEL";
     private final String VIEW_RESULTS = "VIEW RESULTS";
+    private final String ADD_TIME = "ADD 1 MINUTE";
+    private final String RESTART = "RESTART";
 
     private boolean gameResultVictory; // True for Win / False for Loss
     private int gameCurrentLevelNo; // Just-ended level
@@ -122,27 +125,20 @@ public class CustomDialogFragment extends DialogFragment {
             });
 
         } else {
-            // TODO: Pass the level's point accumulated and points to reach to update the message.
-            builder.setTitle("You failed")
-                    .setMessage("You failed to collect 1000 points in this level. But no worries, just collect 1 extra minute to complete your progress, or simply retry.")
-                    .setPositiveButton("View Results", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Toast.makeText(getActivity(), "Here are your game results", Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .setNeutralButton("Add 1min", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Toast.makeText(getActivity(), "You have added 1 minute", Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .setNegativeButton("Retry", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            communicator.restartGameLevel();
-                        }
-                    });
+            // If the player lost
+            String dialogTitle = "You Failed!";
+            String dialogMsg = "Sorry, you did not gather enough points." +
+                    "\n\nFinish this level by extending your time, or try again.";
+            String button1Text = ADD_TIME;
+            String button2Text = RESTART;
+
+            // Set TextView values
+            textView_dialogTitle.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.grey));
+            textView_dialogTitle.setText(dialogTitle);
+            textView_dialogMessage.setText(dialogMsg);
+            imageView_dialogMessage.setImageResource(R.drawable.level_incomplete);
+            button_1.setText(button1Text);
+            button_2.setText(button2Text);
         }
 
         Dialog customDialog = builder.create();
