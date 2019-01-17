@@ -139,6 +139,13 @@ public class CustomDialogFragment extends DialogFragment {
             imageView_dialogMessage.setImageResource(R.drawable.level_incomplete);
             button_1.setText(button1Text);
             button_2.setText(button2Text);
+
+            button_1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    communicator.showRewardedVideoAd();
+                }
+            });
         }
 
         Dialog customDialog = builder.create();
