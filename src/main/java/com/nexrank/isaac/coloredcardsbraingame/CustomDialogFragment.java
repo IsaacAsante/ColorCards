@@ -21,11 +21,18 @@ import com.google.android.gms.common.util.Base64Utils;
 
 public class CustomDialogFragment extends DialogFragment {
 
+    // Fragment arguments to pass when a new instance is created
     private static final String ARGS_VICTORY = "argsVictory";
     private static final String ARGS_CURRENT_LEVEL = "argsCurrentLevel";
+    private static final String ARGS_FINAL_POITNS = "argsFinalPoints";
+
+    // Strings
+    private final String NEXT_LEVEL = "NEXT LEVEL";
+    private final String VIEW_RESULTS = "VIEW RESULTS";
 
     private boolean gameResultVictory; // True for Win / False for Loss
     private int gameCurrentLevelNo; // Just-ended level
+    private long gameFinalPoints;
 
     private TextView textView_dialogTitle;
     private TextView textView_dialogMessage;
@@ -35,11 +42,12 @@ public class CustomDialogFragment extends DialogFragment {
 
     private Communicator communicator;
 
-    public static CustomDialogFragment newInstance(Boolean victory, int levelNo) {
+    public static CustomDialogFragment newInstance(Boolean victory, int levelNo, long points) {
         CustomDialogFragment dialogFragment = new CustomDialogFragment();
         Bundle args = new Bundle();
         args.putBoolean(ARGS_VICTORY, victory);
         args.putInt(ARGS_CURRENT_LEVEL, levelNo);
+        args.putLong(ARGS_FINAL_POITNS, points);
         dialogFragment.setArguments(args);
         dialogFragment.setCancelable(false); // Prevent the fragment from closing when the user taps outside
         return dialogFragment;
@@ -66,6 +74,7 @@ public class CustomDialogFragment extends DialogFragment {
         if (getArguments() != null) {
             gameResultVictory = getArguments().getBoolean(ARGS_VICTORY);
             gameCurrentLevelNo = getArguments().getInt(ARGS_CURRENT_LEVEL);
+            gameFinalPoints = getArguments().getLong(ARGS_FINAL_POITNS);
         }
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -77,10 +86,11 @@ public class CustomDialogFragment extends DialogFragment {
             // Create the victory messages to show
             int nextLevelNo = gameCurrentLevelNo + 1;
             String nextLevelNickname = GameLevel.newInstance(nextLevelNo).getLevelNickname();
-            String dialogTitle = "You've passed Level " + gameCurrentLevelNo + "!";
-            String dialogMsg = "Congratulations! \nYour new rank is: " + nextLevelNickname + "!";
-            String button1Text = "NEXT LEVEL";
-            String button2Text = "VIEW RESULTS";
+            String dialogTitle = nextLevelNickname + " Rank Unlocked!";
+            String dialogMsg = "Congratulations! " +
+                    "\n\nYou've reached " + gameFinalPoints + " points!";
+            String button1Text = NEXT_LEVEL;
+            String button2Text = VIEW_RESULTS;
 
 
             // Set TextView values
@@ -104,7 +114,7 @@ public class CustomDialogFragment extends DialogFragment {
                 @Override
                 public void onClick(View v) {
                     dismiss(); // Dismiss the fragment
-                    Intent intent = new Intent (getActivity(), GameResultActivity.class);
+                    Intent intent = new Intent(getActivity(), GameResultActivity.class);
                     intent.putExtra("userProgress", communicator.retrieveUserProgressData()); // Grab points accumulated, points to reach and total points
                     intent.putExtra("gameResult", communicator.retrieveGameResultData()); // Grab the number of correct, wrong and skipped answers
                     startActivity(intent);

@@ -31,7 +31,7 @@ public interface Communicator {
     public void showRewardedVideoAd();
 
     // Alerts
-    public void showGameOverAlert(GameResult result);
+    public void showGameOverAlert(GameResult result, long points);
 
 
 }

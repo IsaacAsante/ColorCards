@@ -26,7 +26,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/textView_LevelPoints"
+            android:id="@+id/textView_LevelPointsLabel"
             style="@style/MetaData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

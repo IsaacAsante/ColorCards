@@ -49,7 +49,7 @@ public class FragmentUserProgress extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_progress, container, false);
-        textView_PointsAccumulated = view.findViewById(R.id.textView_LevelPoints);
+        textView_PointsAccumulated = view.findViewById(R.id.textView_LevelPointsLabel);
         textView_PointsToReach = view.findViewById(R.id.textView_LevelPointsToReach);
         textView_TimeLeft = view.findViewById(R.id.textView_Timer);
         button_BonusTime = view.findViewById(R.id.button_Bonus);
@@ -184,24 +184,16 @@ public class FragmentUserProgress extends Fragment {
 
                 String timeLeft = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
                 textView_TimeLeft.setText(timeLeft);
+                verifyIfUserHasWon();
             }
 
             @Override
             public void onFinish() {
 
                 communicator.setTimeUp(true);
-                // Calculate points
                 selectDialogFragmentToShow();
             }
         }.start();
-    }
-
-    private void selectDialogFragmentToShow() {
-        if (pointsAccumulated >= pointsToReach) {
-            communicator.showGameOverAlert(GameResult.Win);
-        } else {
-            communicator.showGameOverAlert(GameResult.Loss);
-        }
     }
 
     public void cancelTimer() {
@@ -221,6 +213,22 @@ public class FragmentUserProgress extends Fragment {
 
     public void resetTime() {
         millisForCurrentLevel = INITIAL_TIME;
+    }
+
+    private void selectDialogFragmentToShow() {
+        if (pointsAccumulated >= pointsToReach) {
+            communicator.showGameOverAlert(GameResult.Win, pointsToReach);
+        } else {
+            communicator.showGameOverAlert(GameResult.Loss, pointsAccumulated);
+        }
+    }
+
+    private void verifyIfUserHasWon() {
+        if (pointsAccumulated >= pointsToReach) {
+            timer.cancel();
+            communicator.setTimeUp(true);
+            communicator.showGameOverAlert(GameResult.Win, pointsToReach);
+        }
     }
 
     public Bundle provideUserProgressData() {
