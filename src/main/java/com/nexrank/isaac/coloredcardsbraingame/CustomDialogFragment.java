@@ -103,7 +103,10 @@ public class CustomDialogFragment extends DialogFragment {
             button_2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    dismiss(); // Dismiss the fragment
                     Intent intent = new Intent (getActivity(), GameResultActivity.class);
+                    intent.putExtra("userProgress", communicator.retrieveUserProgressData()); // Grab points accumulated, points to reach and total points
+                    intent.putExtra("gameResult", communicator.retrieveGameResultData()); // Grab the number of correct, wrong and skipped answers
                     startActivity(intent);
                 }
             });

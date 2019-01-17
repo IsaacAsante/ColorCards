@@ -39,7 +39,7 @@ public class FragmentUserProgress extends Fragment {
     // Countdown-related fields
     private CountDownTimer timer;
     private long millisForCurrentLevel;
-    private final long INITIAL_TIME = 60000; // 1min
+    private final long INITIAL_TIME = 25000; // Must be 1min
     private final long COUNTDOWN_INTERVAL = 1000;
     private final long BONUS_TIME = 60000;
 
@@ -221,6 +221,14 @@ public class FragmentUserProgress extends Fragment {
 
     public void resetTime() {
         millisForCurrentLevel = INITIAL_TIME;
+    }
+
+    public Bundle provideUserProgressData() {
+        Bundle progressData = new Bundle();
+        progressData.putInt("pointsAccumulated", pointsAccumulated);
+        progressData.putInt("pointsToReach", pointsToReach);
+        progressData.putInt("totalPoints", totalPoints);
+        return progressData;
     }
 
 

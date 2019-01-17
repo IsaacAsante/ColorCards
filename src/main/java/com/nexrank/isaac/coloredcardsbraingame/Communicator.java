@@ -1,5 +1,7 @@
 package com.nexrank.isaac.coloredcardsbraingame;
 
+import android.os.Bundle;
+
 public interface Communicator {
     // Gameplay
     public void increaseQuestionID();
@@ -12,6 +14,8 @@ public interface Communicator {
     public void updateUserPoints(AnswerResult answer);
     public void resetPointsTextColor(); // Set the text color for points to grey
     public GameLevel getLevelDetails();
+    public Bundle retrieveUserProgressData();
+    public Bundle retrieveGameResultData();
 
     // Important method (multiple methods called at once)
     public void restartGameLevel();

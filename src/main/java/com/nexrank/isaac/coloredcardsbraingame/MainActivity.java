@@ -232,6 +232,16 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
     }
 
     @Override
+    public Bundle retrieveUserProgressData() {
+        return fragmentUserProgress.provideUserProgressData();
+    }
+
+    @Override
+    public Bundle retrieveGameResultData() {
+        return fragmentResults.provideGameResultInfo();
+    }
+
+    @Override
     public void increaseGameLevel() {
         // Similar to restartGameLevel(), but this one increases the game level, points to reach and level time.
         ++gameLevelNo;

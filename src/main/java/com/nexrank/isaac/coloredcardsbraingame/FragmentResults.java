@@ -81,4 +81,12 @@ public class FragmentResults extends Fragment {
         textView_SkippedAnswerResult.setText(String.valueOf(skippedAnswerCount));
     }
 
+    public Bundle provideGameResultInfo() {
+        Bundle gameResult = new Bundle();
+        gameResult.putInt("correctAnswerCount", correctAnswerCount);
+        gameResult.putInt("wrongAnswerCount", wrongAnswerCount);
+        gameResult.putInt("skippedAnswerCount", skippedAnswerCount);
+        return gameResult;
+    }
+
 }
