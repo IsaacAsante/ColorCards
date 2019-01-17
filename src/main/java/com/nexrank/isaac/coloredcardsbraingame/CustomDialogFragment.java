@@ -155,4 +155,9 @@ public class CustomDialogFragment extends DialogFragment {
 
         return customDialog;
     }
+
+    // Used by the main MainActivity
+    public void dismissFragment() {
+        dismiss();
+    }
 }

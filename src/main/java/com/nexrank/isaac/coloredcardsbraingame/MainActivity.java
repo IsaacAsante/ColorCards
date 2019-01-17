@@ -353,10 +353,19 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
 
     @Override
     public void onRewardedVideoAdClosed() {
+        if (timeIsUp == true) {
+            // If the user taps the Ad button from the custom dialog fragment, make the game receptive to interactions again.
+            timeIsUp = false;
+        }
         // Add the bonus time, and restart the timer
-        fragmentUserProgress.addBonusTime();
-        fragmentUserProgress.startTimer();
-        fragmentUserProgress.setBonusButtonVisibility(0); // Hide the bonus button again until the ad is ready
+            fragmentUserProgress.addBonusTime();
+            fragmentUserProgress.startTimer();
+            fragmentUserProgress.setBonusButtonVisibility(0); // Hide the bonus button again until the ad is ready
+
+        if (getSupportFragmentManager().findFragmentByTag("GameOverDialog").isAdded()) {
+            CustomDialogFragment customDialogFragment = (CustomDialogFragment) getSupportFragmentManager().findFragmentByTag("GameOverDialog");
+            customDialogFragment.dismiss();
+        }
         loadRewardedVideoAd();
         Toast.makeText(this, "onRewardedVideoAdClosed", Toast.LENGTH_SHORT).show();
     }
