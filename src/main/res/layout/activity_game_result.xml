@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -20,8 +21,8 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@color/grey"
-        android:layout_below="@id/textView_ResultsHeader" />
+        android:layout_below="@id/textView_ResultsHeader"
+        android:background="@color/grey" />
 
 
     <TextView
@@ -73,6 +74,43 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/textView_YourWrongAnswers_Label"
         android:text="You skipped the instructions " />
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="16dp"
+        android:layout_marginBottom="24dp">
+
+        <Button
+            android:id="@+id/button_ProceedToNextLevel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Go to Level 2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent="0.5"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="@color/primaryTextColor" />
+
+        <Button
+            android:id="@+id/button_ReturnHome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Return Home"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_ProceedToNextLevel"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent="0.5"
+            android:background="@color/colorPrimaryLight"
+            android:textColor="@color/primaryTextColor"/>
+
+    </android.support.constraint.ConstraintLayout>
 
 
 </RelativeLayout>
