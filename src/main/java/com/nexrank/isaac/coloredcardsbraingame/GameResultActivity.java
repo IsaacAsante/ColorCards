@@ -47,9 +47,9 @@ public class GameResultActivity extends AppCompatActivity {
         int minutes = (int) (userProgressBundle.getLong("timeLeft") / 1000) / 60;
         int secondsLeft = (int) (userProgressBundle.getLong("timeLeft") / 1000) % 60; // Convert the time left on the clock in seconds
         if (minutes > 0) {
-            formattedTimeLeft = String.format(Locale.getDefault(), "%dmin and %02ds left.", minutes, secondsLeft);
+            formattedTimeLeft = String.format(Locale.getDefault(), "%dmin and %02ds left on the clock.", minutes, secondsLeft);
         } else {
-            formattedTimeLeft = String.format(Locale.getDefault(), "%02d seconds left.", secondsLeft);
+            formattedTimeLeft = String.format(Locale.getDefault(), "%02d seconds left on the clock.", secondsLeft);
         }
         textView_LevelTimeLeft.append(formattedTimeLeft);
 

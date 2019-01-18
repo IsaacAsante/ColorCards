@@ -38,7 +38,7 @@ public class FragmentUserProgress extends Fragment {
     // Countdown-related fields
     private CountDownTimer timer;
     private long millisForCurrentLevel;
-    private final long INITIAL_TIME = 120000; // Must be 1min
+    private final long INITIAL_TIME = 30000; // Must be 1min
     private final long COUNTDOWN_INTERVAL = 1000;
     private final long BONUS_TIME = 60000;
 

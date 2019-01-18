@@ -17,6 +17,12 @@
         android:textColor="@color/darkTextColor"
         android:textSize="16sp" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/grey"
+        android:layout_below="@id/textView_ResultsHeader" />
+
 
     <TextView
         android:id="@+id/textView_LevelTimeLeftLabel"
@@ -24,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textView_ResultsHeader"
-        android:text="You completed Level 1 with" />
+        android:text="You completed Level 1 with " />
 
 
     <TextView
