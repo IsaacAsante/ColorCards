@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textView_ResultsHeader"
-        android:text="You completed Level 1 with " />
+        android:text="You completed Level " />
 
 
     <TextView
@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textView_LevelTimeLeftLabel"
-        android:text="You reached Level 2 with " />
+        android:text="You reached Level " />
 
     <TextView
         android:id="@+id/textView_LevelPointsLabel"
@@ -48,7 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textView_YourLevelPoints_Label"
-        android:text="To progress to Level 2, you needed a minimum of " />
+        android:text="To progress to Level " />
 
 
     <TextView

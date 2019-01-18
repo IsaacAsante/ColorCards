@@ -47,6 +47,7 @@ public class GameResultActivity extends AppCompatActivity {
     private void assignValuesToViews() {
         Intent gameIntent = getIntent();
         int gameLevel = gameIntent.getIntExtra("gameLevel", 0);
+        int nextLevel = gameLevel + 1;
         Bundle userProgressBundle = gameIntent.getBundleExtra("userProgress");
         Bundle gameResultBundle = gameIntent.getBundleExtra("gameResult");
 
@@ -58,20 +59,20 @@ public class GameResultActivity extends AppCompatActivity {
         int minutes = (int) (userProgressBundle.getLong("timeLeft") / 1000) / 60;
         int secondsLeft = (int) (userProgressBundle.getLong("timeLeft") / 1000) % 60; // Convert the time left on the clock in seconds
         if (minutes > 0) {
-            formattedTimeLeft = String.format(Locale.getDefault(), "%dmin and %02ds left on the clock.", minutes, secondsLeft);
+            formattedTimeLeft = String.format(Locale.getDefault(), "%d with %dmin and %02ds left on the clock.", gameLevel, minutes, secondsLeft);
         } else {
-            formattedTimeLeft = String.format(Locale.getDefault(), "%02d seconds left on the clock.", secondsLeft);
+            formattedTimeLeft = String.format(Locale.getDefault(), "%d with %02d seconds left on the clock.", gameLevel, secondsLeft);
         }
         textView_LevelTimeLeft.append(formattedTimeLeft);
 
         // Display points accumulated
         int pointsAccumulated = userProgressBundle.getInt("pointsAccumulated");
-        String pointsAccumulatedMSG = pointsAccumulated + " points.";
+        String pointsAccumulatedMSG = nextLevel + " with " + pointsAccumulated + " points.";
         textView_LevelPoints.append(pointsAccumulatedMSG);
 
         // Display points to reach
         int pointsToReach = userProgressBundle.getInt("pointsToReach");
-        String pointsToReachMSG = pointsToReach + " points.";
+        String pointsToReachMSG = nextLevel + ", you needed a minimum of " + pointsToReach + " points.";
         textView_PointsNeeded.append(pointsToReachMSG);
 
         // Display correct cards
@@ -89,7 +90,6 @@ public class GameResultActivity extends AppCompatActivity {
         String skippedAnswersMSG = skippedAnswerCount + " times.";
         textView_SkippedAnswers.append(skippedAnswersMSG);
 
-        int nextLevel = gameLevel + 1;
         String button1Msg = "Start Level " + nextLevel;
         button_NextLevel.setText(button1Msg);
     }
