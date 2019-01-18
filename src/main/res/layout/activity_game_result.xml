@@ -26,10 +26,10 @@
             style="@style/GameResultData"/>
 
         <TextView
-            android:id="@+id/textView_LevelCompletionLabel"
+            android:id="@+id/textView_LevelTimeLeftLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Completion time:"
+            android:text="Time Left:"
             style="@style/GameResultLabel"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textView_ResultsHeader"
@@ -37,10 +37,10 @@
 
 
         <TextView
-            android:id="@+id/textView_LevelCompletion"
+            android:id="@+id/textView_LevelTimeLeft"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="46 seconds"
+            android:text=""
             style="@style/GameResultData"
             app:layout_constraintTop_toBottomOf="@id/textView_ResultsHeader"
             app:layout_constraintStart_toEndOf="@id/guideline"/>
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:text="Points earned:"
             style="@style/GameResultLabel"
-            app:layout_constraintTop_toBottomOf="@id/textView_LevelCompletionLabel"
+            app:layout_constraintTop_toBottomOf="@id/textView_LevelTimeLeftLabel"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/guideline"/>
 
@@ -60,8 +60,8 @@
             android:id="@+id/textView_YourLevelPoints"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="100"
-            app:layout_constraintTop_toBottomOf="@id/textView_LevelCompletion"
+            android:text=""
+            app:layout_constraintTop_toBottomOf="@id/textView_LevelTimeLeft"
             style="@style/GameResultData"
             app:layout_constraintStart_toEndOf="@id/guideline"/>
 
@@ -80,10 +80,11 @@
             android:id="@+id/textView_LevelPoints"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="100"
+            android:text=""
             style="@style/GameResultData"
             app:layout_constraintTop_toBottomOf="@id/textView_YourLevelPoints"
             app:layout_constraintStart_toEndOf="@id/guideline"/>
+
 
         <TextView
             android:id="@+id/textView_YourCorrectAnswers_Label"
@@ -99,7 +100,7 @@
             android:id="@+id/textView_YourCorrectAnswers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="34"
+            android:text=""
             style="@style/GameResultData"
             app:layout_constraintTop_toBottomOf="@id/textView_LevelPoints"
             app:layout_constraintStart_toEndOf="@id/guideline"/>
@@ -118,7 +119,7 @@
             android:id="@+id/textView_YourWrongAnswers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="10"
+            android:text=""
             style="@style/GameResultData"
             app:layout_constraintTop_toBottomOf="@id/textView_YourCorrectAnswers"
             app:layout_constraintStart_toEndOf="@id/guideline"/>
@@ -137,7 +138,7 @@
             android:id="@+id/textView_YourSkippedAnswers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:text=""
             style="@style/GameResultData"
             app:layout_constraintTop_toBottomOf="@id/textView_YourWrongAnswers"
             app:layout_constraintStart_toEndOf="@id/guideline"/>

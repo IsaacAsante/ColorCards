@@ -29,7 +29,6 @@ public class FragmentUserProgress extends Fragment {
     private int pointsToReach; // Level-related points to collect to reach the game's next level
     private int pointsIncrementor; // The amount of points by which a correct answer will increase the points
     private int pointsDeductor; // The amount of points by which a wrong answer will decrease the points
-    private int totalPoints; // Sum of all level-related points collected. Must be increased throughout the game
     private final int INITIAL_POINTS_TO_REACH = 100;
     private final int INITIAL_POINTS_INCREMENTOR = 20;
     private final int INITIAL_POINTS_DEDUCTOR = 25;
@@ -39,7 +38,7 @@ public class FragmentUserProgress extends Fragment {
     // Countdown-related fields
     private CountDownTimer timer;
     private long millisForCurrentLevel;
-    private final long INITIAL_TIME = 25000; // Must be 1min
+    private final long INITIAL_TIME = 120000; // Must be 1min
     private final long COUNTDOWN_INTERVAL = 1000;
     private final long BONUS_TIME = 60000;
 
@@ -126,13 +125,8 @@ public class FragmentUserProgress extends Fragment {
         return pointsToReach;
     }
 
-    public int getTotalPoints() {
-        return totalPoints;
-    }
-
     public void increaseUserPoints() {
         pointsAccumulated += pointsIncrementor;
-        totalPoints += pointsIncrementor;
         displayPointAccumulated();
         textView_PointsAccumulated.setTextColor(ContextCompat.getColor(getActivity(), R.color.green));
     }
@@ -144,11 +138,6 @@ public class FragmentUserProgress extends Fragment {
             pointsAccumulated = 0;
         }
 
-        if (totalPoints - pointsDeductor > 0) {
-            totalPoints -= pointsDeductor;
-        } else {
-            totalPoints = 0;
-        }
         displayPointAccumulated();
         textView_PointsAccumulated.setTextColor(ContextCompat.getColor(getActivity(), R.color.red));
     }
@@ -179,7 +168,7 @@ public class FragmentUserProgress extends Fragment {
             @Override
             public void onTick(long millisUntilFinished) {
                 millisForCurrentLevel = millisUntilFinished;
-                int minutes = (int) (millisUntilFinished / 60000);
+                int minutes = (int) (millisUntilFinished / 1000) / 60;
                 int seconds = (int) (millisUntilFinished / 1000) % 60;
 
                 String timeLeft = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
@@ -235,7 +224,7 @@ public class FragmentUserProgress extends Fragment {
         Bundle progressData = new Bundle();
         progressData.putInt("pointsAccumulated", pointsAccumulated);
         progressData.putInt("pointsToReach", pointsToReach);
-        progressData.putInt("totalPoints", totalPoints);
+        progressData.putLong("timeLeft", millisForCurrentLevel);
         return progressData;
     }
 
