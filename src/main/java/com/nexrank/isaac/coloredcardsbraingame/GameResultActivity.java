@@ -83,12 +83,20 @@ public class GameResultActivity extends AppCompatActivity {
         // Display wrong cards
         int wrongAnswerCount = gameResultBundle.getInt("wrongAnswerCount");
         String wrongAnswersMSG = wrongAnswerCount + " wrong picks.";
-        textView_WrongAnswers.append(wrongAnswersMSG);
+        if (wrongAnswerCount > 0) {
+            textView_WrongAnswers.append(wrongAnswersMSG);
+        } else {
+            textView_WrongAnswers.setText("You did not get anything wrong. Well done!");
+        }
 
         // Display skipped cards
         int skippedAnswerCount = gameResultBundle.getInt("skippedAnswerCount");
         String skippedAnswersMSG = skippedAnswerCount + " times.";
-        textView_SkippedAnswers.append(skippedAnswersMSG);
+        if (skippedAnswerCount > 0) {
+            textView_SkippedAnswers.append(skippedAnswersMSG);
+        } else {
+            textView_SkippedAnswers.setText("You did not skip any card. This means you think and react very fast!");
+        }
 
         String button1Msg = "Start Level " + nextLevel;
         button_NextLevel.setText(button1Msg);

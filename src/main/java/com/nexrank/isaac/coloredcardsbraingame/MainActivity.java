@@ -347,7 +347,9 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
             } else {
                 Intent intent = new Intent(MainActivity.this, Splash.class);
                 startActivity(intent);
+                
                 finish();
+                System.out.println("Fragment cards ondettach" + fragmentCards.isDetached());
             }
         }
     }
