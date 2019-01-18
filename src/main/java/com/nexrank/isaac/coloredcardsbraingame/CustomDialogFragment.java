@@ -143,7 +143,18 @@ public class CustomDialogFragment extends DialogFragment {
             button_1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    dismiss();
+                    // Add the bonus time
                     communicator.showRewardedVideoAd();
+                }
+            });
+
+            button_2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dismiss();
+                    // Restart the level
+                    communicator.restartGameLevel();
                 }
             });
         }
