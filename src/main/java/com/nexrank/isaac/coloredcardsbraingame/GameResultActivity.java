@@ -29,12 +29,12 @@ public class GameResultActivity extends AppCompatActivity {
 
     private void initiateViews() {
         textView_Header = findViewById(R.id.textView_ResultsHeader);
-        textView_LevelTimeLeft = findViewById(R.id.textView_LevelTimeLeft);
-        textView_LevelPoints = findViewById(R.id.textView_YourLevelPoints);
-        textView_PointsNeeded = findViewById(R.id.textView_LevelPoints);
-        textView_CorrectAnswers = findViewById(R.id.textView_YourCorrectAnswers);
-        textView_WrongAnswers = findViewById(R.id.textView_YourWrongAnswers);
-        textView_SkippedAnswers = findViewById(R.id.textView_YourSkippedAnswers);
+        textView_LevelTimeLeft = findViewById(R.id.textView_LevelTimeLeftLabel);
+        textView_LevelPoints = findViewById(R.id.textView_YourLevelPoints_Label);
+        textView_PointsNeeded = findViewById(R.id.textView_LevelPointsLabel);
+        textView_CorrectAnswers = findViewById(R.id.textView_YourCorrectAnswers_Label);
+        textView_WrongAnswers = findViewById(R.id.textView_YourWrongAnswers_Label);
+        textView_SkippedAnswers = findViewById(R.id.textView_YourSkippedAnswers_Label);
     }
 
     private void assignValuesToViews() {
@@ -47,30 +47,35 @@ public class GameResultActivity extends AppCompatActivity {
         int minutes = (int) (userProgressBundle.getLong("timeLeft") / 1000) / 60;
         int secondsLeft = (int) (userProgressBundle.getLong("timeLeft") / 1000) % 60; // Convert the time left on the clock in seconds
         if (minutes > 0) {
-            formattedTimeLeft = String.format(Locale.getDefault(), "%dmin and %02ds", minutes, secondsLeft);
+            formattedTimeLeft = String.format(Locale.getDefault(), "%dmin and %02ds left.", minutes, secondsLeft);
         } else {
-            formattedTimeLeft = String.format(Locale.getDefault(), "%02d seconds", secondsLeft);
+            formattedTimeLeft = String.format(Locale.getDefault(), "%02d seconds left.", secondsLeft);
         }
-        textView_LevelTimeLeft.setText(formattedTimeLeft);
+        textView_LevelTimeLeft.append(formattedTimeLeft);
 
         // Display points accumulated
         int pointsAccumulated = userProgressBundle.getInt("pointsAccumulated");
-        textView_LevelPoints.setText(String.valueOf(pointsAccumulated));
+        String pointsAccumulatedMSG = pointsAccumulated + " points.";
+        textView_LevelPoints.append(pointsAccumulatedMSG);
 
         // Display points to reach
         int pointsToReach = userProgressBundle.getInt("pointsToReach");
-        textView_PointsNeeded.setText(String.valueOf(pointsToReach));
+        String pointsToReachMSG = pointsToReach + " points.";
+        textView_PointsNeeded.append(pointsToReachMSG);
 
         // Display correct cards
         int correctAnswerCount = gameResultBundle.getInt("correctAnswerCount");
-        textView_CorrectAnswers.setText(String.valueOf(correctAnswerCount));
+        String correctAnswersMSG = correctAnswerCount + " correct picks.";
+        textView_CorrectAnswers.append(correctAnswersMSG);
 
         // Display wrong cards
         int wrongAnswerCount = gameResultBundle.getInt("wrongAnswerCount");
-        textView_WrongAnswers.setText(String.valueOf(wrongAnswerCount));
+        String wrongAnswersMSG = wrongAnswerCount + " wrong picks.";
+        textView_WrongAnswers.append(wrongAnswersMSG);
 
         // Display skipped cards
         int skippedAnswerCount = gameResultBundle.getInt("skippedAnswerCount");
-        textView_SkippedAnswers.setText(String.valueOf(skippedAnswerCount));
+        String skippedAnswersMSG = skippedAnswerCount + " times.";
+        textView_SkippedAnswers.append(skippedAnswersMSG);
     }
 }

@@ -1,149 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GameResultActivity"
-    android:gravity="center">
+    tools:context=".GameResultActivity">
 
-    <android.support.constraint.ConstraintLayout
+    <TextView
+        android:id="@+id/textView_ResultsHeader"
+        style="@style/MetaData"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <android.support.constraint.Guideline
-            android:id="@+id/guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.5" />
-
-        <TextView
-            android:id="@+id/textView_ResultsHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Level 1 Results"
-            style="@style/GameResultData"/>
-
-        <TextView
-            android:id="@+id/textView_LevelTimeLeftLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Time Left:"
-            style="@style/GameResultLabel"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textView_ResultsHeader"
-            app:layout_constraintEnd_toStartOf="@id/guideline"/>
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Level 1 Results"
+        android:textColor="@color/darkTextColor"
+        android:textSize="16sp" />
 
 
-        <TextView
-            android:id="@+id/textView_LevelTimeLeft"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            style="@style/GameResultData"
-            app:layout_constraintTop_toBottomOf="@id/textView_ResultsHeader"
-            app:layout_constraintStart_toEndOf="@id/guideline"/>
-
-        <TextView
-            android:id="@+id/textView_YourLevelPoints_Label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Points earned:"
-            style="@style/GameResultLabel"
-            app:layout_constraintTop_toBottomOf="@id/textView_LevelTimeLeftLabel"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/guideline"/>
+    <TextView
+        android:id="@+id/textView_LevelTimeLeftLabel"
+        style="@style/GameResultLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView_ResultsHeader"
+        android:text="You completed Level 1 with" />
 
 
-        <TextView
-            android:id="@+id/textView_YourLevelPoints"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@id/textView_LevelTimeLeft"
-            style="@style/GameResultData"
-            app:layout_constraintStart_toEndOf="@id/guideline"/>
+    <TextView
+        android:id="@+id/textView_YourLevelPoints_Label"
+        style="@style/GameResultLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView_LevelTimeLeftLabel"
+        android:text="You reached Level 2 with " />
 
-        <TextView
-            android:id="@+id/textView_LevelPointsLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Points needed:"
-            style="@style/GameResultLabel"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textView_YourLevelPoints_Label"
-            app:layout_constraintEnd_toStartOf="@id/guideline"/>
+    <TextView
+        android:id="@+id/textView_LevelPointsLabel"
+        style="@style/GameResultLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView_YourLevelPoints_Label"
+        android:text="To progress to Level 2, you needed " />
 
 
-        <TextView
-            android:id="@+id/textView_LevelPoints"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            style="@style/GameResultData"
-            app:layout_constraintTop_toBottomOf="@id/textView_YourLevelPoints"
-            app:layout_constraintStart_toEndOf="@id/guideline"/>
+    <TextView
+        android:id="@+id/textView_YourCorrectAnswers_Label"
+        style="@style/GameResultLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView_LevelPointsLabel"
+        android:text="You made " />
 
+    <TextView
+        android:id="@+id/textView_YourWrongAnswers_Label"
+        style="@style/GameResultLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView_YourCorrectAnswers_Label"
+        android:text="You made " />
 
-        <TextView
-            android:id="@+id/textView_YourCorrectAnswers_Label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Correct cards:"
-            style="@style/GameResultLabel"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textView_LevelPointsLabel"
-            app:layout_constraintEnd_toStartOf="@id/guideline"/>
+    <TextView
+        android:id="@+id/textView_YourSkippedAnswers_Label"
+        style="@style/GameResultLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView_YourWrongAnswers_Label"
+        android:text="You skipped the instructions " />
 
-        <TextView
-            android:id="@+id/textView_YourCorrectAnswers"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            style="@style/GameResultData"
-            app:layout_constraintTop_toBottomOf="@id/textView_LevelPoints"
-            app:layout_constraintStart_toEndOf="@id/guideline"/>
-
-        <TextView
-            android:id="@+id/textView_YourWrongAnswers_Label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Wrong cards:"
-            style="@style/GameResultLabel"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textView_YourCorrectAnswers_Label"
-            app:layout_constraintEnd_toStartOf="@id/guideline"/>
-
-        <TextView
-            android:id="@+id/textView_YourWrongAnswers"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            style="@style/GameResultData"
-            app:layout_constraintTop_toBottomOf="@id/textView_YourCorrectAnswers"
-            app:layout_constraintStart_toEndOf="@id/guideline"/>
-
-        <TextView
-            android:id="@+id/textView_YourSkippedAnswers_Label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Skipped cards:"
-            style="@style/GameResultLabel"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textView_YourWrongAnswers_Label"
-            app:layout_constraintEnd_toStartOf="@id/guideline"/>
-
-        <TextView
-            android:id="@+id/textView_YourSkippedAnswers"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            style="@style/GameResultData"
-            app:layout_constraintTop_toBottomOf="@id/textView_YourWrongAnswers"
-            app:layout_constraintStart_toEndOf="@id/guideline"/>
-
-
-    </android.support.constraint.ConstraintLayout>
 
 </RelativeLayout>
