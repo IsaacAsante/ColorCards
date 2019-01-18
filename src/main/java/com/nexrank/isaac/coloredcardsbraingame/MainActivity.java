@@ -1,5 +1,6 @@
 package com.nexrank.isaac.coloredcardsbraingame;
 
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.support.v4.app.Fragment;
@@ -47,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
 
     private boolean timeIsUp;
     private int gameLevelNo;
+
+    private static final int REQUEST_CODE = 1;
 
     // AdMob ad units
     private AdView mAdView;
@@ -324,6 +327,29 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
             wrongFX.seekTo(0);
         }
         wrongFX.start();
+    }
+
+    public void handleResults() {
+        Intent intent = new Intent(MainActivity.this, GameResultActivity.class);
+        intent.putExtra("gameLevel", gameLevelNo);
+        intent.putExtra("userProgress", fragmentUserProgress.provideUserProgressData()); // Grab points accumulated, points to reach and total points
+        intent.putExtra("gameResult", fragmentResults.provideGameResultInfo()); // Grab the number of correct, wrong and skipped answers
+        startActivityForResult(intent, REQUEST_CODE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE) {
+            // If the user wants to continue playing
+            if (resultCode == -1) {
+                increaseGameLevel();
+            } else {
+                Intent intent = new Intent(MainActivity.this, Splash.class);
+                startActivity(intent);
+                finish();
+            }
+        }
     }
 
     // AdMob Rewarded Video - Real App Unit ID

@@ -21,7 +21,6 @@ public interface Communicator {
     public void restartGameLevel();
     public void increaseGameLevel();
 
-
     // Other fragments may use the following method.
     public void presentNewChallenge();
 
@@ -33,5 +32,7 @@ public interface Communicator {
     // Alerts
     public void showGameOverAlert(GameResult result, long points);
 
+    // Intent
+    public void handleResults();
 
 }

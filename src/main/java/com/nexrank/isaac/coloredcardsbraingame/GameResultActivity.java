@@ -3,6 +3,8 @@ package com.nexrank.isaac.coloredcardsbraingame;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.Locale;
@@ -16,6 +18,8 @@ public class GameResultActivity extends AppCompatActivity {
     private TextView textView_CorrectAnswers;
     private TextView textView_WrongAnswers;
     private TextView textView_SkippedAnswers;
+    private Button button_NextLevel;
+    private Button button_ReturnHome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +29,7 @@ public class GameResultActivity extends AppCompatActivity {
 
         initiateViews();
         assignValuesToViews();
+        setButtonClickListeners();
     }
 
     private void initiateViews() {
@@ -35,6 +40,8 @@ public class GameResultActivity extends AppCompatActivity {
         textView_CorrectAnswers = findViewById(R.id.textView_YourCorrectAnswers_Label);
         textView_WrongAnswers = findViewById(R.id.textView_YourWrongAnswers_Label);
         textView_SkippedAnswers = findViewById(R.id.textView_YourSkippedAnswers_Label);
+        button_NextLevel = findViewById(R.id.button_ProceedToNextLevel);
+        button_ReturnHome = findViewById(R.id.button_ReturnHome);
     }
 
     private void assignValuesToViews() {
@@ -81,5 +88,23 @@ public class GameResultActivity extends AppCompatActivity {
         int skippedAnswerCount = gameResultBundle.getInt("skippedAnswerCount");
         String skippedAnswersMSG = skippedAnswerCount + " times.";
         textView_SkippedAnswers.append(skippedAnswersMSG);
+    }
+
+    public void setButtonClickListeners() {
+        button_NextLevel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setResult(RESULT_OK);
+                finish();
+            }
+        });
+
+        button_ReturnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setResult(RESULT_CANCELED);
+                finish();
+            }
+        });
     }
 }

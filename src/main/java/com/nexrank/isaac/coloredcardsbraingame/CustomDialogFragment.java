@@ -26,6 +26,7 @@ public class CustomDialogFragment extends DialogFragment {
     private static final String ARGS_VICTORY = "argsVictory";
     private static final String ARGS_CURRENT_LEVEL = "argsCurrentLevel";
     private static final String ARGS_FINAL_POITNS = "argsFinalPoints";
+    private static final int REQUEST_CODE = 1;
 
     // Strings
     private final String NEXT_LEVEL = "NEXT LEVEL";
@@ -117,11 +118,7 @@ public class CustomDialogFragment extends DialogFragment {
                 @Override
                 public void onClick(View v) {
                     dismiss(); // Dismiss the fragment
-                    Intent intent = new Intent(getActivity(), GameResultActivity.class);
-                    intent.putExtra("gameLevel", gameCurrentLevelNo);
-                    intent.putExtra("userProgress", communicator.retrieveUserProgressData()); // Grab points accumulated, points to reach and total points
-                    intent.putExtra("gameResult", communicator.retrieveGameResultData()); // Grab the number of correct, wrong and skipped answers
-                    startActivity(intent);
+                    communicator.handleResults();
                 }
             });
 
