@@ -88,6 +88,10 @@ public class GameResultActivity extends AppCompatActivity {
         int skippedAnswerCount = gameResultBundle.getInt("skippedAnswerCount");
         String skippedAnswersMSG = skippedAnswerCount + " times.";
         textView_SkippedAnswers.append(skippedAnswersMSG);
+
+        int nextLevel = gameLevel + 1;
+        String button1Msg = "Start Level " + nextLevel;
+        button_NextLevel.setText(button1Msg);
     }
 
     public void setButtonClickListeners() {
