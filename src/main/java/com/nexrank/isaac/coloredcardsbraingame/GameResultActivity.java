@@ -39,8 +39,12 @@ public class GameResultActivity extends AppCompatActivity {
 
     private void assignValuesToViews() {
         Intent gameIntent = getIntent();
+        int gameLevel = gameIntent.getIntExtra("gameLevel", 0);
         Bundle userProgressBundle = gameIntent.getBundleExtra("userProgress");
         Bundle gameResultBundle = gameIntent.getBundleExtra("gameResult");
+
+        // Display level
+        textView_Header.append(String.valueOf(gameLevel));
 
         // Display the time left
         String formattedTimeLeft; // How the time is displayed
