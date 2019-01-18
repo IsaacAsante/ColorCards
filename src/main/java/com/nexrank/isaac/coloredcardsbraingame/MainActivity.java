@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -347,9 +348,8 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
             } else {
                 Intent intent = new Intent(MainActivity.this, Splash.class);
                 startActivity(intent);
-                
-                finish();
-                System.out.println("Fragment cards ondettach" + fragmentCards.isDetached());
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                finish(); // Does not kill the activity
             }
         }
     }
