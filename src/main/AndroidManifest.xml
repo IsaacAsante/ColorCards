@@ -33,7 +33,9 @@
             android:name="applovin.sdk.key"
             android:value="lfeQQPe2hVpPaWqW8rDO9sKhVG27SVrVM7fOEXW5ZeOR_dz-sE59sNwta0Hh7NAqeNpaWNKNDnF2ZZXzx8iQBH" />
 
-        <activity android:name=".GameResultActivity" />
+        <activity android:name=".GameResultActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.applovin.adview.AppLovinInterstitialActivity"
             android:configChanges="orientation|screenSize" />
@@ -41,7 +43,9 @@
             android:name="com.applovin.adview.AppLovinConfirmationActivity"
             android:configChanges="orientation|screenSize" />
         <activity android:name=".Splash"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
