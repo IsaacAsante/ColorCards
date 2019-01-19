@@ -21,6 +21,15 @@ public class GameResultActivity extends AppCompatActivity {
     private Button button_NextLevel;
     private Button button_ReturnHome;
 
+    // Shared Preference
+    private final String KEY_POINTS_ACCUMULATED = "pointsAccumulated";
+    private final String KEY_POINTS_TO_REACH = "pointsToReach";
+    private final String KEY_TIME_LEFT = "timeLeft";
+    private final String KEY_CORRECT_ANSWER_COUNT = "correctAnswerCount";
+    private final String KEY_WRONG_ANSWER_COUNT = "wrongAnswerCount";
+    private final String KEY_SKIPPED_ANSWER_COUNT = "skippedAnswerCount";
+    private final String KEY_GAME_LEVEL = "gameLevel";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +55,7 @@ public class GameResultActivity extends AppCompatActivity {
 
     private void assignValuesToViews() {
         Intent gameIntent = getIntent();
-        int gameLevel = gameIntent.getIntExtra("gameLevel", 0);
+        int gameLevel = gameIntent.getIntExtra(KEY_GAME_LEVEL, 0);
         int nextLevel = gameLevel + 1;
         Bundle userProgressBundle = gameIntent.getBundleExtra("userProgress");
         Bundle gameResultBundle = gameIntent.getBundleExtra("gameResult");
@@ -56,8 +65,8 @@ public class GameResultActivity extends AppCompatActivity {
 
         // Display the time left
         String formattedTimeLeft; // How the time is displayed
-        int minutes = (int) (userProgressBundle.getLong("timeLeft") / 1000) / 60;
-        int secondsLeft = (int) (userProgressBundle.getLong("timeLeft") / 1000) % 60; // Convert the time left on the clock in seconds
+        int minutes = (int) (userProgressBundle.getLong(KEY_TIME_LEFT) / 1000) / 60;
+        int secondsLeft = (int) (userProgressBundle.getLong(KEY_TIME_LEFT) / 1000) % 60; // Convert the time left on the clock in seconds
         if (minutes > 0) {
             formattedTimeLeft = String.format(Locale.getDefault(), "%d with %dmin and %02ds left on the clock.", gameLevel, minutes, secondsLeft);
         } else {
@@ -66,22 +75,22 @@ public class GameResultActivity extends AppCompatActivity {
         textView_LevelTimeLeft.append(formattedTimeLeft);
 
         // Display points accumulated
-        int pointsAccumulated = userProgressBundle.getInt("pointsAccumulated");
+        int pointsAccumulated = userProgressBundle.getInt(KEY_POINTS_ACCUMULATED);
         String pointsAccumulatedMSG = nextLevel + " with " + pointsAccumulated + " points.";
         textView_LevelPoints.append(pointsAccumulatedMSG);
 
         // Display points to reach
-        int pointsToReach = userProgressBundle.getInt("pointsToReach");
+        int pointsToReach = userProgressBundle.getInt(KEY_POINTS_TO_REACH);
         String pointsToReachMSG = nextLevel + ", you needed a minimum of " + pointsToReach + " points.";
         textView_PointsNeeded.append(pointsToReachMSG);
 
         // Display correct cards
-        int correctAnswerCount = gameResultBundle.getInt("correctAnswerCount");
+        int correctAnswerCount = gameResultBundle.getInt(KEY_CORRECT_ANSWER_COUNT);
         String correctAnswersMSG = correctAnswerCount + " correct picks.";
         textView_CorrectAnswers.append(correctAnswersMSG);
 
         // Display wrong cards
-        int wrongAnswerCount = gameResultBundle.getInt("wrongAnswerCount");
+        int wrongAnswerCount = gameResultBundle.getInt(KEY_WRONG_ANSWER_COUNT);
         String wrongAnswersMSG = wrongAnswerCount + " wrong picks.";
         if (wrongAnswerCount > 0) {
             textView_WrongAnswers.append(wrongAnswersMSG);
@@ -90,7 +99,7 @@ public class GameResultActivity extends AppCompatActivity {
         }
 
         // Display skipped cards
-        int skippedAnswerCount = gameResultBundle.getInt("skippedAnswerCount");
+        int skippedAnswerCount = gameResultBundle.getInt(KEY_SKIPPED_ANSWER_COUNT);
         String skippedAnswersMSG = skippedAnswerCount + " times.";
         if (skippedAnswerCount > 0) {
             textView_SkippedAnswers.append(skippedAnswersMSG);

@@ -1,6 +1,7 @@
 package com.nexrank.isaac.coloredcardsbraingame;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.support.v4.app.Fragment;
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
 
     private boolean timeIsUp;
     private int gameLevelNo;
+    private boolean existingGame; // true if the player is resuming a game
 
     // Intent to GameResultActivity
     private static final int REQUEST_CODE = 2;
@@ -60,6 +62,15 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
     // AdMob ad units
     private AdView mAdView;
     private RewardedVideoAd mRewardedVideoAd;
+
+    // Shared Preferences
+    private final String KEY_POINTS_ACCUMULATED = "pointsAccumulated";
+    private final String KEY_POINTS_TO_REACH = "pointsToReach";
+    private final String KEY_TIME_LEFT = "timeLeft";
+    private final String KEY_CORRECT_ANSWER_COUNT = "correctAnswerCount";
+    private final String KEY_WRONG_ANSWER_COUNT = "wrongAnswerCount";
+    private final String KEY_SKIPPED_ANSWER_COUNT = "skippedAnswerCount";
+    private final String KEY_GAME_LEVEL = "gameLevel";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,13 +88,18 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         correctFX = MediaPlayer.create(this, R.raw.correct);
         wrongFX = MediaPlayer.create(this, R.raw.error);
 
+        // Default game state
         timeIsUp = false;
         gameLevelNo = 1;
+        existingGame = false;
 
         ConnectFragments();
 
         // Determine whether a game is a NEW game or an EXISTING one.
         getGameType();
+
+        // Restore any existing game if there is
+        restoreExistingGame();
 
         // AppLovin User Consent (EU Laws)
         AppLovinPrivacySettings.setHasUserConsent(true, MainActivity.this);
@@ -119,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         try {
             int gameType = getIntent().getIntExtra(KEY_GAME_TYPE, -1);
             if (gameType == EXISTING_GAME) {
-                Toast.makeText(this, "This is an existing game", Toast.LENGTH_LONG).show();
+                existingGame = true;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -140,6 +156,19 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         transaction.replace(R.id.frameLayout_results, fragmentResults, "FragmentResults");
         transaction.replace(R.id.frameLayout_UserProgress, fragmentUserProgress, "FragmentUserProgress");
         transaction.commit();
+    }
+
+    private void restoreExistingGame() {
+        if (existingGame) {
+            SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+            fragmentUserProgress.setPointsAccumulated(sharedPreferences.getInt(KEY_POINTS_ACCUMULATED, 0));
+            fragmentUserProgress.setPointsToReach(sharedPreferences.getInt(KEY_POINTS_TO_REACH, 0));
+            fragmentUserProgress.setMillisForCurrentLevel(sharedPreferences.getLong(KEY_TIME_LEFT, 60000)); // 1min default
+            fragmentResults.setCorrectAnswerCount(sharedPreferences.getInt(KEY_CORRECT_ANSWER_COUNT, 0));
+            fragmentResults.setWrongAnswerCount(sharedPreferences.getInt(KEY_WRONG_ANSWER_COUNT, 0));
+            fragmentResults.setSkippedAnswerCount(sharedPreferences.getInt(KEY_SKIPPED_ANSWER_COUNT, 0));
+            gameLevelNo = sharedPreferences.getInt(KEY_GAME_LEVEL, 1); // Level 1 as the default
+        }
     }
 
     @Override
@@ -166,8 +195,6 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
             System.out.println("CustomDialogFragment onAttachFragment");
         }
     }
-
-
 
     @Override
     public void increaseQuestionID() {
@@ -222,6 +249,14 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         } else {
             return false;
         }
+    }
+
+    @Override
+    public boolean isExistingGame() {
+        if (existingGame) {
+            return true;
+        }
+        return false;
     }
 
     public void setTimeUp(boolean status) {
@@ -341,7 +376,7 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
 
     public void handleResults() {
         Intent intent = new Intent(MainActivity.this, GameResultActivity.class);
-        intent.putExtra("gameLevel", gameLevelNo);
+        intent.putExtra(KEY_GAME_LEVEL, gameLevelNo);
         intent.putExtra("userProgress", fragmentUserProgress.provideUserProgressData()); // Grab points accumulated, points to reach and total points
         intent.putExtra("gameResult", fragmentResults.provideGameResultInfo()); // Grab the number of correct, wrong and skipped answers
         startActivityForResult(intent, REQUEST_CODE);
@@ -441,4 +476,22 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         super.onBackPressed();
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        Bundle userProgressBundle = fragmentUserProgress.provideUserProgressData();
+        Bundle gameResults = fragmentResults.provideGameResultInfo();
+        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(KEY_GAME_LEVEL, gameLevelNo);
+        editor.putInt(KEY_POINTS_ACCUMULATED, userProgressBundle.getInt(KEY_POINTS_ACCUMULATED));
+        editor.putInt(KEY_POINTS_TO_REACH, userProgressBundle.getInt(KEY_POINTS_TO_REACH));
+        editor.putLong(KEY_TIME_LEFT, userProgressBundle.getLong(KEY_TIME_LEFT));
+        editor.putInt(KEY_CORRECT_ANSWER_COUNT, gameResults.getInt(KEY_CORRECT_ANSWER_COUNT));
+        editor.putInt(KEY_WRONG_ANSWER_COUNT, gameResults.getInt(KEY_WRONG_ANSWER_COUNT));
+        editor.putInt(KEY_SKIPPED_ANSWER_COUNT, gameResults.getInt(KEY_SKIPPED_ANSWER_COUNT));
+
+        editor.apply(); // Write the updates to the disk asynchronously to avoid hanging on the UI thread.
+    }
 }

@@ -22,6 +22,11 @@ public class FragmentResults extends Fragment {
 
     private Communicator communicator;
 
+    // Shared Preferences
+    private final String KEY_CORRECT_ANSWER_COUNT = "correctAnswerCount";
+    private final String KEY_WRONG_ANSWER_COUNT = "wrongAnswerCount";
+    private final String KEY_SKIPPED_ANSWER_COUNT = "skippedAnswerCount";
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -42,16 +47,16 @@ public class FragmentResults extends Fragment {
         communicator = (Communicator) context;
     }
 
-    public int getCorrectAnswerCount() {
-        return correctAnswerCount;
+    public void setCorrectAnswerCount(int correctAnswerCount) {
+        this.correctAnswerCount = correctAnswerCount;
     }
 
-    public int getWrongAnswerCount() {
-        return wrongAnswerCount;
+    public void setWrongAnswerCount(int wrongAnswerCount) {
+        this.wrongAnswerCount = wrongAnswerCount;
     }
 
-    public int getSkippedAnswerCount() {
-        return skippedAnswerCount;
+    public void setSkippedAnswerCount(int skippedAnswerCount) {
+        this.skippedAnswerCount = skippedAnswerCount;
     }
 
     public void increaseCorrectAnswerCount() {
@@ -83,9 +88,9 @@ public class FragmentResults extends Fragment {
 
     public Bundle provideGameResultInfo() {
         Bundle gameResult = new Bundle();
-        gameResult.putInt("correctAnswerCount", correctAnswerCount);
-        gameResult.putInt("wrongAnswerCount", wrongAnswerCount);
-        gameResult.putInt("skippedAnswerCount", skippedAnswerCount);
+        gameResult.putInt(KEY_CORRECT_ANSWER_COUNT, correctAnswerCount);
+        gameResult.putInt(KEY_WRONG_ANSWER_COUNT, wrongAnswerCount);
+        gameResult.putInt(KEY_SKIPPED_ANSWER_COUNT, skippedAnswerCount);
         return gameResult;
     }
 

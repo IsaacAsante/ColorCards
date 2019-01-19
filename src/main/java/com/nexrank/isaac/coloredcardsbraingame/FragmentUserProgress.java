@@ -44,6 +44,11 @@ public class FragmentUserProgress extends Fragment {
 
     private Communicator communicator;
 
+    // Shared Preferences
+    private final String KEY_POINTS_ACCUMULATED = "pointsAccumulated";
+    private final String KEY_POINTS_TO_REACH = "pointsToReach";
+    private final String KEY_TIME_LEFT = "timeLeft";
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -60,10 +65,9 @@ public class FragmentUserProgress extends Fragment {
         // By default, the bonus button should be hidden until the Rewarded Video Ad has finished loading.
         button_BonusTime.setVisibility(View.INVISIBLE);
 
-        // Countdown-related variables
-        millisForCurrentLevel = INITIAL_TIME; // Level 1
+        // Countdown-related variables and methods
         timeUp = false;
-        pointsToReach = INITIAL_POINTS_TO_REACH;
+        initiateUserProgress();
         pointsIncrementor = INITIAL_POINTS_INCREMENTOR;
         pointsDeductor = INITIAL_POINTS_DEDUCTOR;
 
@@ -89,6 +93,26 @@ public class FragmentUserProgress extends Fragment {
                 }
             });
         }
+    }
+
+    public void initiateUserProgress() {
+        if (!communicator.isExistingGame()) {
+            // For new games
+            millisForCurrentLevel = INITIAL_TIME; // 1min in Level 1
+            pointsToReach = INITIAL_POINTS_TO_REACH;
+        }
+    }
+
+    public void setPointsAccumulated(int pointsAccumulated) {
+        this.pointsAccumulated = pointsAccumulated;
+    }
+
+    public void setPointsToReach(int pointsToReach) {
+        this.pointsToReach = pointsToReach;
+    }
+
+    public void setMillisForCurrentLevel(long millisForCurrentLevel) {
+        this.millisForCurrentLevel = millisForCurrentLevel;
     }
 
     public void displayPointAccumulated() {
@@ -188,6 +212,7 @@ public class FragmentUserProgress extends Fragment {
     public void cancelTimer() {
         if(timer != null) {
             timer.cancel();
+            System.out.println("The timer is " + millisForCurrentLevel);
         }
     }
 
@@ -222,9 +247,9 @@ public class FragmentUserProgress extends Fragment {
 
     public Bundle provideUserProgressData() {
         Bundle progressData = new Bundle();
-        progressData.putInt("pointsAccumulated", pointsAccumulated);
-        progressData.putInt("pointsToReach", pointsToReach);
-        progressData.putLong("timeLeft", millisForCurrentLevel);
+        progressData.putInt(KEY_POINTS_ACCUMULATED, pointsAccumulated);
+        progressData.putInt(KEY_POINTS_TO_REACH, pointsToReach);
+        progressData.putLong(KEY_TIME_LEFT, millisForCurrentLevel);
         return progressData;
     }
 
@@ -263,4 +288,9 @@ public class FragmentUserProgress extends Fragment {
         }
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        cancelTimer();
+    }
 }
