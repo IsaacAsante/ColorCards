@@ -140,15 +140,6 @@ public class FragmentUserProgress extends Fragment {
     // Methods for the points below
     // pointsAccumulated, pointsToReach, pointsIncrementor, pointsDeductor, totalPoints
 
-    // Getters
-    public int getPointsAccumulated() {
-        return pointsAccumulated;
-    }
-
-    public int getPointsToReach() {
-        return pointsToReach;
-    }
-
     public void increaseUserPoints() {
         pointsAccumulated += pointsIncrementor;
         displayPointAccumulated();
@@ -168,14 +159,6 @@ public class FragmentUserProgress extends Fragment {
 
     public void increasePointsToReach() {
         pointsToReach *= INCREMENT_COEFFICIENT;
-    }
-
-    public void increaseUserPointsAccumulation() {
-        pointsIncrementor *= INCREMENT_COEFFICIENT;
-    }
-
-    public void increaseUserPointsDeduction() {
-        pointsDeductor *= DECREMENT_COEFFICIENT;
     }
 
     public void resetUserPoints() {
@@ -251,41 +234,6 @@ public class FragmentUserProgress extends Fragment {
         progressData.putInt(KEY_POINTS_TO_REACH, pointsToReach);
         progressData.putLong(KEY_TIME_LEFT, millisForCurrentLevel);
         return progressData;
-    }
-
-
-    public static class GameLevel {
-        private int levelNo;
-        private Difficulty levelDifficulty;
-
-        enum Difficulty {
-            EASY, MEDIUM, HARD
-        }
-
-        public GameLevel() {
-            levelNo = 1;
-            levelDifficulty = Difficulty.EASY;
-        }
-
-        public int getLevelNo() {
-            return levelNo;
-        }
-
-        public void setLevelNo(int levelNo) {
-            this.levelNo = levelNo;
-        }
-
-        public Difficulty getLevelDifficulty() {
-            return levelDifficulty;
-        }
-
-        public void setLevelDifficulty(Difficulty levelDifficulty) {
-            this.levelDifficulty = levelDifficulty;
-        }
-
-        public void increaseLevel() {
-            levelNo++;
-        }
     }
 
     @Override

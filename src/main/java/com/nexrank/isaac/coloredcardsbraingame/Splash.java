@@ -1,6 +1,7 @@
 package com.nexrank.isaac.coloredcardsbraingame;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,7 +28,6 @@ public class Splash extends AppCompatActivity {
         button_PlayNow = findViewById(R.id.button_PlayNow);
         button_ResumeGame = findViewById(R.id.button_ResumeGame);
         button_Instruction = findViewById(R.id.button_ViewInstructions);
-        button_ResumeGame.setVisibility(View.GONE); // By default, it should not take any space
 
         setButtonOnClickListeners();
     }
@@ -65,6 +65,16 @@ public class Splash extends AppCompatActivity {
                 button_PlayNow.setText("PLAY NOW");
                 button_ResumeGame.setVisibility(View.GONE);
             }
+        }
+    }
+
+    public void checkSharedPreferenceData() {
+        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+        // If all saved items are in the sharedPreferences file
+        if (sharedPreferences.getAll().size() != 7) {
+            button_ResumeGame.setVisibility(View.GONE); // By default, it should not take any space
+        } else {
+            button_ResumeGame.setVisibility(View.VISIBLE); // By default, it should not take any space
         }
     }
 }
