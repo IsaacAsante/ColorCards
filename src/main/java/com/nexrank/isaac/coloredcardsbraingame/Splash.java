@@ -42,7 +42,7 @@ public class Splash extends AppCompatActivity {
             }
         });
 
-        button_Instruction.setOnClickListener(new View.OnClickListener() {
+        button_ResumeGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Splash.this, MainActivity.class);
