@@ -102,7 +102,7 @@ public class GameResultActivity extends AppCompatActivity {
         button_NextLevel.setText(button1Msg);
     }
 
-    public void setButtonClickListeners() {
+    private void setButtonClickListeners() {
         button_NextLevel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -50,7 +50,12 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
     private boolean timeIsUp;
     private int gameLevelNo;
 
-    private static final int REQUEST_CODE = 1;
+    // Intent to GameResultActivity
+    private static final int REQUEST_CODE = 2;
+    private final String KEY_GAME_STATUS = "status";
+    private final String KEY_GAME_TYPE = "type";
+    private final int GAME_RESUME = 0;
+    private final int EXISTING_GAME = 0;
 
     // AdMob ad units
     private AdView mAdView;
@@ -76,6 +81,9 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         gameLevelNo = 1;
 
         ConnectFragments();
+
+        // Determine whether a game is a NEW game or an EXISTING one.
+        getGameType();
 
         // AppLovin User Consent (EU Laws)
         AppLovinPrivacySettings.setHasUserConsent(true, MainActivity.this);
@@ -105,6 +113,17 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(MainActivity.this);
         mRewardedVideoAd.setRewardedVideoAdListener(MainActivity.this);
         loadRewardedVideoAd();
+    }
+
+    private void getGameType() {
+        try {
+            int gameType = getIntent().getIntExtra(KEY_GAME_TYPE, -1);
+            if (gameType == EXISTING_GAME) {
+                Toast.makeText(this, "This is an existing game", Toast.LENGTH_LONG).show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void ConnectFragments() {
@@ -346,10 +365,10 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
             if (resultCode == -1) {
                 increaseGameLevel();
             } else {
-                Intent intent = new Intent(MainActivity.this, Splash.class);
-                startActivity(intent);
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                finish(); // Does not kill the activity
+                Intent intent = new Intent();
+                intent.putExtra(KEY_GAME_STATUS, GAME_RESUME); // Notify Splash.java that the user could have progressed, but returned to the Splash screen.
+                setResult(RESULT_OK, intent);
+                finish();
             }
         }
     }
