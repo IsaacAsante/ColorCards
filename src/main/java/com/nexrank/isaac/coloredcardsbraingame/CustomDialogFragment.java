@@ -23,10 +23,10 @@ import com.google.android.gms.common.util.Base64Utils;
 public class CustomDialogFragment extends DialogFragment {
 
     // Fragment arguments to pass when a new instance is created
+    private static final String INSTANCE_TYPE = "instanceType";
     private static final String ARGS_VICTORY = "argsVictory";
     private static final String ARGS_CURRENT_LEVEL = "argsCurrentLevel";
     private static final String ARGS_FINAL_POITNS = "argsFinalPoints";
-    private static final int REQUEST_CODE = 1;
 
     // Strings
     private final String NEXT_LEVEL = "NEXT LEVEL";
@@ -49,11 +49,21 @@ public class CustomDialogFragment extends DialogFragment {
     public static CustomDialogFragment newInstance(Boolean victory, int levelNo, long points) {
         CustomDialogFragment dialogFragment = new CustomDialogFragment();
         Bundle args = new Bundle();
+        args.putSerializable(INSTANCE_TYPE, DialogType.GAME_OVER_DIALOG);
         args.putBoolean(ARGS_VICTORY, victory);
         args.putInt(ARGS_CURRENT_LEVEL, levelNo);
         args.putLong(ARGS_FINAL_POITNS, points);
         dialogFragment.setArguments(args);
         dialogFragment.setCancelable(false); // Prevent the fragment from closing when the user taps outside
+        return dialogFragment;
+    }
+
+    public static CustomDialogFragment newInstance(DialogType dialogType) {
+        CustomDialogFragment dialogFragment = new CustomDialogFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(INSTANCE_TYPE, dialogType);
+        dialogFragment.setArguments(args);
+        dialogFragment.setCancelable(false); // Prevent the dialog from dismissing until the player makes a selection
         return dialogFragment;
     }
 
@@ -76,9 +86,20 @@ public class CustomDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         // Receive result from the activity if arguments are set
         if (getArguments() != null) {
-            gameResultVictory = getArguments().getBoolean(ARGS_VICTORY);
-            gameCurrentLevelNo = getArguments().getInt(ARGS_CURRENT_LEVEL);
-            gameFinalPoints = getArguments().getLong(ARGS_FINAL_POITNS);
+            if(getArguments().getSerializable(INSTANCE_TYPE) == DialogType.GAME_OVER_DIALOG) {
+                gameResultVictory = getArguments().getBoolean(ARGS_VICTORY);
+                gameCurrentLevelNo = getArguments().getInt(ARGS_CURRENT_LEVEL);
+                gameFinalPoints = getArguments().getLong(ARGS_FINAL_POITNS);
+            }
+            else if (getArguments().getSerializable(INSTANCE_TYPE) == DialogType.PAUSE_GAME_DIALOG) {
+                Toast.makeText(getActivity(), "The game is paused.", Toast.LENGTH_SHORT).show();
+            }
+            else if (getArguments().getSerializable(INSTANCE_TYPE) == DialogType.CANCEL_GAME_DIALOG) {
+                Toast.makeText(getActivity(), "The game is canceled.", Toast.LENGTH_SHORT).show();
+            }
+            else if (getArguments().getSerializable(INSTANCE_TYPE) == DialogType.GO_BACK_DIALOG) {
+                Toast.makeText(getActivity(), "You are going to the Splash screen", Toast.LENGTH_SHORT).show();
+            }
         }
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
