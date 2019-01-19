@@ -256,16 +256,6 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
     }
 
     @Override
-    public Bundle retrieveUserProgressData() {
-        return fragmentUserProgress.provideUserProgressData();
-    }
-
-    @Override
-    public Bundle retrieveGameResultData() {
-        return fragmentResults.provideGameResultInfo();
-    }
-
-    @Override
     public void increaseGameLevel() {
         // Similar to restartGameLevel(), but this one increases the game level, points to reach and level time.
         ++gameLevelNo;
@@ -444,6 +434,11 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
     @Override
     public void onBackPressed() {
         timeIsUp = true; // End the game
+        Intent intent = new Intent();
+        intent.putExtra(KEY_GAME_STATUS, GAME_RESUME); // Notify Splash.java that the user could have progressed, but returned to the Splash screen.
+        setResult(RESULT_OK, intent);
+        // finish();
         super.onBackPressed();
     }
+
 }
