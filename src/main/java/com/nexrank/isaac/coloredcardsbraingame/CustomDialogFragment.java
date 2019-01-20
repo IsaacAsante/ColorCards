@@ -5,12 +5,17 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
+import android.view.ActionProvider;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -33,10 +38,15 @@ public class CustomDialogFragment extends DialogFragment {
     private final String VIEW_RESULTS = "VIEW RESULTS";
     private final String ADD_TIME = "ADD 1 MINUTE";
     private final String RESTART = "RESTART";
+    private final String RESUME = "RESUME";
+    private final String GO_BACK = "GO BACK";
 
     private boolean gameResultVictory; // True for Win / False for Loss
     private int gameCurrentLevelNo; // Just-ended level
     private long gameFinalPoints;
+    private boolean gamePaused;
+    private boolean gameCancelled;
+    private boolean gameReturnToSplash;
 
     private TextView textView_dialogTitle;
     private TextView textView_dialogMessage;
@@ -92,13 +102,13 @@ public class CustomDialogFragment extends DialogFragment {
                 gameFinalPoints = getArguments().getLong(ARGS_FINAL_POITNS);
             }
             else if (getArguments().getSerializable(INSTANCE_TYPE) == DialogType.PAUSE_GAME_DIALOG) {
-                Toast.makeText(getActivity(), "The game is paused.", Toast.LENGTH_SHORT).show();
+                gamePaused = true;
             }
             else if (getArguments().getSerializable(INSTANCE_TYPE) == DialogType.CANCEL_GAME_DIALOG) {
-                Toast.makeText(getActivity(), "The game is canceled.", Toast.LENGTH_SHORT).show();
+                gameCancelled = true;
             }
             else if (getArguments().getSerializable(INSTANCE_TYPE) == DialogType.GO_BACK_DIALOG) {
-                Toast.makeText(getActivity(), "You are going to the Splash screen", Toast.LENGTH_SHORT).show();
+                gameReturnToSplash = true;
             }
         }
 
@@ -143,7 +153,35 @@ public class CustomDialogFragment extends DialogFragment {
                 }
             });
 
-        } else {
+        }
+        else if (gamePaused) {
+            String dialogTitle = "Game Paused";
+            String dialogMSG = "The game is currently paused. We're waiting for you to come back.";
+            textView_dialogTitle.setText(dialogTitle);
+            textView_dialogMessage.setText(dialogMSG);
+            button_1.setText(RESUME);
+            button_2.setText(GO_BACK);
+
+            button_1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dismiss();
+                    MenuItem item = communicator.findMenuItemByID(R.id.PauseGame);
+                    communicator.resumeGame(item);
+                }
+            });
+
+            button_2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dismiss();
+                    communicator.goBackSaveState();
+                    getActivity().finish();
+                }
+            });
+        }
+
+        else {
             // If the player lost
             String dialogTitle = "You Failed!";
             String dialogMsg = "Sorry, you did not gather enough points." +

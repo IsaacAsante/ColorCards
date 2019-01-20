@@ -8,9 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -32,6 +30,10 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
     // TODO: Fix all warnings in the code
     // TODO: Remove all unnecessary library imports
     // TODO: Create an account on AppAnie for ASO
+
+    // Menu
+    private Menu menu;
+
     // Fragments
     private FragmentCards fragmentCards;
     private FragmentInstruction fragmentInstruction;
@@ -78,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
+        this.menu = menu;
         return true;
     }
 
@@ -223,27 +226,33 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         }
     }
 
+    @Override
+    // Use this method to access menu item from fragments
+    public MenuItem findMenuItemByID(int id) {
+        return menu.findItem(id);
+    }
+
+    // The MenuItem parameter is required, otherwise, the application will crash.
     public void pauseActiveGame(MenuItem item) {
-        // The MenuItem parameter is required, otherwise, the application will crash.
+        // Create a new custom dialog and set it as a Pause Dialog using the correct enum value.
+        CustomDialogFragment dialogFragment = CustomDialogFragment.newInstance(DialogType.PAUSE_GAME_DIALOG);
+        getSupportFragmentManager().beginTransaction().add(dialogFragment, "PauseDialog").commit();
+
         fragmentUserProgress.cancelTimer();
         timeIsUp = true; // End the game
         item.setIcon(R.drawable.menu_icon_resume);
         item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                restartGame(item);
+                resumeGame(item);
                 return true;
             }
         });
         saveGameData(); // Capture all the important game data
-        Toast.makeText(this, "The game has been paused.", Toast.LENGTH_SHORT).show();
-
-        // Create a new custom dialog
-        // CustomDialogFragment dialogFragment = CustomDialogFragment.newInstance(DialogType.PAUSE_GAME_DIALOG);
-        // getSupportFragmentManager().beginTransaction().add(dialogFragment, "PauseDialog").commit();
     }
 
-    public void restartGame(MenuItem item) {
+    @Override
+    public void resumeGame(MenuItem item) {
         timeIsUp = false;
         fragmentUserProgress.startTimer();
         item.setIcon(R.drawable.menu_icon_pause);
@@ -459,6 +468,14 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         }
     }
 
+    @Override
+    public void goBackSaveState() {
+        timeIsUp = true; // End the game
+        Intent intent = new Intent();
+        intent.putExtra(KEY_GAME_STATUS, GAME_RESUME); // Notify Splash.java that the user could have progressed, but returned to the Splash screen.
+        setResult(RESULT_OK, intent);
+    }
+
     // AdMob Rewarded Video - Real App Unit ID
     // TODO: Remove the test device method
     private void loadRewardedVideoAd() {
@@ -529,10 +546,7 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
 
     @Override
     public void onBackPressed() {
-        timeIsUp = true; // End the game
-        Intent intent = new Intent();
-        intent.putExtra(KEY_GAME_STATUS, GAME_RESUME); // Notify Splash.java that the user could have progressed, but returned to the Splash screen.
-        setResult(RESULT_OK, intent);
+        goBackSaveState(); // This will also call the setResult() method.
         // finish();
         super.onBackPressed();
     }
