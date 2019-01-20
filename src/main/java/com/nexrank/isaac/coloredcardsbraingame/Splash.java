@@ -63,10 +63,12 @@ public class Splash extends AppCompatActivity {
                 System.out.println("Existing - The number of preferences: " + getSharedPreferences(getString(R.string.Existing_Game_Info), MODE_PRIVATE).getAll().size());
                 button_ResumeGame.setVisibility(View.VISIBLE);
                 button_PlayNow.setText("NEW GAME");
+                Log.i("Splash can access", String.valueOf(getSharedPreferences(getString(R.string.Existing_Game_Info), MODE_PRIVATE).getAll().size()));
             }
             else {
                 button_PlayNow.setText("PLAY NOW");
                 button_ResumeGame.setVisibility(View.GONE);
+                Log.i("Splash can access", String.valueOf(getSharedPreferences(getString(R.string.Existing_Game_Info), MODE_PRIVATE).getAll().size()));
             }
         }
     }

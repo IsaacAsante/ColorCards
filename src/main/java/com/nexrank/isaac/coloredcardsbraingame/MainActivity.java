@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -64,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
     private final String KEY_GAME_STATUS = "status";
     private final String KEY_GAME_TYPE = "type";
     private final int GAME_RESUME = 0;
+    private final int NEW_GAME = 1;
     private final int EXISTING_GAME = 0;
 
     // AdMob ad units
@@ -284,11 +286,18 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         // Remove all stored data
         SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.Existing_Game_Info), MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.remove(KEY_GAME_LEVEL);
+        for (String key : sharedPreferences.getAll().keySet()) {
+            editor.remove(key);
+        }
+        Log.i("Items before", String.valueOf(sharedPreferences.getAll().size()));
         editor.commit();
+        Log.i("Items after", String.valueOf(sharedPreferences.getAll().size()));
+
+        // Notify Splash.java that the user has canceled their progress
+        Intent intent = new Intent();
+        intent.putExtra(KEY_GAME_STATUS, NEW_GAME); // Notify Splash.java that the user could have progressed, but returned to the Splash screen.
+        setResult(RESULT_OK, intent);
         finish();
-
-
     }
 
     @Override
@@ -499,6 +508,7 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         Intent intent = new Intent();
         intent.putExtra(KEY_GAME_STATUS, GAME_RESUME); // Notify Splash.java that the user could have progressed, but returned to the Splash screen.
         setResult(RESULT_OK, intent);
+        finish();
     }
 
     // AdMob Rewarded Video - Real App Unit ID

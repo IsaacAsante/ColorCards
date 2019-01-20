@@ -166,7 +166,12 @@ public class FragmentUserProgress extends Fragment {
     }
 
     public void resetUserPointsTextColor() {
-        textView_PointsAccumulated.setTextColor(ContextCompat.getColor(getActivity(), R.color.grey));
+        // This keeps returning exceptions
+        try {
+            textView_PointsAccumulated.setTextColor(ContextCompat.getColor(getActivity(), R.color.grey));
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
     }
 
     public void startTimer() {
