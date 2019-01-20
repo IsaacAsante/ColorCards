@@ -158,19 +158,6 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         transaction.commit();
     }
 
-    private void restoreExistingGame() {
-        if (existingGame) {
-            SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.Existing_Game_Info), MODE_PRIVATE);
-            fragmentUserProgress.setPointsAccumulated(sharedPreferences.getInt(KEY_POINTS_ACCUMULATED, 0));
-            fragmentUserProgress.setPointsToReach(sharedPreferences.getInt(KEY_POINTS_TO_REACH, 0));
-            fragmentUserProgress.setMillisForCurrentLevel(sharedPreferences.getLong(KEY_TIME_LEFT, 60000)); // 1min default
-            fragmentResults.setCorrectAnswerCount(sharedPreferences.getInt(KEY_CORRECT_ANSWER_COUNT, 0));
-            fragmentResults.setWrongAnswerCount(sharedPreferences.getInt(KEY_WRONG_ANSWER_COUNT, 0));
-            fragmentResults.setSkippedAnswerCount(sharedPreferences.getInt(KEY_SKIPPED_ANSWER_COUNT, 0));
-            gameLevelNo = sharedPreferences.getInt(KEY_GAME_LEVEL, 1); // Level 1 as the default
-        }
-    }
-
     @Override
     public void onAttachFragment(Fragment fragment) {
         if (fragment instanceof FragmentProgressBar) {
@@ -194,6 +181,47 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
             customDialogFragment.setCommunicator(this);
             System.out.println("CustomDialogFragment onAttachFragment");
         }
+    }
+
+    private void saveGameData() {
+        Bundle userProgressBundle = fragmentUserProgress.provideUserProgressData();
+        Bundle gameResults = fragmentResults.provideGameResultInfo();
+
+        // Access or create a new file
+        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.Existing_Game_Info), MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(KEY_GAME_LEVEL, gameLevelNo);
+        editor.putInt(KEY_POINTS_ACCUMULATED, userProgressBundle.getInt(KEY_POINTS_ACCUMULATED));
+        editor.putInt(KEY_POINTS_TO_REACH, userProgressBundle.getInt(KEY_POINTS_TO_REACH));
+        editor.putLong(KEY_TIME_LEFT, userProgressBundle.getLong(KEY_TIME_LEFT));
+        editor.putInt(KEY_CORRECT_ANSWER_COUNT, gameResults.getInt(KEY_CORRECT_ANSWER_COUNT));
+        editor.putInt(KEY_WRONG_ANSWER_COUNT, gameResults.getInt(KEY_WRONG_ANSWER_COUNT));
+        editor.putInt(KEY_SKIPPED_ANSWER_COUNT, gameResults.getInt(KEY_SKIPPED_ANSWER_COUNT));
+
+        editor.apply(); // Write the updates to the disk asynchronously to avoid hanging on the UI thread.
+    }
+
+    private void restoreExistingGame() {
+        if (existingGame) {
+            SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.Existing_Game_Info), MODE_PRIVATE);
+            fragmentUserProgress.setPointsAccumulated(sharedPreferences.getInt(KEY_POINTS_ACCUMULATED, 0));
+            fragmentUserProgress.setPointsToReach(sharedPreferences.getInt(KEY_POINTS_TO_REACH, 0));
+            fragmentUserProgress.setMillisForCurrentLevel(sharedPreferences.getLong(KEY_TIME_LEFT, 60000)); // 1min default
+            fragmentResults.setCorrectAnswerCount(sharedPreferences.getInt(KEY_CORRECT_ANSWER_COUNT, 0));
+            fragmentResults.setWrongAnswerCount(sharedPreferences.getInt(KEY_WRONG_ANSWER_COUNT, 0));
+            fragmentResults.setSkippedAnswerCount(sharedPreferences.getInt(KEY_SKIPPED_ANSWER_COUNT, 0));
+            gameLevelNo = sharedPreferences.getInt(KEY_GAME_LEVEL, 1); // Level 1 as the default
+        }
+    }
+
+    private void pauseActiveGame() {
+        fragmentUserProgress.cancelTimer();
+        timeIsUp = false; // End the game
+        saveGameData(); // Capture all the important game data
+
+        // Create a new custom dialog
+        CustomDialogFragment dialogFragment = CustomDialogFragment.newInstance(DialogType.PAUSE_GAME_DIALOG);
+        getSupportFragmentManager().beginTransaction().add(dialogFragment, "PauseDialog").commit();
     }
 
     @Override
@@ -480,20 +508,6 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
     protected void onStop() {
         super.onStop();
 
-        Bundle userProgressBundle = fragmentUserProgress.provideUserProgressData();
-        Bundle gameResults = fragmentResults.provideGameResultInfo();
-
-        // Access or create a new file
-        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.Existing_Game_Info), MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt(KEY_GAME_LEVEL, gameLevelNo);
-        editor.putInt(KEY_POINTS_ACCUMULATED, userProgressBundle.getInt(KEY_POINTS_ACCUMULATED));
-        editor.putInt(KEY_POINTS_TO_REACH, userProgressBundle.getInt(KEY_POINTS_TO_REACH));
-        editor.putLong(KEY_TIME_LEFT, userProgressBundle.getLong(KEY_TIME_LEFT));
-        editor.putInt(KEY_CORRECT_ANSWER_COUNT, gameResults.getInt(KEY_CORRECT_ANSWER_COUNT));
-        editor.putInt(KEY_WRONG_ANSWER_COUNT, gameResults.getInt(KEY_WRONG_ANSWER_COUNT));
-        editor.putInt(KEY_SKIPPED_ANSWER_COUNT, gameResults.getInt(KEY_SKIPPED_ANSWER_COUNT));
-
-        editor.apply(); // Write the updates to the disk asynchronously to avoid hanging on the UI thread.
+        saveGameData();
     }
 }
