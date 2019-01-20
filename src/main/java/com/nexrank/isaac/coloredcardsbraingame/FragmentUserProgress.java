@@ -176,7 +176,8 @@ public class FragmentUserProgress extends Fragment {
 
     public void startTimer() {
         System.out.println("Starting the timer now");
-        timer = new CountDownTimer(millisForCurrentLevel, COUNTDOWN_INTERVAL) {
+        // Add 1 second to the time to make up for the delay in the loading of content
+        timer = new CountDownTimer(millisForCurrentLevel + 1000, COUNTDOWN_INTERVAL) {
             @Override
             public void onTick(long millisUntilFinished) {
                 millisForCurrentLevel = millisUntilFinished;
