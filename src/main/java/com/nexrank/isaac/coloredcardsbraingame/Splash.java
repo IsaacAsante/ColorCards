@@ -3,6 +3,7 @@ package com.nexrank.isaac.coloredcardsbraingame;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 
 public class Splash extends AppCompatActivity {
+
+    private View fragmentSplash;
 
     private final int REQUEST_CODE = 1;
     private final String KEY_GAME_TYPE = "type";
@@ -26,6 +29,9 @@ public class Splash extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        fragmentSplash = findViewById(R.id.fragment_Splash);
+        fragmentSplash.setVisibility(View.GONE);
+
         button_PlayNow = findViewById(R.id.button_PlayNow);
         button_ResumeGame = findViewById(R.id.button_ResumeGame);
         button_Instruction = findViewById(R.id.button_ViewInstructions);
@@ -38,6 +44,7 @@ public class Splash extends AppCompatActivity {
         button_PlayNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                fragmentSplash.setVisibility(View.VISIBLE);
                 Intent intent = new Intent(Splash.this, MainActivity.class);
                 intent.putExtra(KEY_GAME_TYPE, NEW_GAME); // New game
                 startActivityForResult(intent, REQUEST_CODE);
@@ -47,6 +54,7 @@ public class Splash extends AppCompatActivity {
         button_ResumeGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                fragmentSplash.setVisibility(View.VISIBLE);
                 Intent intent = new Intent(Splash.this, MainActivity.class);
                 intent.putExtra(KEY_GAME_TYPE, EXISTING_GAME); // Existing game
                 startActivityForResult(intent, REQUEST_CODE);
@@ -57,6 +65,9 @@ public class Splash extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        // First, hide the Splash fragment
+        fragmentSplash.setVisibility(View.GONE);
 
         if (requestCode == REQUEST_CODE && resultCode == -1) {
             if (data.getIntExtra(KEY_GAME_STATUS, 0) == EXISTING_GAME){
