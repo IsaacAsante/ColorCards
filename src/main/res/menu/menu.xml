@@ -4,8 +4,7 @@
     <item android:id="@+id/PauseGame"
         android:title="Pause"
         app:showAsAction="always"
-        android:icon="@drawable/menu_icon_pause"
-        android:onClick="pauseActiveGame"/>
+        android:icon="@drawable/menu_icon_pause" />
 
     <item android:id="@+id/ViewInstructions"
         android:title="View Instructions" />

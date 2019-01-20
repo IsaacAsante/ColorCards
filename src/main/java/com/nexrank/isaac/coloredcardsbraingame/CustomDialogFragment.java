@@ -25,6 +25,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.util.Base64Utils;
 
+import java.io.StringBufferInputStream;
+
 public class CustomDialogFragment extends DialogFragment {
 
     // Fragment arguments to pass when a new instance is created
@@ -180,6 +182,14 @@ public class CustomDialogFragment extends DialogFragment {
                 }
             });
         }
+        else if (gameCancelled) {
+            String dialogTitle = "Cancelling Game";
+            String dialogMSG = "You are about to quit this game and lose all your progress. Do you really wish to cancel?";
+            textView_dialogTitle.setText(dialogTitle);
+            textView_dialogMessage.setText(dialogMSG);
+            button_1.setText("YES, CANCEL");
+            button_2.setText("NO, STAY");
+        }
 
         else {
             // If the player lost
@@ -222,10 +232,5 @@ public class CustomDialogFragment extends DialogFragment {
         customDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         return customDialog;
-    }
-
-    // Used by the main MainActivity
-    public void dismissFragment() {
-        dismiss();
     }
 }

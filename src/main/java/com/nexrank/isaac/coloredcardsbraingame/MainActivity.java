@@ -22,6 +22,8 @@ import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity implements Communicator, RewardedVideoAdListener {
 
     // TODO: Add Resume/Pause/Stop methods for the Reward Ad Video
@@ -82,6 +84,19 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         getMenuInflater().inflate(R.menu.menu, menu);
         this.menu = menu;
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.PauseGame:
+                pauseActiveGame(item);
+                return true;
+            case R.id.QuitGame:
+                quitGame();
+                return true;
+        }
+        return false;
     }
 
     @Override
@@ -241,13 +256,7 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         fragmentUserProgress.cancelTimer();
         timeIsUp = true; // End the game
         item.setIcon(R.drawable.menu_icon_resume);
-        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                resumeGame(item);
-                return true;
-            }
-        });
+
         saveGameData(); // Capture all the important game data
     }
 
@@ -264,6 +273,22 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
             }
         });
         Toast.makeText(this, "The game has resumed.", Toast.LENGTH_SHORT).show();
+    }
+
+    public void quitGame() {
+
+        // End game
+        fragmentUserProgress.cancelTimer();
+        timeIsUp = true;
+
+        // Remove all stored data
+        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.Existing_Game_Info), MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove(KEY_GAME_LEVEL);
+        editor.commit();
+        finish();
+
+
     }
 
     @Override
@@ -554,7 +579,7 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
     @Override
     protected void onStop() {
         super.onStop();
-
+        System.out.println("OnStop method is called.");
         saveGameData();
     }
 }
