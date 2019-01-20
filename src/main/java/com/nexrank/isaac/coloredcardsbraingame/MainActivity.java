@@ -9,6 +9,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -73,8 +76,14 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
     private final String KEY_GAME_LEVEL = "gameLevel";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setTitle("Color Match");
         imageViewCorrect = (ImageView) findViewById(R.id.imageView_Correct);
@@ -214,14 +223,38 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         }
     }
 
-    private void pauseActiveGame() {
+    public void pauseActiveGame(MenuItem item) {
+        // The MenuItem parameter is required, otherwise, the application will crash.
         fragmentUserProgress.cancelTimer();
-        timeIsUp = false; // End the game
+        timeIsUp = true; // End the game
+        item.setIcon(R.drawable.menu_icon_resume);
+        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                restartGame(item);
+                return true;
+            }
+        });
         saveGameData(); // Capture all the important game data
+        Toast.makeText(this, "The game has been paused.", Toast.LENGTH_SHORT).show();
 
         // Create a new custom dialog
-        CustomDialogFragment dialogFragment = CustomDialogFragment.newInstance(DialogType.PAUSE_GAME_DIALOG);
-        getSupportFragmentManager().beginTransaction().add(dialogFragment, "PauseDialog").commit();
+        // CustomDialogFragment dialogFragment = CustomDialogFragment.newInstance(DialogType.PAUSE_GAME_DIALOG);
+        // getSupportFragmentManager().beginTransaction().add(dialogFragment, "PauseDialog").commit();
+    }
+
+    public void restartGame(MenuItem item) {
+        timeIsUp = false;
+        fragmentUserProgress.startTimer();
+        item.setIcon(R.drawable.menu_icon_pause);
+        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                pauseActiveGame(item);
+                return true;
+            }
+        });
+        Toast.makeText(this, "The game has resumed.", Toast.LENGTH_SHORT).show();
     }
 
     @Override
