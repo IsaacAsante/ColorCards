@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
 
     private void restoreExistingGame() {
         if (existingGame) {
-            SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+            SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.Existing_Game_Info), MODE_PRIVATE);
             fragmentUserProgress.setPointsAccumulated(sharedPreferences.getInt(KEY_POINTS_ACCUMULATED, 0));
             fragmentUserProgress.setPointsToReach(sharedPreferences.getInt(KEY_POINTS_TO_REACH, 0));
             fragmentUserProgress.setMillisForCurrentLevel(sharedPreferences.getLong(KEY_TIME_LEFT, 60000)); // 1min default
@@ -482,7 +482,9 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
 
         Bundle userProgressBundle = fragmentUserProgress.provideUserProgressData();
         Bundle gameResults = fragmentResults.provideGameResultInfo();
-        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+
+        // Access or create a new file
+        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.Existing_Game_Info), MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(KEY_GAME_LEVEL, gameLevelNo);
         editor.putInt(KEY_POINTS_ACCUMULATED, userProgressBundle.getInt(KEY_POINTS_ACCUMULATED));

@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -29,6 +30,7 @@ public class Splash extends AppCompatActivity {
         button_ResumeGame = findViewById(R.id.button_ResumeGame);
         button_Instruction = findViewById(R.id.button_ViewInstructions);
 
+        checkSharedPreferenceData();
         setButtonOnClickListeners();
     }
 
@@ -58,6 +60,7 @@ public class Splash extends AppCompatActivity {
 
         if (requestCode == REQUEST_CODE && resultCode == -1) {
             if (data.getIntExtra(KEY_GAME_STATUS, 0) == EXISTING_GAME){
+                System.out.println("Existing - The number of preferences: " + getSharedPreferences(getString(R.string.Existing_Game_Info), MODE_PRIVATE).getAll().size());
                 button_ResumeGame.setVisibility(View.VISIBLE);
                 button_PlayNow.setText("NEW GAME");
             }
@@ -69,11 +72,15 @@ public class Splash extends AppCompatActivity {
     }
 
     public void checkSharedPreferenceData() {
-        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences sharedPreferences = this.getSharedPreferences(getString(R.string.Existing_Game_Info), MODE_PRIVATE);
         // If all saved items are in the sharedPreferences file
+        Log.i("Number of items: ", String.valueOf(sharedPreferences.getAll().size()));
+        Log.i("List of preferences", String.valueOf(sharedPreferences.getAll()));
         if (sharedPreferences.getAll().size() != 7) {
+            button_PlayNow.setText("PLAY NOW");
             button_ResumeGame.setVisibility(View.GONE); // By default, it should not take any space
         } else {
+            button_PlayNow.setText("NEW GAME");
             button_ResumeGame.setVisibility(View.VISIBLE); // By default, it should not take any space
         }
     }
