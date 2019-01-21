@@ -60,4 +60,11 @@ public class InstructionActivity extends AppCompatActivity {
             Toast.makeText(this, "There was an error loading instructions.", Toast.LENGTH_SHORT).show();
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_FIRST_USER);
+        super.onBackPressed();
+
+    }
 }

@@ -98,6 +98,9 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
             case R.id.QuitGame:
                 quitGame();
                 return true;
+            case R.id.ViewInstructions:
+                viewInstructions(item);
+                return true;
         }
         return false;
     }
@@ -248,6 +251,11 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
     }
 
     @Override
+    public Menu getMenu() {
+        return menu;
+    }
+
+    @Override
     // Use this method to access menu item from fragments
     public MenuItem findMenuItemByID(int id) {
         return menu.findItem(id);
@@ -281,6 +289,7 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         Toast.makeText(this, "The game has resumed.", Toast.LENGTH_SHORT).show();
     }
 
+    @Override
     public void quitGame() {
 
         // End game
@@ -302,6 +311,18 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         intent.putExtra(KEY_GAME_STATUS, NEW_GAME); // Notify Splash.java that the user could have progressed, but returned to the Splash screen.
         setResult(RESULT_OK, intent);
         finish();
+    }
+
+    public void viewInstructions(MenuItem item) {
+        // Create a new custom dialog and set it as a Pause Dialog using the correct enum value.
+        CustomDialogFragment dialogFragment = CustomDialogFragment.newInstance(DialogType.VIEW_INSTRUCTIONS);
+        getSupportFragmentManager().beginTransaction().add(dialogFragment, "PauseDialog").commit();
+
+        fragmentUserProgress.cancelTimer();
+        timeIsUp = true; // End the game
+        item.setIcon(R.drawable.menu_icon_resume);
+
+        saveGameData(); // Capture all the important game data
     }
 
     @Override
@@ -495,9 +516,12 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE) {
             // If the user wants to continue playing
-            if (resultCode == -1) {
+            if (resultCode == RESULT_OK) {
                 increaseGameLevel();
-            } else {
+            } else if (resultCode == RESULT_FIRST_USER) {
+                pauseActiveGame(menu.findItem(R.id.PauseGame));
+            }
+            else {
                 Intent intent = new Intent();
                 intent.putExtra(KEY_GAME_STATUS, GAME_RESUME); // Notify Splash.java that the user could have progressed, but returned to the Splash screen.
                 setResult(RESULT_OK, intent);

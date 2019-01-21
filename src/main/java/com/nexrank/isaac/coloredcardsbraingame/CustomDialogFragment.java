@@ -3,29 +3,19 @@ package com.nexrank.isaac.coloredcardsbraingame;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
-import android.view.ActionProvider;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.SubMenu;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.gms.common.util.Base64Utils;
-
-import java.io.StringBufferInputStream;
 
 public class CustomDialogFragment extends DialogFragment {
 
@@ -34,6 +24,8 @@ public class CustomDialogFragment extends DialogFragment {
     private static final String ARGS_VICTORY = "argsVictory";
     private static final String ARGS_CURRENT_LEVEL = "argsCurrentLevel";
     private static final String ARGS_FINAL_POITNS = "argsFinalPoints";
+
+    private final int REQUEST_CODE = 3;
 
     // Strings
     private final String NEXT_LEVEL = "NEXT LEVEL";
@@ -49,6 +41,7 @@ public class CustomDialogFragment extends DialogFragment {
     private boolean gamePaused;
     private boolean gameCancelled;
     private boolean gameReturnToSplash;
+    private boolean gameSwitchingToInstructions;
 
     private TextView textView_dialogTitle;
     private TextView textView_dialogMessage;
@@ -98,19 +91,18 @@ public class CustomDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         // Receive result from the activity if arguments are set
         if (getArguments() != null) {
-            if(getArguments().getSerializable(INSTANCE_TYPE) == DialogType.GAME_OVER_DIALOG) {
+            if (getArguments().getSerializable(INSTANCE_TYPE) == DialogType.GAME_OVER_DIALOG) {
                 gameResultVictory = getArguments().getBoolean(ARGS_VICTORY);
                 gameCurrentLevelNo = getArguments().getInt(ARGS_CURRENT_LEVEL);
                 gameFinalPoints = getArguments().getLong(ARGS_FINAL_POITNS);
-            }
-            else if (getArguments().getSerializable(INSTANCE_TYPE) == DialogType.PAUSE_GAME_DIALOG) {
+            } else if (getArguments().getSerializable(INSTANCE_TYPE) == DialogType.PAUSE_GAME_DIALOG) {
                 gamePaused = true;
-            }
-            else if (getArguments().getSerializable(INSTANCE_TYPE) == DialogType.CANCEL_GAME_DIALOG) {
+            } else if (getArguments().getSerializable(INSTANCE_TYPE) == DialogType.CANCEL_GAME_DIALOG) {
                 gameCancelled = true;
-            }
-            else if (getArguments().getSerializable(INSTANCE_TYPE) == DialogType.GO_BACK_DIALOG) {
+            } else if (getArguments().getSerializable(INSTANCE_TYPE) == DialogType.GO_BACK_DIALOG) {
                 gameReturnToSplash = true;
+            } else if (getArguments().getSerializable(INSTANCE_TYPE) == DialogType.VIEW_INSTRUCTIONS) {
+                gameSwitchingToInstructions = true;
             }
         }
 
@@ -155,8 +147,7 @@ public class CustomDialogFragment extends DialogFragment {
                 }
             });
 
-        }
-        else if (gamePaused) {
+        } else if (gamePaused) {
             String dialogTitle = "Game Paused";
             String dialogMSG = "The game is currently paused. We're waiting for you to come back.";
             textView_dialogTitle.setText(dialogTitle);
@@ -181,17 +172,55 @@ public class CustomDialogFragment extends DialogFragment {
                     getActivity().finish();
                 }
             });
-        }
-        else if (gameCancelled) {
+        } else if (gameCancelled) {
             String dialogTitle = "Cancelling Game";
             String dialogMSG = "You are about to quit this game and lose all your progress. Do you really wish to cancel?";
             textView_dialogTitle.setText(dialogTitle);
             textView_dialogMessage.setText(dialogMSG);
             button_1.setText("YES, CANCEL");
             button_2.setText("NO, STAY");
-        }
 
-        else {
+            button_1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dismiss();
+                    communicator.quitGame();
+                }
+            });
+
+            button_2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dismiss();
+                }
+            });
+        } else if (gameSwitchingToInstructions) {
+            String dialogTitle = "Switching to Instructions";
+            String dialogMSG = "You are in the middle of a game. Do you want to continue to the instructions?";
+            textView_dialogTitle.setText(dialogTitle);
+            textView_dialogMessage.setText(dialogMSG);
+            button_1.setText("YES");
+            button_2.setText("NO");
+
+            button_1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // The user is switching to the Instruction activity
+                    dismiss();
+                    Intent intent = new Intent(getActivity(), InstructionActivity.class);
+                    getActivity().startActivityForResult(intent, 2);
+                }
+            });
+
+            button_2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // The user no longer wants to switch to the Instructions
+                    dismiss();
+                    communicator.resumeGame(communicator.getMenu().findItem(R.id.PauseGame));
+                }
+            });
+        } else {
             // If the player lost
             String dialogTitle = "You Failed!";
             String dialogMsg = "Sorry, you did not gather enough points." +

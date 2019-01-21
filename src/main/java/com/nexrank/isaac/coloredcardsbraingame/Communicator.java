@@ -1,6 +1,7 @@
 package com.nexrank.isaac.coloredcardsbraingame;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 
 public interface Communicator {
@@ -35,8 +36,10 @@ public interface Communicator {
     // Intent
     public void handleResults();
     public void goBackSaveState();
+    public void quitGame();
 
     // Menu
+    public Menu getMenu();
     public MenuItem findMenuItemByID(int id);
     public void resumeGame(MenuItem item);
 
