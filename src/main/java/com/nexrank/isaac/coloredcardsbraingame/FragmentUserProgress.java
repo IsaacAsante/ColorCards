@@ -53,7 +53,7 @@ public class FragmentUserProgress extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_progress, container, false);
-        textView_PointsAccumulated = view.findViewById(R.id.textView_LevelPointsLabel);
+        textView_PointsAccumulated = view.findViewById(R.id.textView_LevelPoints);
         textView_PointsToReach = view.findViewById(R.id.textView_LevelPointsToReach);
         textView_TimeLeft = view.findViewById(R.id.textView_Timer);
         button_BonusTime = view.findViewById(R.id.button_Bonus);
