@@ -1,9 +1,15 @@
-Instruction 1
+1. Start a game.
 
-Instruction 2
+2. Pick the card mentioned in the instructions as fast as you can.
 
-Instruction 3
+3. Careful not to get confused by the wrong colors in the instructions. Remember, it’s a brain game!
 
-Instruction 4
+4. Keep picking the correct card as fast as you can until you earn enough points to progress to the next level.
 
-Instruction 5
+5. Every correct card will earn you points. Wrong cards will make you lose points.
+
+6. Not being fast enough to pick a card may result in a missed attempt.
+
+7. You can earn more time by watching an ad to complete your progress.
+
+8. Once you reach Level 5, there is no countdown. You just have to try and reach the maximum number of points you can to show how smart you are!

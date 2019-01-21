@@ -29,7 +29,7 @@ public class InstructionActivity extends AppCompatActivity {
         listView = findViewById(R.id.listView_Instructions);
         getInstructions();
 
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, instructions);
+        ListViewAdapter adapter = new ListViewAdapter(this, instructions);
         listView.setAdapter(adapter);
     }
 
