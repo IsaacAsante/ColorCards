@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
                 pauseActiveGame(item);
                 return true;
             case R.id.QuitGame:
-                quitGame();
+                askQuitGame();
                 return true;
             case R.id.ViewInstructions:
                 viewInstructions(item);
@@ -287,6 +287,17 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
             }
         });
         Toast.makeText(this, "The game has resumed.", Toast.LENGTH_SHORT).show();
+    }
+
+    private void askQuitGame() {
+        // Create a new custom dialog and set it as a Pause Dialog using the correct enum value.
+        CustomDialogFragment dialogFragment = CustomDialogFragment.newInstance(DialogType.CANCEL_GAME_DIALOG);
+        getSupportFragmentManager().beginTransaction().add(dialogFragment, "CancelDialog").commit();
+
+        fragmentUserProgress.cancelTimer();
+        timeIsUp = true; // End the game
+        menu.findItem(R.id.PauseGame).setIcon(R.drawable.menu_icon_pause);
+        saveGameData();
     }
 
     @Override

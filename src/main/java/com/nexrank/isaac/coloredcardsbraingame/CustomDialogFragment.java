@@ -152,6 +152,7 @@ public class CustomDialogFragment extends DialogFragment {
             String dialogMSG = "The game is currently paused. We're waiting for you to come back.";
             textView_dialogTitle.setText(dialogTitle);
             textView_dialogMessage.setText(dialogMSG);
+            imageView_dialogMessage.setImageResource(R.drawable.pause);
             button_1.setText(RESUME);
             button_2.setText(GO_BACK);
 
@@ -177,6 +178,7 @@ public class CustomDialogFragment extends DialogFragment {
             String dialogMSG = "You are about to quit this game and lose all your progress. Do you really wish to cancel?";
             textView_dialogTitle.setText(dialogTitle);
             textView_dialogMessage.setText(dialogMSG);
+            imageView_dialogMessage.setImageResource(R.drawable.cancel);
             button_1.setText("YES, CANCEL");
             button_2.setText("NO, STAY");
 
@@ -192,6 +194,7 @@ public class CustomDialogFragment extends DialogFragment {
                 @Override
                 public void onClick(View v) {
                     dismiss();
+                    communicator.resumeGame(communicator.getMenu().findItem(R.id.PauseGame));
                 }
             });
         } else if (gameSwitchingToInstructions) {
@@ -199,6 +202,7 @@ public class CustomDialogFragment extends DialogFragment {
             String dialogMSG = "You are in the middle of a game. Do you want to continue to the instructions?";
             textView_dialogTitle.setText(dialogTitle);
             textView_dialogMessage.setText(dialogMSG);
+            imageView_dialogMessage.setImageResource(R.drawable.question_mark);
             button_1.setText("YES");
             button_2.setText("NO");
 
