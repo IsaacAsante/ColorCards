@@ -41,6 +41,14 @@ public class Splash extends AppCompatActivity {
     }
 
     private void setButtonOnClickListeners() {
+        button_Instruction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Splash.this, InstructionActivity.class);
+                startActivity(intent);
+            }
+        });
+
         button_PlayNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

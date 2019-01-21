@@ -18,8 +18,7 @@
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
@@ -28,25 +27,28 @@
             android:name="applovin.sdk.key"
             android:value="lfeQQPe2hVpPaWqW8rDO9sKhVG27SVrVM7fOEXW5ZeOR_dz-sE59sNwta0Hh7NAqeNpaWNKNDnF2ZZXzx8iQBH" />
 
-        <activity android:name=".GameResultActivity"
+        <activity
+            android:name=".GameResultActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.applovin.adview.AppLovinInterstitialActivity"
             android:configChanges="orientation|screenSize" />
         <activity
             android:name="com.applovin.adview.AppLovinConfirmationActivity"
             android:configChanges="orientation|screenSize" />
-        <activity android:name=".Splash"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
+        <activity
+            android:name=".Splash"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".InstructionActivity"></activity>
     </application>
 
 </manifest>
