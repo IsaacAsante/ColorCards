@@ -3,6 +3,7 @@ package com.nexrank.isaac.coloredcardsbraingame;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -102,10 +103,13 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
     }
 
     @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setTitle("Color Match");
+        // Change the Action Bar's color
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorPrimary)));
+
         imageViewCorrect = (ImageView) findViewById(R.id.imageView_Correct);
         imageViewCorrect.setBackgroundResource(R.drawable.correct);
         correctAnimation = (AnimationDrawable) imageViewCorrect.getBackground();
@@ -544,9 +548,9 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
             timeIsUp = false;
         }
         // Add the bonus time, and restart the timer
-            fragmentUserProgress.addBonusTime();
-            fragmentUserProgress.startTimer();
-            fragmentUserProgress.setBonusButtonVisibility(0); // Hide the bonus button again until the ad is ready
+        fragmentUserProgress.addBonusTime();
+        fragmentUserProgress.startTimer();
+        fragmentUserProgress.setBonusButtonVisibility(0); // Hide the bonus button again until the ad is ready
 
         if (getSupportFragmentManager().findFragmentByTag("GameOverDialog").isAdded()) {
             CustomDialogFragment customDialogFragment = (CustomDialogFragment) getSupportFragmentManager().findFragmentByTag("GameOverDialog");

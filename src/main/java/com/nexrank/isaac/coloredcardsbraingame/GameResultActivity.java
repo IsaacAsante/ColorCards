@@ -1,6 +1,7 @@
 package com.nexrank.isaac.coloredcardsbraingame;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -35,6 +36,9 @@ public class GameResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_result);
         setTitle("Game Results");
+        // Change the Action Bar's color
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorPrimary)));
+
 
         initiateViews();
         assignValuesToViews();

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
+    android:background="@color/colorPrimary"
     tools:context=".Splash">
 
     <android.support.constraint.ConstraintLayout
@@ -35,7 +35,7 @@
             android:paddingTop="2dp"
             android:paddingBottom="2dp"
             android:text="RESUME GAME"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/colorPrimary"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +54,7 @@
             android:paddingTop="2dp"
             android:paddingBottom="2dp"
             android:text="Instructions"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/colorPrimary"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/button_ResumeGame"
@@ -73,7 +73,7 @@
             android:paddingTop="2dp"
             android:paddingBottom="2dp"
             android:text="PLAY NOW"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/colorPrimary"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

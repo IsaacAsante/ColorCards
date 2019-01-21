@@ -1,5 +1,6 @@
 package com.nexrank.isaac.coloredcardsbraingame;
 
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +23,7 @@ public class InstructionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instruction);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorPrimary)));
 
         instructions = new ArrayList<String>();
         listView = findViewById(R.id.listView_Instructions);
