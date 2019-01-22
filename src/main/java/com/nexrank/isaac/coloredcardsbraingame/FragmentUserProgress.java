@@ -38,6 +38,7 @@ public class FragmentUserProgress extends Fragment {
     private final double INCREMENT_COEFFICIENT = 2; // Points accumulated will be multiplied by that value at each level increase
     private final int HIGH_DEDUCTOR = 250; // The number of points that the player loses for a wrong card.
     private final int SOFT_DEDUCTOR = 5;
+    private final int LEVEL_INVINCIBLE = 5;
 
     // Countdown-related fields
     private CountDownTimer timer;
@@ -75,7 +76,12 @@ public class FragmentUserProgress extends Fragment {
         timeUp = false;
         initiateUserProgress();
         pointsIncrementor = INITIAL_POINTS_INCREMENTOR;
-        pointsDeductor = INITIAL_POINTS_DEDUCTOR;
+
+        if (communicator.getGameLevelNo() == LEVEL_INVINCIBLE) {
+            pointsDeductor = HIGH_DEDUCTOR;
+        } else {
+            pointsDeductor = INITIAL_POINTS_DEDUCTOR;
+        }
 
         return view;
     }
@@ -84,11 +90,16 @@ public class FragmentUserProgress extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        // Add values to the point-related TextViews
-        displayPointAccumulated();
-        displayPointToReach();
+        // If the game resumes in Level 5 directly, make sure to hide the points to reach, time and bonus button.
+        if (communicator.getGameLevelNo() == LEVEL_INVINCIBLE) {
+            hideLowLevelItems();
+        } else {
+            // Add values to the point-related TextViews
+            displayPointAccumulated();
+            displayPointToReach();
 
-        startTimer(); // Start the timer
+            startTimer(); // Start the timer
+        }
 
         // Show the Rewarded Video Ad when the bonus button is clicked
         if (button_BonusTime != null) {
@@ -107,6 +118,10 @@ public class FragmentUserProgress extends Fragment {
             millisForCurrentLevel = INITIAL_TIME; // 1min in Level 1
             pointsToReach = INITIAL_POINTS_TO_REACH;
         }
+    }
+
+    public int getLevelInvincibleConstant() {
+        return LEVEL_INVINCIBLE;
     }
 
     public void setPointsAccumulated(long pointsAccumulated) {
@@ -164,7 +179,7 @@ public class FragmentUserProgress extends Fragment {
     }
 
     public void softDecreaseUserPoints() {
-        if (pointsAccumulated - pointsDeductor >= 0) {
+        if (pointsAccumulated - SOFT_DEDUCTOR >= 0) {
             pointsAccumulated -= SOFT_DEDUCTOR;
         } else {
             pointsAccumulated = 0;
@@ -207,7 +222,7 @@ public class FragmentUserProgress extends Fragment {
 
                 String timeLeft = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
                 textView_TimeLeft.setText(timeLeft);
-                if (communicator.getGameLevelNo() < 5) {
+                if (communicator.getGameLevelNo() < LEVEL_INVINCIBLE) {
                     // In Level 5, no need to check if the user has won as it's an eternal mode.
                     verifyIfUserHasWon();
                 }

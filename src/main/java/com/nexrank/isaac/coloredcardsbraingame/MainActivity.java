@@ -577,7 +577,11 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
 
     @Override
     public void onRewardedVideoAdLoaded() {
-        fragmentUserProgress.setBonusButtonVisibility(1); // Make the bonus visible
+        if (gameLevelNo == fragmentUserProgress.getLevelInvincibleConstant()) {
+            fragmentUserProgress.setBonusButtonVisibility(0); // Make the bonus visible
+        } else {
+            fragmentUserProgress.setBonusButtonVisibility(1); // Make the bonus visible
+        }
         Toast.makeText(this, "onRewardedVideoAdLoaded", Toast.LENGTH_SHORT).show();
     }
 
