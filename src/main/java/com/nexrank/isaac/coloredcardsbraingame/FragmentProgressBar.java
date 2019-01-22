@@ -64,7 +64,7 @@ public class FragmentProgressBar extends Fragment {
             if (status > 0) {
                 if (communicator.gameIsRunning()) {
                     // Increase the speed of the game's progress bar
-                    if (communicator.getLevelDetails().getLevelNo() == 4 || communicator.getLevelDetails().getLevelNo() == 5) {
+                    if (communicator.getGameLevelNo() == 4 || communicator.getGameLevelNo() == 5) {
                         status -= 2;
                     } else {
                         status -= 1;

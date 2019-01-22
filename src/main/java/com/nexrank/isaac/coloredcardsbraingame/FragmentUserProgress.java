@@ -191,7 +191,7 @@ public class FragmentUserProgress extends Fragment {
 
                 String timeLeft = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
                 textView_TimeLeft.setText(timeLeft);
-                if (communicator.getLevelDetails().getLevelNo() < 5) {
+                if (communicator.getGameLevelNo() < 5) {
                     // In Level 5, no need to check if the user has won as it's an eternal mode.
                     verifyIfUserHasWon();
                 }

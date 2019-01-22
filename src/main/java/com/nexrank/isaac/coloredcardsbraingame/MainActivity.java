@@ -109,7 +109,6 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setTitle("Color Match");
         // Change the Action Bar's color
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorPrimary)));
 
@@ -428,6 +427,11 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
     public GameLevel getLevelDetails() {
         GameLevel level = GameLevel.newInstance(gameLevelNo);
         return level;
+    }
+
+    @Override
+    public int getGameLevelNo() {
+        return gameLevelNo;
     }
 
     @Override

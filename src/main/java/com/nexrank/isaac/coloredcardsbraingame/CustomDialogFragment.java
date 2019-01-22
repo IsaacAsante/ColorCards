@@ -115,7 +115,7 @@ public class CustomDialogFragment extends DialogFragment {
             // Create the victory messages to show
             int nextLevelNo = gameCurrentLevelNo + 1;
             String nextLevelNickname = GameLevel.newInstance(nextLevelNo).getLevelNickname();
-            String dialogTitle = nextLevelNickname + " Rank Unlocked!";
+            String dialogTitle = nextLevelNickname + " Level Unlocked!";
             String dialogMsg = "Congratulations! " +
                     "\n\nYou've reached " + gameFinalPoints + " points!";
             String button1Text = NEXT_LEVEL;
