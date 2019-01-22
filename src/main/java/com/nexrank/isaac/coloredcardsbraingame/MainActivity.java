@@ -230,9 +230,9 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         editor.putLong(KEY_POINTS_ACCUMULATED, userProgressBundle.getLong(KEY_POINTS_ACCUMULATED));
         editor.putLong(KEY_POINTS_TO_REACH, userProgressBundle.getLong(KEY_POINTS_TO_REACH));
         editor.putLong(KEY_TIME_LEFT, userProgressBundle.getLong(KEY_TIME_LEFT));
-        editor.putInt(KEY_CORRECT_ANSWER_COUNT, gameResults.getInt(KEY_CORRECT_ANSWER_COUNT));
-        editor.putInt(KEY_WRONG_ANSWER_COUNT, gameResults.getInt(KEY_WRONG_ANSWER_COUNT));
-        editor.putInt(KEY_SKIPPED_ANSWER_COUNT, gameResults.getInt(KEY_SKIPPED_ANSWER_COUNT));
+        editor.putLong(KEY_CORRECT_ANSWER_COUNT, gameResults.getLong(KEY_CORRECT_ANSWER_COUNT));
+        editor.putLong(KEY_WRONG_ANSWER_COUNT, gameResults.getLong(KEY_WRONG_ANSWER_COUNT));
+        editor.putLong(KEY_SKIPPED_ANSWER_COUNT, gameResults.getLong(KEY_SKIPPED_ANSWER_COUNT));
 
         editor.apply(); // Write the updates to the disk asynchronously to avoid hanging on the UI thread.
     }
@@ -243,9 +243,9 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
             fragmentUserProgress.setPointsAccumulated(sharedPreferences.getLong(KEY_POINTS_ACCUMULATED, 0));
             fragmentUserProgress.setPointsToReach(sharedPreferences.getLong(KEY_POINTS_TO_REACH, 0));
             fragmentUserProgress.setMillisForCurrentLevel(sharedPreferences.getLong(KEY_TIME_LEFT, 60000)); // 1min default
-            fragmentResults.setCorrectAnswerCount(sharedPreferences.getInt(KEY_CORRECT_ANSWER_COUNT, 0));
-            fragmentResults.setWrongAnswerCount(sharedPreferences.getInt(KEY_WRONG_ANSWER_COUNT, 0));
-            fragmentResults.setSkippedAnswerCount(sharedPreferences.getInt(KEY_SKIPPED_ANSWER_COUNT, 0));
+            fragmentResults.setCorrectAnswerCount(sharedPreferences.getLong(KEY_CORRECT_ANSWER_COUNT, 0));
+            fragmentResults.setWrongAnswerCount(sharedPreferences.getLong(KEY_WRONG_ANSWER_COUNT, 0));
+            fragmentResults.setSkippedAnswerCount(sharedPreferences.getLong(KEY_SKIPPED_ANSWER_COUNT, 0));
             gameLevelNo = sharedPreferences.getInt(KEY_GAME_LEVEL, 1); // Level 1 as the default
         }
     }

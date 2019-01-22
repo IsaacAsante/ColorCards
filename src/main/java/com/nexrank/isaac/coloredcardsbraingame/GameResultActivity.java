@@ -89,12 +89,12 @@ public class GameResultActivity extends AppCompatActivity {
         textView_PointsNeeded.append(pointsToReachMSG);
 
         // Display correct cards
-        int correctAnswerCount = gameResultBundle.getInt(KEY_CORRECT_ANSWER_COUNT);
+        long correctAnswerCount = gameResultBundle.getLong(KEY_CORRECT_ANSWER_COUNT);
         String correctAnswersMSG = correctAnswerCount + " correct picks.";
         textView_CorrectAnswers.append(correctAnswersMSG);
 
         // Display wrong cards
-        int wrongAnswerCount = gameResultBundle.getInt(KEY_WRONG_ANSWER_COUNT);
+        long wrongAnswerCount = gameResultBundle.getLong(KEY_WRONG_ANSWER_COUNT);
         String wrongAnswersMSG = wrongAnswerCount + " wrong picks.";
         if (wrongAnswerCount > 0) {
             textView_WrongAnswers.append(wrongAnswersMSG);
@@ -103,7 +103,7 @@ public class GameResultActivity extends AppCompatActivity {
         }
 
         // Display skipped cards
-        int skippedAnswerCount = gameResultBundle.getInt(KEY_SKIPPED_ANSWER_COUNT);
+        long skippedAnswerCount = gameResultBundle.getLong(KEY_SKIPPED_ANSWER_COUNT);
         String skippedAnswersMSG = skippedAnswerCount + " times.";
         if (skippedAnswerCount > 0) {
             textView_SkippedAnswers.append(skippedAnswersMSG);

@@ -12,9 +12,9 @@ import android.widget.TextView;
 
 public class FragmentResults extends Fragment {
 
-    private int correctAnswerCount = 0;
-    private int wrongAnswerCount = 0;
-    private int skippedAnswerCount = 0;
+    private long correctAnswerCount = 0;
+    private long wrongAnswerCount = 0;
+    private long skippedAnswerCount = 0;
 
     private TextView textView_CorrectAnswerResult;
     private TextView textView_WrongAnswerResult;
@@ -47,31 +47,61 @@ public class FragmentResults extends Fragment {
         communicator = (Communicator) context;
     }
 
-    public void setCorrectAnswerCount(int correctAnswerCount) {
+    public void setCorrectAnswerCount(long correctAnswerCount) {
         this.correctAnswerCount = correctAnswerCount;
     }
 
-    public void setWrongAnswerCount(int wrongAnswerCount) {
+    public void setWrongAnswerCount(long wrongAnswerCount) {
         this.wrongAnswerCount = wrongAnswerCount;
     }
 
-    public void setSkippedAnswerCount(int skippedAnswerCount) {
+    public void setSkippedAnswerCount(long skippedAnswerCount) {
         this.skippedAnswerCount = skippedAnswerCount;
+    }
+
+    public String displayResultCount(long result) {
+        String resultString = "";
+        if (result > 10000 && result <= 50000) {
+            resultString = "10k+";
+        } else if (result > 50000 && result <= 100000) {
+            resultString = "50k+";
+        } else if (result > 100000 && result <= 500000) {
+            resultString = "100k+";
+        } else if (result > 500000 && result <= 1000000) {
+            resultString = "500k+";
+        } else if (result > 1000000 && result <= 5000000) {
+            resultString = "1m+";
+        } else if (result > 5000000 && result <= 10000000) {
+            resultString = "5m+";
+        } else if (result > 10000000 && result <= 50000000) {
+            resultString = "10m+";
+        } else if (result > 50000000 && result <= 100000000) {
+            resultString = "50m+";
+        } else if (result > 100000000 && result <= 500000000) {
+            resultString = "100m+";
+        } else if (result > 500000000 && result <= 1000000000) {
+            resultString = "500m+";
+        } else if (result > 1000000000) {
+            resultString = "1b+";
+        } else {
+            resultString = String.valueOf(result);
+        }
+        return resultString;
     }
 
     public void increaseCorrectAnswerCount() {
         correctAnswerCount++;
-        textView_CorrectAnswerResult.setText(String.valueOf(correctAnswerCount));
+        textView_CorrectAnswerResult.setText(displayResultCount(correctAnswerCount));
     }
 
     public void increaseWrongAnswerCount() {
         wrongAnswerCount++;
-        textView_WrongAnswerResult.setText(String.valueOf(wrongAnswerCount));
+        textView_WrongAnswerResult.setText(displayResultCount(wrongAnswerCount));
     }
 
     public void increaseSkippedAnswerCount() {
         skippedAnswerCount++;
-        textView_SkippedAnswerResult.setText(String.valueOf(skippedAnswerCount));
+        textView_SkippedAnswerResult.setText(displayResultCount(skippedAnswerCount));
     }
 
     public void resetResults() {
@@ -81,16 +111,16 @@ public class FragmentResults extends Fragment {
     }
 
     public void showAllResults() {
-        textView_CorrectAnswerResult.setText(String.valueOf(correctAnswerCount));
-        textView_WrongAnswerResult.setText(String.valueOf(wrongAnswerCount));
-        textView_SkippedAnswerResult.setText(String.valueOf(skippedAnswerCount));
+        textView_CorrectAnswerResult.setText(displayResultCount(correctAnswerCount));
+        textView_WrongAnswerResult.setText(displayResultCount(wrongAnswerCount));
+        textView_SkippedAnswerResult.setText(displayResultCount(skippedAnswerCount));
     }
 
     public Bundle provideGameResultInfo() {
         Bundle gameResult = new Bundle();
-        gameResult.putInt(KEY_CORRECT_ANSWER_COUNT, correctAnswerCount);
-        gameResult.putInt(KEY_WRONG_ANSWER_COUNT, wrongAnswerCount);
-        gameResult.putInt(KEY_SKIPPED_ANSWER_COUNT, skippedAnswerCount);
+        gameResult.putLong(KEY_CORRECT_ANSWER_COUNT, correctAnswerCount);
+        gameResult.putLong(KEY_WRONG_ANSWER_COUNT, wrongAnswerCount);
+        gameResult.putLong(KEY_SKIPPED_ANSWER_COUNT, skippedAnswerCount);
         return gameResult;
     }
 
