@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,8 +21,10 @@ public class FragmentUserProgress extends Fragment {
 
     private boolean timeUp;
     private TextView textView_PointsAccumulated;
+    private TextView textView_PointsDivider;
     private TextView textView_PointsToReach;
     private TextView textView_TimeLeft;
+    private ImageView imageView_time;
     private Button button_BonusTime;
 
     // Points-related fields
@@ -54,8 +57,10 @@ public class FragmentUserProgress extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_progress, container, false);
         textView_PointsAccumulated = view.findViewById(R.id.textView_LevelPoints);
+        textView_PointsDivider = view.findViewById(R.id.textView_LevelPointsSlash);
         textView_PointsToReach = view.findViewById(R.id.textView_LevelPointsToReach);
         textView_TimeLeft = view.findViewById(R.id.textView_Timer);
+        imageView_time = view.findViewById(R.id.imageView_Time);
         button_BonusTime = view.findViewById(R.id.button_Bonus);
 
         // Assigning values to the views
@@ -240,6 +245,14 @@ public class FragmentUserProgress extends Fragment {
         progressData.putInt(KEY_POINTS_TO_REACH, pointsToReach);
         progressData.putLong(KEY_TIME_LEFT, millisForCurrentLevel);
         return progressData;
+    }
+
+    public void hideLowLevelItems() {
+        textView_PointsDivider.setVisibility(View.GONE);
+        textView_PointsToReach.setVisibility(View.GONE);
+        textView_TimeLeft.setVisibility(View.GONE);
+        imageView_time.setVisibility(View.GONE);
+        button_BonusTime.setVisibility(View.GONE);
     }
 
     @Override
