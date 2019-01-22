@@ -79,12 +79,12 @@ public class GameResultActivity extends AppCompatActivity {
         textView_LevelTimeLeft.append(formattedTimeLeft);
 
         // Display points accumulated
-        int pointsAccumulated = userProgressBundle.getInt(KEY_POINTS_ACCUMULATED);
+        long pointsAccumulated = userProgressBundle.getLong(KEY_POINTS_ACCUMULATED);
         String pointsAccumulatedMSG = nextLevel + " with " + pointsAccumulated + " points.";
         textView_LevelPoints.append(pointsAccumulatedMSG);
 
         // Display points to reach
-        int pointsToReach = userProgressBundle.getInt(KEY_POINTS_TO_REACH);
+        long pointsToReach = userProgressBundle.getLong(KEY_POINTS_TO_REACH);
         String pointsToReachMSG = nextLevel + ", you needed a minimum of " + pointsToReach + " points.";
         textView_PointsNeeded.append(pointsToReachMSG);
 

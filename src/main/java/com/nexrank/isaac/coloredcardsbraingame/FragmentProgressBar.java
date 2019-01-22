@@ -63,14 +63,12 @@ public class FragmentProgressBar extends Fragment {
         public void run() {
             if (status > 0) {
                 if (communicator.gameIsRunning()) {
-                        if (communicator.getLevelDetails().getLevelNo() == 4) {
-                            status -= 2; // The progress bar reduces twice as fast in Level 4
-                        } else if (communicator.getLevelDetails().getLevelNo() == 5) {
-                            status -= 2.8;
-                        }
-                        else {
-                            status -= 1;
-                        }
+                    // Increase the speed of the game's progress bar
+                    if (communicator.getLevelDetails().getLevelNo() == 4 || communicator.getLevelDetails().getLevelNo() == 5) {
+                        status -= 2;
+                    } else {
+                        status -= 1;
+                    }
                     progressBar.setProgress(status);
                 }
             } else {

@@ -435,15 +435,15 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         // Similar to restartGameLevel(), but this one increases the game level, points to reach and level time.
         fragmentUserProgress.cancelTimer(); // It needs to restart
 
-        if (gameLevelNo <= 3) {
+        if (gameLevelNo < 5) {
             // Up until Level 4
             ++gameLevelNo;
             fragmentUserProgress.increasePointsToReach(); // Add to the game's difficulty
             fragmentUserProgress.displayPointToReach(); // Update points
             fragmentUserProgress.increaseGameLevelTime(gameLevelNo); // New level * default time
             fragmentUserProgress.startTimer(); // Must be the last method
-        } else {
-            // Getting to Level 5
+        }
+        if (gameLevelNo == 5) {
             fragmentUserProgress.hideLowLevelItems(); // Hide the points to reach with the slash, clock image, timer, and bonus button.
         }
         fragmentProgressBar.displayLevelDetails(); // Display new level
@@ -453,6 +453,7 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         fragmentResults.showAllResults(); // Update the results
 
         setTimeUp(false); // Enable the player to interact with the game
+
         presentNewChallenge(); // Shuffle cards, refresh instructions and refill the progress bar
 
     }
@@ -539,8 +540,7 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
                 increaseGameLevel();
             } else if (resultCode == RESULT_FIRST_USER) {
                 pauseActiveGame(menu.findItem(R.id.PauseGame));
-            }
-            else {
+            } else {
                 Intent intent = new Intent();
                 intent.putExtra(KEY_GAME_STATUS, GAME_RESUME); // Notify Splash.java that the user could have progressed, but returned to the Splash screen.
                 setResult(RESULT_OK, intent);
