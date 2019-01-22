@@ -448,6 +448,7 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
             fragmentUserProgress.startTimer(); // Must be the last method
         }
         if (gameLevelNo == 5) {
+            fragmentUserProgress.increasePointsDeductor(); // Up to 1,000 points for wrong answers
             fragmentUserProgress.hideLowLevelItems(); // Hide the points to reach with the slash, clock image, timer, and bonus button.
         }
         fragmentProgressBar.displayLevelDetails(); // Display new level
@@ -492,6 +493,9 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
     @Override
     public void updateMissedCount() {
         fragmentResults.increaseSkippedAnswerCount();
+        if (gameLevelNo > 4) {
+            fragmentUserProgress.softDecreaseUserPoints();
+        }
     }
 
     @Override

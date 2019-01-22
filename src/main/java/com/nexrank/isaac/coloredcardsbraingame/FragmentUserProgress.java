@@ -32,11 +32,12 @@ public class FragmentUserProgress extends Fragment {
     private long pointsToReach; // Level-related points to collect to reach the game's next level
     private int pointsIncrementor; // The amount of points by which a correct answer will increase the points
     private int pointsDeductor; // The amount of points by which a wrong answer will decrease the points
-    private final int INITIAL_POINTS_TO_REACH = 100;
-    private final int INITIAL_POINTS_INCREMENTOR = 20;
-    private final int INITIAL_POINTS_DEDUCTOR = 25;
-    private final double INCREMENT_COEFFICIENT = 1.5; // Points accumulated will be multiplied by that value at each level increase
-    private final double DECREMENT_COEFFICIENT = 2; // Points lost will be multiplied by that value at each level increase
+    private final int INITIAL_POINTS_TO_REACH = 50; // Points to finish Level 1
+    private final int INITIAL_POINTS_INCREMENTOR = 20; // Points gained for every correct answer
+    private final int INITIAL_POINTS_DEDUCTOR = 25; // Points removed for wrong answers
+    private final double INCREMENT_COEFFICIENT = 2; // Points accumulated will be multiplied by that value at each level increase
+    private final int HIGH_DEDUCTOR = 250; // The number of points that the player loses for a wrong card.
+    private final int SOFT_DEDUCTOR = 5;
 
     // Countdown-related fields
     private CountDownTimer timer;
@@ -162,8 +163,23 @@ public class FragmentUserProgress extends Fragment {
         textView_PointsAccumulated.setTextColor(ContextCompat.getColor(getActivity(), R.color.red));
     }
 
+    public void softDecreaseUserPoints() {
+        if (pointsAccumulated - pointsDeductor >= 0) {
+            pointsAccumulated -= SOFT_DEDUCTOR;
+        } else {
+            pointsAccumulated = 0;
+        }
+
+        displayPointAccumulated();
+        textView_PointsAccumulated.setTextColor(ContextCompat.getColor(getActivity(), R.color.red));
+    }
+
     public void increasePointsToReach() {
         pointsToReach *= INCREMENT_COEFFICIENT;
+    }
+
+    public void increasePointsDeductor() {
+        pointsDeductor = HIGH_DEDUCTOR;
     }
 
     public void resetUserPoints() {
