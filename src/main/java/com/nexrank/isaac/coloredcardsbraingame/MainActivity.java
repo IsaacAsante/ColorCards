@@ -227,8 +227,8 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.Existing_Game_Info), MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(KEY_GAME_LEVEL, gameLevelNo);
-        editor.putInt(KEY_POINTS_ACCUMULATED, userProgressBundle.getInt(KEY_POINTS_ACCUMULATED));
-        editor.putInt(KEY_POINTS_TO_REACH, userProgressBundle.getInt(KEY_POINTS_TO_REACH));
+        editor.putLong(KEY_POINTS_ACCUMULATED, userProgressBundle.getLong(KEY_POINTS_ACCUMULATED));
+        editor.putLong(KEY_POINTS_TO_REACH, userProgressBundle.getLong(KEY_POINTS_TO_REACH));
         editor.putLong(KEY_TIME_LEFT, userProgressBundle.getLong(KEY_TIME_LEFT));
         editor.putInt(KEY_CORRECT_ANSWER_COUNT, gameResults.getInt(KEY_CORRECT_ANSWER_COUNT));
         editor.putInt(KEY_WRONG_ANSWER_COUNT, gameResults.getInt(KEY_WRONG_ANSWER_COUNT));
@@ -240,8 +240,8 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
     private void restoreExistingGame() {
         if (existingGame) {
             SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.Existing_Game_Info), MODE_PRIVATE);
-            fragmentUserProgress.setPointsAccumulated(sharedPreferences.getInt(KEY_POINTS_ACCUMULATED, 0));
-            fragmentUserProgress.setPointsToReach(sharedPreferences.getInt(KEY_POINTS_TO_REACH, 0));
+            fragmentUserProgress.setPointsAccumulated(sharedPreferences.getLong(KEY_POINTS_ACCUMULATED, 0));
+            fragmentUserProgress.setPointsToReach(sharedPreferences.getLong(KEY_POINTS_TO_REACH, 0));
             fragmentUserProgress.setMillisForCurrentLevel(sharedPreferences.getLong(KEY_TIME_LEFT, 60000)); // 1min default
             fragmentResults.setCorrectAnswerCount(sharedPreferences.getInt(KEY_CORRECT_ANSWER_COUNT, 0));
             fragmentResults.setWrongAnswerCount(sharedPreferences.getInt(KEY_WRONG_ANSWER_COUNT, 0));

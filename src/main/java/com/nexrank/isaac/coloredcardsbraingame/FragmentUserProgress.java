@@ -28,8 +28,8 @@ public class FragmentUserProgress extends Fragment {
     private Button button_BonusTime;
 
     // Points-related fields
-    private int pointsAccumulated; // Level-related points accumulated by the user. Must be reset at each level.
-    private int pointsToReach; // Level-related points to collect to reach the game's next level
+    private long pointsAccumulated; // Level-related points accumulated by the user. Must be reset at each level.
+    private long pointsToReach; // Level-related points to collect to reach the game's next level
     private int pointsIncrementor; // The amount of points by which a correct answer will increase the points
     private int pointsDeductor; // The amount of points by which a wrong answer will decrease the points
     private final int INITIAL_POINTS_TO_REACH = 100;
@@ -108,11 +108,11 @@ public class FragmentUserProgress extends Fragment {
         }
     }
 
-    public void setPointsAccumulated(int pointsAccumulated) {
+    public void setPointsAccumulated(long pointsAccumulated) {
         this.pointsAccumulated = pointsAccumulated;
     }
 
-    public void setPointsToReach(int pointsToReach) {
+    public void setPointsToReach(long pointsToReach) {
         this.pointsToReach = pointsToReach;
     }
 
@@ -241,8 +241,8 @@ public class FragmentUserProgress extends Fragment {
 
     public Bundle provideUserProgressData() {
         Bundle progressData = new Bundle();
-        progressData.putInt(KEY_POINTS_ACCUMULATED, pointsAccumulated);
-        progressData.putInt(KEY_POINTS_TO_REACH, pointsToReach);
+        progressData.putLong(KEY_POINTS_ACCUMULATED, pointsAccumulated);
+        progressData.putLong(KEY_POINTS_TO_REACH, pointsToReach);
         progressData.putLong(KEY_TIME_LEFT, millisForCurrentLevel);
         return progressData;
     }
