@@ -99,7 +99,7 @@ public class FragmentUserProgress extends Fragment {
             displayPointAccumulated();
             displayPointToReach();
 
-            startTimer(); // Start the timer
+            // NOTE: The timer is not started here because it is handled inside onResume() of MainActivity.
         }
 
         // Show the Rewarded Video Ad when the bonus button is clicked
@@ -226,6 +226,7 @@ public class FragmentUserProgress extends Fragment {
                 String timeLeft = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
                 textView_TimeLeft.setText(timeLeft);
                 if (communicator.getGameLevelNo() < LEVEL_INVINCIBLE) {
+                    System.out.println("Timer running");
                     // In Level 5, no need to check if the user has won as it's an eternal mode.
                     verifyIfUserHasWon();
                 }
@@ -270,6 +271,8 @@ public class FragmentUserProgress extends Fragment {
 
     private void verifyIfUserHasWon() {
         if (pointsAccumulated >= pointsToReach) {
+            System.out.println("Points accumulated is " + pointsAccumulated);
+            System.out.println("Points to reach is " + pointsToReach);
             timer.cancel();
             communicator.setTimeUp(true);
             communicator.showGameOverAlert(GameResult.Win, pointsToReach);

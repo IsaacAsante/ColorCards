@@ -28,7 +28,6 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements Communicator, RewardedVideoAdListener {
 
-    // TODO: Remove all hardcoded strings from layout files
     // TODO: Put all strings into Strings.xml
     // TODO: Fix all warnings in the code
     // TODO: Remove all unnecessary library imports
@@ -513,6 +512,7 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
     @Override
     public void showGameOverAlert(GameResult result, long points) {
         if (result == GameResult.Win) {
+            System.out.println("showGameOverAlert is called");
             gameOverDialog = CustomDialogFragment.newInstance(true, gameLevelNo, points);
         } else {
             gameOverDialog = CustomDialogFragment.newInstance(false, gameLevelNo, points);
@@ -552,6 +552,7 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
             if (resultCode == RESULT_OK) {
                 increaseGameLevel();
             } else if (resultCode == RESULT_FIRST_USER) {
+                fragmentUserProgress.cancelTimer(); // Prevent onResume() from starting the timer
                 pauseActiveGame(menu.findItem(R.id.PauseGame));
             } else {
                 Intent intent = new Intent();
@@ -661,9 +662,22 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
     @Override
     protected void onResume() {
         if (gameLevelNo < LEVEL_INVINCIBLE) {
-            fragmentUserProgress.startTimer();
+            try {
+                if (getSupportFragmentManager().findFragmentByTag("PauseDialog").isAdded() ||
+                        getSupportFragmentManager().findFragmentByTag("CancelDialog").isAdded() ||
+                        getSupportFragmentManager().findFragmentByTag("GameOverDialog").isAdded()) {
+                    System.out.println("Try catch block with findFragmentByTag in onResume");
+
+                    fragmentUserProgress.cancelTimer();
+                    timeIsUp = true;
+                    System.out.println("The game has been set to end");
+                }
+            } catch (RuntimeException e) {
+                e.printStackTrace();
+                fragmentUserProgress.startTimer();
+                timeIsUp = false;
+            }
         }
-        timeIsUp = false;
         System.out.println("onResume was called");
 
         //IMPORTANT: AdMob RewardedVideoAd
@@ -685,7 +699,7 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         if (gameLevelNo < LEVEL_INVINCIBLE) {
             fragmentUserProgress.cancelTimer();
         }
-        timeIsUp = true; // End the game
+        // timeIsUp = true; // End the game
         saveGameData();
     }
 
