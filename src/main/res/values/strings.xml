@@ -19,9 +19,20 @@
     <string name="_00_00">00:00</string>
     <string name="_1min">+1min</string>
     <string name="game_over">GAME OVER</string>
-    <string name="black">Black</string>
     <string name="red">RED</string>
     <string name="pink">PINK</string>
     <string name="purple">PURPLE</string>
     <string name="blue">BLUE</string>
+    <string name="green">GREEN</string>
+    <string name="orange">ORANGE</string>
+    <string name="brown">BROWN</string>
+    <string name="grey">GREY</string>
+    <string name="black">BLACK</string>
+    <string name="white">WHITE</string>
+    <string name="yes_cancel">YES, CANCEL</string>
+    <string name="no_stay">NO, STAY</string>
+    <string name="yes">YES</string>
+    <string name="no">NO</string>
+    <string name="you_did_not_get_anything_wrong">You did not get anything wrong. Well done!</string>
+    <string name="you_did_not_skip_any_card">You did not skip any card. This means you think and react very fast!</string>
 </resources>

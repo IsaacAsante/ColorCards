@@ -5,7 +5,6 @@ public class GameLevel {
     private String levelName;
     private String levelNickname;
     private int levelNo;
-    private long levelPoints;
 
     public GameLevel(String levelName, String levelNickname, int levelNo) {
         this.levelName = levelName;

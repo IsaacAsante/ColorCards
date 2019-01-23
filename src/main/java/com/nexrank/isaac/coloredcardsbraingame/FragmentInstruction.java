@@ -47,11 +47,6 @@ public class FragmentInstruction extends Fragment {
         textView2_Color.setTextColor(ContextCompat.getColor(getActivity(), colors[randomNo]));
     }
 
-    public void increaseQuestionNumber() {
-        questionNo++;
-        textView_QuestionNumber.setText("#" + Integer.toString(questionNo) + ":");
-    }
-
     public void changeInstructionTextColor (int color) {
         textView2_Color.setTextColor(ContextCompat.getColor(getActivity(), color));
     }
@@ -63,8 +58,7 @@ public class FragmentInstruction extends Fragment {
 
     public boolean isCorrect(String colorName) {
         // Remove spaces
-        if (textView2_Color.getText().toString().trim().equals(colorName)) {
-            return true;
-        } return false;
+        // True if correct, wrong otherwise
+        return textView2_Color.getText().toString().trim().equals(colorName);
     }
 }

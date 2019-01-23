@@ -98,7 +98,7 @@ public class GameResultActivity extends AppCompatActivity {
         if (wrongAnswerCount > 0) {
             textView_WrongAnswers.append(wrongAnswersMSG);
         } else {
-            textView_WrongAnswers.setText("You did not get anything wrong. Well done!");
+            textView_WrongAnswers.setText(getString(R.string.you_did_not_get_anything_wrong));
         }
 
         // Display skipped cards
@@ -107,7 +107,7 @@ public class GameResultActivity extends AppCompatActivity {
         if (skippedAnswerCount > 0) {
             textView_SkippedAnswers.append(skippedAnswersMSG);
         } else {
-            textView_SkippedAnswers.setText("You did not skip any card. This means you think and react very fast!");
+            textView_SkippedAnswers.setText(getString(R.string.you_did_not_skip_any_card));
         }
 
         String button1Msg = "Start Level " + nextLevel;

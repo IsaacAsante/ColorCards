@@ -57,15 +57,15 @@ public class FragmentCards extends Fragment {
     }
 
     private void populateColorCardsList() {
-        colorCards.add(new ColorCard("RED", R.color.red));
-        colorCards.add(new ColorCard("PINK", R.color.pink));
-        colorCards.add(new ColorCard("PURPLE", R.color.purple));
-        colorCards.add(new ColorCard("BLUE", R.color.blue));
-        colorCards.add(new ColorCard("GREEN", R.color.green));
-        colorCards.add(new ColorCard("ORANGE", R.color.orange));
-        colorCards.add(new ColorCard("BROWN", R.color.brown));
-        colorCards.add(new ColorCard("GREY", R.color.grey));
-        colorCards.add(new ColorCard("BLACK", R.color.black));
+        colorCards.add(new ColorCard(getString(R.string.red), R.color.red));
+        colorCards.add(new ColorCard(getString(R.string.pink), R.color.pink));
+        colorCards.add(new ColorCard(getString(R.string.purple), R.color.purple));
+        colorCards.add(new ColorCard(getString(R.string.blue), R.color.blue));
+        colorCards.add(new ColorCard(getString(R.string.green), R.color.green));
+        colorCards.add(new ColorCard(getString(R.string.orange), R.color.orange));
+        colorCards.add(new ColorCard(getString(R.string.brown), R.color.brown));
+        colorCards.add(new ColorCard(getString(R.string.grey), R.color.grey));
+        colorCards.add(new ColorCard(getString(R.string.black), R.color.black));
     }
 
     public String selectRandomColorName() {

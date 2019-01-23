@@ -28,9 +28,6 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements Communicator, RewardedVideoAdListener {
 
-    // TODO: Put all strings into Strings.xml
-    // TODO: Fix all warnings in the code
-    // TODO: Remove all unnecessary library imports
     // TODO: Create an account on AppAnie for ASO
     // TODO: Remove all System.out.println()
 
@@ -317,7 +314,7 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
             editor.remove(key);
         }
         Log.i("Items before", String.valueOf(sharedPreferences.getAll().size()));
-        editor.commit();
+        editor.commit(); // Synchronous on purpose
         Log.i("Items after", String.valueOf(sharedPreferences.getAll().size()));
 
         // Notify Splash.java that the user has canceled their progress
@@ -337,11 +334,6 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         item.setIcon(R.drawable.menu_icon_resume);
 
         saveGameData(); // Capture all the important game data
-    }
-
-    @Override
-    public void increaseQuestionID() {
-        fragmentInstruction.increaseQuestionNumber();
     }
 
     @Override
@@ -396,10 +388,7 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
 
     @Override
     public boolean isExistingGame() {
-        if (existingGame) {
-            return true;
-        }
-        return false;
+        return existingGame;
     }
 
     public void setTimeUp(boolean status) {

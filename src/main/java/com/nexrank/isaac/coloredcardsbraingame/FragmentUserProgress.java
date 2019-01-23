@@ -214,11 +214,7 @@ public class FragmentUserProgress extends Fragment {
     }
 
     public boolean isTimerRunning() {
-        if (timerRunning == true) {
-            return true;
-        } else {
-            return false;
-        }
+        return timerRunning;
     }
 
     public void startTimer() {

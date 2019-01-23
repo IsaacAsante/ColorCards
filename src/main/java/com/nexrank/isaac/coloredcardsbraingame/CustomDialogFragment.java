@@ -25,8 +25,6 @@ public class CustomDialogFragment extends DialogFragment {
     private static final String ARGS_CURRENT_LEVEL = "argsCurrentLevel";
     private static final String ARGS_FINAL_POITNS = "argsFinalPoints";
 
-    private final int REQUEST_CODE = 3;
-
     // Strings
     private final String NEXT_LEVEL = "NEXT LEVEL";
     private final String VIEW_RESULTS = "VIEW RESULTS";
@@ -178,8 +176,8 @@ public class CustomDialogFragment extends DialogFragment {
             textView_dialogTitle.setText(dialogTitle);
             textView_dialogMessage.setText(dialogMSG);
             imageView_dialogMessage.setImageResource(R.drawable.cancel);
-            button_1.setText("YES, CANCEL");
-            button_2.setText("NO, STAY");
+            button_1.setText(getString(R.string.yes_cancel));
+            button_2.setText(getString(R.string.no_stay));
 
             button_1.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -202,8 +200,8 @@ public class CustomDialogFragment extends DialogFragment {
             textView_dialogTitle.setText(dialogTitle);
             textView_dialogMessage.setText(dialogMSG);
             imageView_dialogMessage.setImageResource(R.drawable.question_mark);
-            button_1.setText("YES");
-            button_2.setText("NO");
+            button_1.setText(getString(R.string.yes));
+            button_2.setText(getString(R.string.no));
 
             button_1.setOnClickListener(new View.OnClickListener() {
                 @Override
