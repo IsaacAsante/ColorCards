@@ -73,7 +73,7 @@ public class GameResultActivity extends AppCompatActivity {
         if (minutes > 0) {
             formattedTimeLeft = String.format(Locale.getDefault(), " %d with %dmin and %02ds left on the clock.", gameLevel, minutes, secondsLeft);
         } else {
-            formattedTimeLeft = String.format(Locale.getDefault(), " %d with %02d seconds left on the clock.", gameLevel, secondsLeft);
+            formattedTimeLeft = String.format(Locale.getDefault(), " %d with %d seconds left on the clock.", gameLevel, secondsLeft);
         }
         textView_LevelTimeLeft.append(formattedTimeLeft);
 

@@ -109,7 +109,6 @@ public class CustomDialogFragment extends DialogFragment {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(getCustomDialogViews()); // Initialize the TextViews as well
 
-        // TODO: Test how the Alert shows after Level 5 (the last level)
         // If the player won
         if (gameResultVictory) {
             // Create the victory messages to show

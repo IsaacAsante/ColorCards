@@ -17,8 +17,6 @@ import java.util.Random;
 
 public class FragmentCards extends Fragment {
 
-    // TODO: Change the design of the cards to make their width and height dynamic for responsiveness.
-
     private RecyclerView recyclerView;
     private static ArrayList<ColorCard> colorCards;
     private CardsRecyclerAdapter adapter;
