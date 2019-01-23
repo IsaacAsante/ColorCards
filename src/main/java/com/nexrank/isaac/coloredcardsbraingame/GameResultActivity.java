@@ -103,7 +103,7 @@ public class GameResultActivity extends AppCompatActivity {
 
         // Display skipped cards
         long skippedAnswerCount = gameResultBundle.getLong(KEY_SKIPPED_ANSWER_COUNT);
-        String skippedAnswersMSG = skippedAnswerCount + " times.";
+        String skippedAnswersMSG = " " + skippedAnswerCount + " times.";
         if (skippedAnswerCount > 0) {
             textView_SkippedAnswers.append(skippedAnswersMSG);
         } else {
