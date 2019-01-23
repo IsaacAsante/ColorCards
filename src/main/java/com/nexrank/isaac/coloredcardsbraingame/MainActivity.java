@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
     // TODO: Fix all warnings in the code
     // TODO: Remove all unnecessary library imports
     // TODO: Create an account on AppAnie for ASO
+    // TODO: Remove all System.out.println()
 
     // Menu
     private Menu menu;
@@ -652,18 +653,24 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
 
     @Override
     protected void onPause() {
+        // IMPORTANT: AdMob Rewarded Video Ad
+        mRewardedVideoAd.pause(this);
         super.onPause();
         System.out.println("onPause was called");
     }
 
     @Override
     protected void onResume() {
-        super.onResume();
         if (gameLevelNo < LEVEL_INVINCIBLE) {
             fragmentUserProgress.startTimer();
         }
         timeIsUp = false;
         System.out.println("onResume was called");
+
+        //IMPORTANT: AdMob RewardedVideoAd
+        mRewardedVideoAd.resume(this);
+        super.onResume();
+
     }
 
     @Override
@@ -681,5 +688,11 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         }
         timeIsUp = true; // End the game
         saveGameData();
+    }
+
+    @Override
+    protected void onDestroy() {
+        mRewardedVideoAd.destroy(this);
+        super.onDestroy();
     }
 }
