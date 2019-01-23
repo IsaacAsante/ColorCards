@@ -662,21 +662,38 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
     @Override
     protected void onResume() {
         if (gameLevelNo < LEVEL_INVINCIBLE) {
-            try {
-                if (getSupportFragmentManager().findFragmentByTag("PauseDialog").isAdded() ||
-                        getSupportFragmentManager().findFragmentByTag("CancelDialog").isAdded() ||
-                        getSupportFragmentManager().findFragmentByTag("GameOverDialog").isAdded()) {
-                    System.out.println("Try catch block with findFragmentByTag in onResume");
+            boolean fragmentInLayout = false;
+                Fragment fragmentPauseDialog = getSupportFragmentManager().findFragmentByTag("PauseDialog");
+                Fragment fragmentCancelDialog = getSupportFragmentManager().findFragmentByTag("CancelDialog");
+                Fragment fragmentGameOverDialog = getSupportFragmentManager().findFragmentByTag("GameOverDialog");
 
+                if (fragmentPauseDialog != null) {
+                    if (fragmentPauseDialog.isAdded()) {
+                        fragmentInLayout = true;
+                    }
+                } else if (fragmentCancelDialog != null) {
+                    if (fragmentCancelDialog.isAdded()) {
+                        fragmentInLayout = true;
+                    }
+                } else if (fragmentGameOverDialog != null) {
+                    if (fragmentGameOverDialog.isAdded()) {
+                        fragmentInLayout = true;
+                    }
+                } else {
+                    fragmentInLayout = false;
+                }
+                
+                if (fragmentInLayout) {
                     fragmentUserProgress.cancelTimer();
                     timeIsUp = true;
-                    System.out.println("The game has been set to end");
+                    System.out.println("There is a dialog.");
+                } else {
+                    if (fragmentUserProgress.isTimerRunning() == false) {
+                        fragmentUserProgress.startTimer();
+                    }
+                    timeIsUp = false;
+                    System.out.println("There is no dialog");
                 }
-            } catch (RuntimeException e) {
-                e.printStackTrace();
-                fragmentUserProgress.startTimer();
-                timeIsUp = false;
-            }
         }
         System.out.println("onResume was called");
 

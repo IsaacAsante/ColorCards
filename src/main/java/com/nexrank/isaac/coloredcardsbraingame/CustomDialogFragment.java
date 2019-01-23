@@ -133,8 +133,8 @@ public class CustomDialogFragment extends DialogFragment {
             button_1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    communicator.increaseGameLevel();
                     dismiss(); // Dismiss the fragment
+                    communicator.increaseGameLevel();
                 }
             });
 

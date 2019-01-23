@@ -19,7 +19,6 @@ import java.util.Locale;
 
 public class FragmentUserProgress extends Fragment {
 
-    private boolean timeUp;
     private TextView textView_PointsAccumulated;
     private TextView textView_PointsDivider;
     private TextView textView_PointsToReach;
@@ -42,6 +41,7 @@ public class FragmentUserProgress extends Fragment {
 
     // Countdown-related fields
     private CountDownTimer timer;
+    private boolean timerRunning;
     private long millisForCurrentLevel;
     private final long INITIAL_TIME = 30000; // Must be 1min
     private final long COUNTDOWN_INTERVAL = 1000;
@@ -74,7 +74,7 @@ public class FragmentUserProgress extends Fragment {
         button_BonusTime.setVisibility(View.INVISIBLE);
 
         // Countdown-related variables and methods
-        timeUp = false;
+        timerRunning = false;
         initiateUserProgress();
         pointsIncrementor = INITIAL_POINTS_INCREMENTOR;
 
@@ -213,8 +213,17 @@ public class FragmentUserProgress extends Fragment {
         }
     }
 
+    public boolean isTimerRunning() {
+        if (timerRunning == true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public void startTimer() {
         System.out.println("Starting the timer now");
+        timerRunning = true;
         // Add 1 second to the time to make up for the delay in the loading of content
         timer = new CountDownTimer(millisForCurrentLevel + 1000, COUNTDOWN_INTERVAL) {
             @Override
@@ -246,6 +255,7 @@ public class FragmentUserProgress extends Fragment {
             timer.cancel();
             System.out.println("The timer is " + millisForCurrentLevel);
         }
+        timerRunning = false;
     }
 
     public void addBonusTime() {
@@ -262,6 +272,7 @@ public class FragmentUserProgress extends Fragment {
     }
 
     private void selectDialogFragmentToShow() {
+        System.out.println("DialogFragmentToShow() running");
         if (pointsAccumulated >= pointsToReach) {
             communicator.showGameOverAlert(GameResult.Win, pointsToReach);
         } else {
@@ -297,7 +308,8 @@ public class FragmentUserProgress extends Fragment {
 
     @Override
     public void onStop() {
-        super.onStop();
+        System.out.println("FragmentUserProgress onStop method called");
         cancelTimer();
+        super.onStop();
     }
 }
