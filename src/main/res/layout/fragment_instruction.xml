@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
-            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toStartOf="@id/textView_InstructionA"
             app:layout_constraintStart_toStartOf="parent"
             android:visibility="invisible"/>
@@ -28,7 +28,7 @@
             style="@style/InstructionText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tap the "
+            android:text="@string/pick_the"
             app:layout_constraintEnd_toStartOf="@id/textView_InstructionB"
             app:layout_constraintStart_toEndOf="@id/textView_InstructionNumber" />
 
@@ -47,7 +47,7 @@
             style="@style/InstructionText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" card"
+            android:text="@string/card"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/textView_InstructionB" />
     </android.support.constraint.ConstraintLayout>

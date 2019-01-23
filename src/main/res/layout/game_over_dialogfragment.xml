@@ -12,7 +12,7 @@
         android:background="@color/green"
         android:gravity="center"
         android:padding="8dp"
-        android:text="GAME OVER"
+        android:text="@string/game_over"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold" />
@@ -37,7 +37,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="16sp"
-        android:text="Congratulations! You are now a Superstar!"
+        android:text=""
         android:textColor="@color/grey"
         android:gravity="center"
         android:layout_marginTop="8sp"

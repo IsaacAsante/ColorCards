@@ -28,7 +28,6 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements Communicator, RewardedVideoAdListener {
 
-    // TODO: Add Resume/Pause/Stop methods for the Reward Ad Video
     // TODO: Remove all hardcoded strings from layout files
     // TODO: Put all strings into Strings.xml
     // TODO: Fix all warnings in the code

@@ -14,7 +14,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Results for Level "
+        android:text="@string/results_for_level"
         android:textColor="@color/darkTextColor"
         android:textSize="16sp" />
 
@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textView_ResultsHeader"
-        android:text="You completed Level " />
+        android:text="@string/you_completed_level" />
 
 
     <TextView
@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textView_LevelTimeLeftLabel"
-        android:text="You reached Level " />
+        android:text="@string/you_reached_level" />
 
     <TextView
         android:id="@+id/textView_LevelPointsLabel"
@@ -48,7 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textView_YourLevelPoints_Label"
-        android:text="To progress to Level " />
+        android:text="@string/to_progress_to_level" />
 
 
     <TextView
@@ -57,7 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textView_LevelPointsLabel"
-        android:text="You made " />
+        android:text="@string/you_made" />
 
     <TextView
         android:id="@+id/textView_YourWrongAnswers_Label"
@@ -65,7 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textView_YourCorrectAnswers_Label"
-        android:text="You made " />
+        android:text="@string/you_made" />
 
     <TextView
         android:id="@+id/textView_YourSkippedAnswers_Label"
@@ -73,7 +73,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textView_YourWrongAnswers_Label"
-        android:text="You skipped the instructions " />
+        android:text="@string/you_skipped_the_instructions" />
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -99,7 +99,7 @@
             android:id="@+id/button_ReturnHome"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Return Home"
+            android:text="@string/return_home"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
