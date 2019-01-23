@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
     private boolean timeIsUp;
     private int gameLevelNo;
     private boolean existingGame; // true if the player is resuming a game
+    private final int LEVEL_INVINCIBLE = 5;
 
     // Intent to GameResultActivity
     private static final int REQUEST_CODE = 2;
@@ -163,7 +164,11 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         // Load Rewarded Videos
         mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(MainActivity.this);
         mRewardedVideoAd.setRewardedVideoAdListener(MainActivity.this);
-        loadRewardedVideoAd();
+
+        // When the game starts at Level 5 from existing data, don't load the Rewarded Video Ad.
+        if (gameLevelNo < LEVEL_INVINCIBLE) {
+            loadRewardedVideoAd();
+        }
     }
 
     private void getGameType() {
@@ -646,9 +651,35 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        System.out.println("onPause was called");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (gameLevelNo < LEVEL_INVINCIBLE) {
+            fragmentUserProgress.startTimer();
+        }
+        timeIsUp = false;
+        System.out.println("onResume was called");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        System.out.println("onResume was called");
+    }
+
+    @Override
     protected void onStop() {
         super.onStop();
         System.out.println("OnStop method is called.");
+        if (gameLevelNo < LEVEL_INVINCIBLE) {
+            fragmentUserProgress.cancelTimer();
+        }
+        timeIsUp = true; // End the game
         saveGameData();
     }
 }
