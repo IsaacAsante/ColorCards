@@ -268,7 +268,6 @@ public class FragmentUserProgress extends Fragment {
     }
 
     private void selectDialogFragmentToShow() {
-        System.out.println("DialogFragmentToShow() running");
         if (pointsAccumulated >= pointsToReach) {
             communicator.showGameOverAlert(GameResult.Win, pointsToReach);
         } else {
@@ -278,8 +277,6 @@ public class FragmentUserProgress extends Fragment {
 
     private void verifyIfUserHasWon() {
         if (pointsAccumulated >= pointsToReach) {
-            System.out.println("Points accumulated is " + pointsAccumulated);
-            System.out.println("Points to reach is " + pointsToReach);
             timer.cancel();
             communicator.setTimeUp(true);
             communicator.showGameOverAlert(GameResult.Win, pointsToReach);
@@ -304,7 +301,6 @@ public class FragmentUserProgress extends Fragment {
 
     @Override
     public void onStop() {
-        System.out.println("FragmentUserProgress onStop method called");
         cancelTimer();
         super.onStop();
     }

@@ -24,8 +24,6 @@ import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 
-import java.util.Map;
-
 public class MainActivity extends AppCompatActivity implements Communicator, RewardedVideoAdListener {
 
     // TODO: Create an account on AppAnie for ASO
@@ -199,23 +197,18 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         if (fragment instanceof FragmentProgressBar) {
             FragmentProgressBar fragmentProgressBar = (FragmentProgressBar) fragment;
             fragmentProgressBar.setCommunicator(this);
-            System.out.println("FragmentProgressBar onAttachFragment");
         } else if (fragment instanceof FragmentUserProgress) {
             FragmentUserProgress fragmentTimer = (FragmentUserProgress) fragment;
             fragmentTimer.setCommunicator(this);
-            System.out.println("FragmentUserProgress onAttachFragment");
         } else if (fragment instanceof FragmentCards) {
             FragmentCards fragmentCards = (FragmentCards) fragment;
             fragmentCards.setCommunicator(this); // MainActivity for FragmentCards
-            System.out.println("FragmentCards onAttachFragment");
         } else if (fragment instanceof FragmentResults) {
             FragmentResults fragmentResults = (FragmentResults) fragment;
             fragmentResults.setCommunicator(this);
-            System.out.println("FragmentResults onAttachFragment");
         } else if (fragment instanceof CustomDialogFragment) {
             CustomDialogFragment customDialogFragment = (CustomDialogFragment) fragment;
             customDialogFragment.setCommunicator(this);
-            System.out.println("CustomDialogFragment onAttachFragment");
         }
     }
 
@@ -501,7 +494,6 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
     @Override
     public void showGameOverAlert(GameResult result, long points) {
         if (result == GameResult.Win) {
-            System.out.println("showGameOverAlert is called");
             gameOverDialog = CustomDialogFragment.newInstance(true, gameLevelNo, points);
         } else {
             gameOverDialog = CustomDialogFragment.newInstance(false, gameLevelNo, points);
@@ -645,7 +637,6 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         // IMPORTANT: AdMob Rewarded Video Ad
         mRewardedVideoAd.pause(this);
         super.onPause();
-        System.out.println("onPause was called");
     }
 
     @Override
@@ -675,16 +666,13 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
                 if (fragmentInLayout) {
                     fragmentUserProgress.cancelTimer();
                     timeIsUp = true;
-                    System.out.println("There is a dialog.");
                 } else {
                     if (fragmentUserProgress.isTimerRunning() == false) {
                         fragmentUserProgress.startTimer();
                     }
                     timeIsUp = false;
-                    System.out.println("There is no dialog");
                 }
         }
-        System.out.println("onResume was called");
 
         //IMPORTANT: AdMob RewardedVideoAd
         mRewardedVideoAd.resume(this);
@@ -695,13 +683,11 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
     @Override
     protected void onRestart() {
         super.onRestart();
-        System.out.println("onResume was called");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        System.out.println("OnStop method is called.");
         if (gameLevelNo < LEVEL_INVINCIBLE) {
             fragmentUserProgress.cancelTimer();
         }

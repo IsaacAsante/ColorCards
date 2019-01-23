@@ -113,8 +113,9 @@ public class CustomDialogFragment extends DialogFragment {
             int nextLevelNo = gameCurrentLevelNo + 1;
             String nextLevelNickname = GameLevel.newInstance(nextLevelNo).getLevelNickname();
             String dialogTitle = nextLevelNickname + " Level Unlocked!";
-            String dialogMsg = "Congratulations! " +
-                    "\n\nYou've reached " + gameFinalPoints + " points!";
+            String dialogMsg = getString(R.string.congratulations) +
+                    "\n\n" + getString(R.string.you_ve_reached) + " " + gameFinalPoints + " " +
+                    getString(R.string.points_exclamation);
             String button1Text = NEXT_LEVEL;
             String button2Text = VIEW_RESULTS;
 
@@ -145,8 +146,8 @@ public class CustomDialogFragment extends DialogFragment {
             });
 
         } else if (gamePaused) {
-            String dialogTitle = "Game Paused";
-            String dialogMSG = "The game is currently paused. We're waiting for you to come back.";
+            String dialogTitle = getString(R.string.game_paused);
+            String dialogMSG = getString(R.string.the_game_is_currently_paused);
             textView_dialogTitle.setText(dialogTitle);
             textView_dialogMessage.setText(dialogMSG);
             imageView_dialogMessage.setImageResource(R.drawable.pause);
@@ -171,8 +172,8 @@ public class CustomDialogFragment extends DialogFragment {
                 }
             });
         } else if (gameCancelled) {
-            String dialogTitle = "Cancelling Game";
-            String dialogMSG = "You are about to quit this game and lose all your progress. Do you really wish to cancel?";
+            String dialogTitle = getString(R.string.cancelling_game);
+            String dialogMSG = getString(R.string.you_are_about_to_quit_this_game);
             textView_dialogTitle.setText(dialogTitle);
             textView_dialogMessage.setText(dialogMSG);
             imageView_dialogMessage.setImageResource(R.drawable.cancel);
@@ -195,8 +196,8 @@ public class CustomDialogFragment extends DialogFragment {
                 }
             });
         } else if (gameSwitchingToInstructions) {
-            String dialogTitle = "Switching to Instructions";
-            String dialogMSG = "You are in the middle of a game. Do you want to continue to the instructions?";
+            String dialogTitle = getString(R.string.switching_to_instructions);
+            String dialogMSG = getString(R.string.you_are_in_the_middle_of_a_game_continue);
             textView_dialogTitle.setText(dialogTitle);
             textView_dialogMessage.setText(dialogMSG);
             imageView_dialogMessage.setImageResource(R.drawable.question_mark);
@@ -223,9 +224,9 @@ public class CustomDialogFragment extends DialogFragment {
             });
         } else {
             // If the player lost
-            String dialogTitle = "You Failed!";
-            String dialogMsg = "Sorry, you did not gather enough points." +
-                    "\n\nFinish this level by extending your time, or try again.";
+            String dialogTitle = getString(R.string.you_failed);
+            String dialogMsg = getString(R.string.you_did_not_gather_enough_points) + "\n\n" +
+                    getString(R.string.finish_this_level);
             String button1Text = ADD_TIME;
             String button2Text = RESTART;
 

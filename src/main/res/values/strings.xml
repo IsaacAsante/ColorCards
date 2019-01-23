@@ -14,8 +14,9 @@
     <string name="correct">Correct:</string>
     <string name="skipped">Skipped:</string>
     <string name="wrong">Wrong:</string>
-    <string name="loading_game">Loading game...</string>
+    <string name="loading_game">Loading game…</string>
     <string name="points">Points: </string>
+    <string name="points_exclamation">points!</string>
     <string name="_00_00">00:00</string>
     <string name="_1min">+1min</string>
     <string name="game_over">GAME OVER</string>
@@ -35,4 +36,18 @@
     <string name="no">NO</string>
     <string name="you_did_not_get_anything_wrong">You did not get anything wrong. Well done!</string>
     <string name="you_did_not_skip_any_card">You did not skip any card. This means you think and react very fast!</string>
+    <string name="you_failed">You Failed!</string>
+    <string name="you_did_not_gather_enough_points">Sorry, you did not gather enough points.</string>
+    <string name="finish_this_level">Finish this level by extending your time, or try again.</string>
+    <string name="switching_to_instructions">Switching to Instructions</string>
+    <string name="you_are_in_the_middle_of_a_game_continue">You are in the middle of a game. Do you want to continue to the instructions?</string>
+    <string name="game_paused">Game Paused</string>
+    <string name="the_game_is_currently_paused">The game is currently paused. We\'re waiting for you to come back.</string>
+    <string name="cancelling_game">Cancelling Game</string>
+    <string name="you_are_about_to_quit_this_game">You are about to quit this game and lose all your progress. Do you really wish to cancel?</string>
+    <string name="congratulations">Congratulations!</string>
+    <string name="you_ve_reached">You\'ve reached</string>
+    <string name="pause">Pause</string>
+    <string name="view_instructions">View Instructions</string>
+    <string name="quit_game">Quit Game</string>
 </resources>
