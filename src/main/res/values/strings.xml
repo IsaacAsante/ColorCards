@@ -5,7 +5,7 @@
     <string name="you_completed_level">You completed Level</string>
     <string name="you_reached_level">You reached Level</string>
     <string name="to_progress_to_level">To progress to Level</string>
-    <string name="you_made">You made</string>
+    <string name="you_made">You made </string>
     <string name="you_skipped_the_instructions">You skipped the instructions</string>
     <string name="return_home">Return Home</string>
     <string name="instructions">Instructions</string>
@@ -15,9 +15,13 @@
     <string name="skipped">Skipped:</string>
     <string name="wrong">Wrong:</string>
     <string name="loading_game">Loading game...</string>
-    <string name="points">Points:</string>
+    <string name="points">Points: </string>
     <string name="_00_00">00:00</string>
     <string name="_1min">+1min</string>
     <string name="game_over">GAME OVER</string>
     <string name="black">Black</string>
+    <string name="red">RED</string>
+    <string name="pink">PINK</string>
+    <string name="purple">PURPLE</string>
+    <string name="blue">BLUE</string>
 </resources>

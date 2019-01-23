@@ -62,29 +62,29 @@ public class FragmentResults extends Fragment {
     public String displayResultCount(long result) {
         String resultString = "";
         if (result > 10000 && result <= 50000) {
-            resultString = "10k+";
+            resultString = " 10k+";
         } else if (result > 50000 && result <= 100000) {
-            resultString = "50k+";
+            resultString = " 50k+";
         } else if (result > 100000 && result <= 500000) {
-            resultString = "100k+";
+            resultString = " 100k+";
         } else if (result > 500000 && result <= 1000000) {
-            resultString = "500k+";
+            resultString = " 500k+";
         } else if (result > 1000000 && result <= 5000000) {
-            resultString = "1m+";
+            resultString = " 1m+";
         } else if (result > 5000000 && result <= 10000000) {
-            resultString = "5m+";
+            resultString = " 5m+";
         } else if (result > 10000000 && result <= 50000000) {
-            resultString = "10m+";
+            resultString = " 10m+";
         } else if (result > 50000000 && result <= 100000000) {
-            resultString = "50m+";
+            resultString = " 50m+";
         } else if (result > 100000000 && result <= 500000000) {
-            resultString = "100m+";
+            resultString = " 100m+";
         } else if (result > 500000000 && result <= 1000000000) {
-            resultString = "500m+";
+            resultString = " 500m+";
         } else if (result > 1000000000) {
-            resultString = "1b+";
+            resultString = " 1b+";
         } else {
-            resultString = String.valueOf(result);
+            resultString = " " + result;
         }
         return resultString;
     }

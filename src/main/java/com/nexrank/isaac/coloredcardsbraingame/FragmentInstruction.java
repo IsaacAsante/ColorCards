@@ -39,10 +39,11 @@ public class FragmentInstruction extends Fragment {
     }
 
     public void forceRandomInstruction() {
-        String[] colorNames = { "RED", "PINK", "PURPLE", "BLUE"};
+        String[] colorNames = { getString(R.string.red), getString(R.string.pink), getString(R.string.purple), getString(R.string.blue)};
         int[] colors = { R.color.red, R.color.pink, R.color.purple, R.color.blue };
         int randomNo = new Random().nextInt(4);
-        textView2_Color.setText(colorNames[randomNo]);
+        String colorName = " " + colorNames[randomNo] + " ";
+        textView2_Color.setText(colorName);
         textView2_Color.setTextColor(ContextCompat.getColor(getActivity(), colors[randomNo]));
     }
 
@@ -56,11 +57,13 @@ public class FragmentInstruction extends Fragment {
     }
 
     public void updateInstructionColorName(String colorName) {
-        textView2_Color.setText(colorName);
+        String modifiedColorName = " " + colorName + " ";
+        textView2_Color.setText(modifiedColorName);
     }
 
     public boolean isCorrect(String colorName) {
-        if (textView2_Color.getText().toString().equals(colorName)) {
+        // Remove spaces
+        if (textView2_Color.getText().toString().trim().equals(colorName)) {
             return true;
         } return false;
     }

@@ -66,7 +66,8 @@ public class FragmentUserProgress extends Fragment {
         button_BonusTime = view.findViewById(R.id.button_Bonus);
 
         // Assigning values to the views
-        textView_PointsAccumulated.setText(String.valueOf(pointsAccumulated));
+        String pointsAccumulatedString = " " + pointsAccumulated;
+        textView_PointsAccumulated.setText(pointsAccumulatedString);
         textView_PointsToReach.setText(String.valueOf(pointsToReach));
 
         // By default, the bonus button should be hidden until the Rewarded Video Ad has finished loading.
@@ -137,11 +138,13 @@ public class FragmentUserProgress extends Fragment {
     }
 
     public void displayPointAccumulated() {
-        textView_PointsAccumulated.setText(String.valueOf(pointsAccumulated));
+        String points = " " + pointsAccumulated;
+        textView_PointsAccumulated.setText(points);
     }
 
     public void displayPointToReach() {
-        textView_PointsToReach.setText(String.valueOf(pointsToReach));
+        String points = " " + pointsToReach;
+        textView_PointsToReach.setText(points);
     }
 
     public void setCommunicator(Context context) {

@@ -64,37 +64,37 @@ public class GameResultActivity extends AppCompatActivity {
         Bundle gameResultBundle = gameIntent.getBundleExtra("gameResult");
 
         // Display level
-        textView_Header.append(String.valueOf(gameLevel));
+        textView_Header.append(" " + String.valueOf(gameLevel));
 
         // Display the time left
         String formattedTimeLeft; // How the time is displayed
         int minutes = (int) (userProgressBundle.getLong(KEY_TIME_LEFT) / 1000) / 60;
         int secondsLeft = (int) (userProgressBundle.getLong(KEY_TIME_LEFT) / 1000) % 60; // Convert the time left on the clock in seconds
         if (minutes > 0) {
-            formattedTimeLeft = String.format(Locale.getDefault(), "%d with %dmin and %02ds left on the clock.", gameLevel, minutes, secondsLeft);
+            formattedTimeLeft = String.format(Locale.getDefault(), " %d with %dmin and %02ds left on the clock.", gameLevel, minutes, secondsLeft);
         } else {
-            formattedTimeLeft = String.format(Locale.getDefault(), "%d with %02d seconds left on the clock.", gameLevel, secondsLeft);
+            formattedTimeLeft = String.format(Locale.getDefault(), " %d with %02d seconds left on the clock.", gameLevel, secondsLeft);
         }
         textView_LevelTimeLeft.append(formattedTimeLeft);
 
         // Display points accumulated
         long pointsAccumulated = userProgressBundle.getLong(KEY_POINTS_ACCUMULATED);
-        String pointsAccumulatedMSG = nextLevel + " with " + pointsAccumulated + " points.";
+        String pointsAccumulatedMSG = " " + nextLevel + " with " + pointsAccumulated + " points.";
         textView_LevelPoints.append(pointsAccumulatedMSG);
 
         // Display points to reach
         long pointsToReach = userProgressBundle.getLong(KEY_POINTS_TO_REACH);
-        String pointsToReachMSG = nextLevel + ", you needed a minimum of " + pointsToReach + " points.";
+        String pointsToReachMSG = " " + nextLevel + ", you needed a minimum of " + pointsToReach + " points.";
         textView_PointsNeeded.append(pointsToReachMSG);
 
         // Display correct cards
         long correctAnswerCount = gameResultBundle.getLong(KEY_CORRECT_ANSWER_COUNT);
-        String correctAnswersMSG = correctAnswerCount + " correct picks.";
+        String correctAnswersMSG = " " + correctAnswerCount + " correct picks.";
         textView_CorrectAnswers.append(correctAnswersMSG);
 
         // Display wrong cards
         long wrongAnswerCount = gameResultBundle.getLong(KEY_WRONG_ANSWER_COUNT);
-        String wrongAnswersMSG = wrongAnswerCount + " wrong picks.";
+        String wrongAnswersMSG = " " + wrongAnswerCount + " wrong picks.";
         if (wrongAnswerCount > 0) {
             textView_WrongAnswers.append(wrongAnswersMSG);
         } else {
