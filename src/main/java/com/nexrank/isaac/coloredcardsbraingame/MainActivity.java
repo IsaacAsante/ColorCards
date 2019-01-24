@@ -484,6 +484,18 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
     }
 
     @Override
+    public void askViewRewardedVideoAd() {
+        // Create a new custom dialog and set it as a Pause Dialog using the correct enum value.
+        CustomDialogFragment dialogFragment = CustomDialogFragment.newInstance(DialogType.VIEW_AD_DIALOG);
+        getSupportFragmentManager().beginTransaction().add(dialogFragment, "AdDialog").commit();
+
+        fragmentUserProgress.cancelTimer();
+        timeIsUp = true; // End the game
+        menu.findItem(R.id.PauseGame).setIcon(R.drawable.menu_icon_pause); // Change the pause/resume icon in the action bar
+        saveGameData();
+    }
+
+    @Override
     public void showRewardedVideoAd() {
         if (mRewardedVideoAd.isLoaded()) {
             mRewardedVideoAd.show();
@@ -593,7 +605,6 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
             timeIsUp = false;
         }
         // Add the bonus time, and restart the timer
-        fragmentUserProgress.addBonusTime();
         fragmentUserProgress.startTimer();
         fragmentUserProgress.setBonusButtonVisibility(0); // Hide the bonus button again until the ad is ready
 
@@ -631,6 +642,8 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
 
     @Override
     public void onRewardedVideoCompleted() {
+        // Only give the reward if the user finished the video.
+        fragmentUserProgress.addBonusTime();
         Toast.makeText(this, "onRewardedVideoCompleted", Toast.LENGTH_SHORT).show();
     }
 
@@ -655,6 +668,7 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
                 Fragment fragmentPauseDialog = getSupportFragmentManager().findFragmentByTag("PauseDialog");
                 Fragment fragmentCancelDialog = getSupportFragmentManager().findFragmentByTag("CancelDialog");
                 Fragment fragmentGameOverDialog = getSupportFragmentManager().findFragmentByTag("GameOverDialog");
+                Fragment fragmentViewAdDialog = getSupportFragmentManager().findFragmentByTag("AdDialog");
 
                 if (fragmentPauseDialog != null) {
                     if (fragmentPauseDialog.isAdded()) {
@@ -668,7 +682,12 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
                     if (fragmentGameOverDialog.isAdded()) {
                         fragmentInLayout = true;
                     }
-                } else {
+                } else if (fragmentViewAdDialog != null) {
+                    if (fragmentViewAdDialog.isAdded()) {
+                        fragmentInLayout = true;
+                    }
+                }
+                else {
                     fragmentInLayout = false;
                 }
                 

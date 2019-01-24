@@ -27,6 +27,7 @@ public interface Communicator {
     void updateMissedCount();
 
     // AdMob
+    void askViewRewardedVideoAd();
     void showRewardedVideoAd();
 
     // Alerts

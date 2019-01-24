@@ -107,7 +107,7 @@ public class FragmentUserProgress extends Fragment {
             button_BonusTime.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    communicator.showRewardedVideoAd();
+                    communicator.askViewRewardedVideoAd();
                 }
             });
         }
@@ -220,8 +220,7 @@ public class FragmentUserProgress extends Fragment {
     public void startTimer() {
         System.out.println("Starting the timer now");
         timerRunning = true;
-        // Add 1 second to the time to make up for the delay in the loading of content
-        timer = new CountDownTimer(millisForCurrentLevel + 1000, COUNTDOWN_INTERVAL) {
+        timer = new CountDownTimer(millisForCurrentLevel, COUNTDOWN_INTERVAL) {
             @Override
             public void onTick(long millisUntilFinished) {
                 millisForCurrentLevel = millisUntilFinished;

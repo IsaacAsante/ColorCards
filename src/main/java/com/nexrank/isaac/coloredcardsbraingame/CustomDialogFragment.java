@@ -31,7 +31,9 @@ public class CustomDialogFragment extends DialogFragment {
     private final String ADD_TIME = "ADD 1 MINUTE";
     private final String RESTART = "RESTART";
     private final String RESUME = "RESUME";
+    private final String NO_RESUME = "NO, RESUME";
     private final String GO_BACK = "GO BACK";
+    private final String VIEW_AD = "YES, VIEW AD";
 
     private boolean gameResultVictory; // True for Win / False for Loss
     private int gameCurrentLevelNo; // Just-ended level
@@ -40,6 +42,7 @@ public class CustomDialogFragment extends DialogFragment {
     private boolean gameCancelled;
     private boolean gameReturnToSplash;
     private boolean gameSwitchingToInstructions;
+    private boolean gameViewingRewardedVideoAd;
 
     private TextView textView_dialogTitle;
     private TextView textView_dialogMessage;
@@ -87,6 +90,7 @@ public class CustomDialogFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        // TODO: Use switch statement
         // Receive result from the activity if arguments are set
         if (getArguments() != null) {
             if (getArguments().getSerializable(INSTANCE_TYPE) == DialogType.GAME_OVER_DIALOG) {
@@ -101,6 +105,8 @@ public class CustomDialogFragment extends DialogFragment {
                 gameReturnToSplash = true;
             } else if (getArguments().getSerializable(INSTANCE_TYPE) == DialogType.VIEW_INSTRUCTIONS) {
                 gameSwitchingToInstructions = true;
+            } else if (getArguments().getSerializable(INSTANCE_TYPE) == DialogType.VIEW_AD_DIALOG) {
+                gameViewingRewardedVideoAd = true;
             }
         }
 
@@ -222,7 +228,33 @@ public class CustomDialogFragment extends DialogFragment {
                     communicator.resumeGame(communicator.getMenu().findItem(R.id.PauseGame));
                 }
             });
-        } else {
+        } else if (gameViewingRewardedVideoAd) {
+            String dialogTitle = getString(R.string.watch_ad);
+            String dialogMSG = getString(R.string.ad_policy_message) + "\n\n" + getString(R.string.proceed_confirmation);
+
+            textView_dialogTitle.setText(dialogTitle);
+            textView_dialogMessage.setText(dialogMSG);
+            button_1.setText(VIEW_AD);
+            button_2.setText(NO_RESUME);
+            button_1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dismiss();
+                    // Show the ad
+                    communicator.showRewardedVideoAd();
+                }
+            });
+
+            button_2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dismiss();
+                    // Resume the game
+                    communicator.resumeGame(communicator.getMenu().findItem(R.id.PauseGame));
+                }
+            });
+        }
+        else {
             // If the player lost
             String dialogTitle = getString(R.string.you_failed);
             String dialogMsg = getString(R.string.you_did_not_gather_enough_points) + "\n\n" +
@@ -242,8 +274,8 @@ public class CustomDialogFragment extends DialogFragment {
                 @Override
                 public void onClick(View v) {
                     dismiss();
-                    // Add the bonus time
-                    communicator.showRewardedVideoAd();
+                    // Ask to view the ad for the bonus time
+                    communicator.askViewRewardedVideoAd();
                 }
             });
 

@@ -52,4 +52,7 @@
     <string name="quit_game">Quit Game</string>
     <string name="you_ve_received">You\'ve received</string>
     <string name="more">more</string>
+    <string name="watch_ad">Watch Ad</string>
+    <string name="ad_policy_message">You are about to view an ad in exchange for one extra minute to finish this level.</string>
+    <string name="proceed_confirmation">Do you wish to proceed?</string>
 </resources>
