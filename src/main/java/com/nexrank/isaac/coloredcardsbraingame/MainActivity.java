@@ -143,13 +143,12 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
 
         mAdView = findViewById(R.id.bottomAdViewBanner);
         // Test ads with my Nokia
-        // TODO: Remove the test device
+        // TODO: Remove the test device and set the method Builder().build() in the master branch
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice("922A17FEBA1721235EF6CB6AFDD947AB")
+                .addTestDevice("94B23CCA4354AAC90D0AEEA8F2831FBF")
                 .build();
         mAdView.loadAd(adRequest);
-
-        System.out.println("THE TEST DEVICE IS WORKING");
 
         // AppLovin
         // TODO: Cancel Test Ads from AppLovin and show Live Ads.
@@ -559,8 +558,12 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         mRewardedVideoAd.loadAd("ca-app-pub-4887590264879985/5045460278",
                 new AdRequest.Builder()
                         .addTestDevice("922A17FEBA1721235EF6CB6AFDD947AB")
+                        .addTestDevice("94B23CCA4354AAC90D0AEEA8F2831FBF")
                         .build());
     }
+
+
+    // TODO: Remove toast messages for the RewardedVideoAd.
 
     @Override
     public void onRewardedVideoAdLoaded() {
@@ -594,17 +597,23 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         fragmentUserProgress.startTimer();
         fragmentUserProgress.setBonusButtonVisibility(0); // Hide the bonus button again until the ad is ready
 
-        if (getSupportFragmentManager().findFragmentByTag("GameOverDialog").isAdded()) {
-            CustomDialogFragment customDialogFragment = (CustomDialogFragment) getSupportFragmentManager().findFragmentByTag("GameOverDialog");
-            customDialogFragment.dismiss();
+        CustomDialogFragment gameOverDialog = (CustomDialogFragment) getSupportFragmentManager().findFragmentByTag("GameOverDialog");
+
+        if (gameOverDialog != null) {
+            if (gameOverDialog.isAdded()) {
+                gameOverDialog.dismiss();
+            }
         }
+        // Load the next rewarded video ad.
         loadRewardedVideoAd();
+
         Toast.makeText(this, "onRewardedVideoAdClosed", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onRewarded(RewardItem rewardItem) {
-        Toast.makeText(this, "You have " + rewardItem.getAmount() + " more " + rewardItem.getType(),
+        String rewardConfirmation = getString(R.string.you_ve_received) + " " + rewardItem.getAmount() + " " + getString(R.string.more) + " " + rewardItem.getType();
+        Toast.makeText(this, rewardConfirmation,
                 Toast.LENGTH_SHORT).show();
         // Reward the user.
     }

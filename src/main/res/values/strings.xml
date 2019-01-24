@@ -50,4 +50,6 @@
     <string name="pause">Pause</string>
     <string name="view_instructions">View Instructions</string>
     <string name="quit_game">Quit Game</string>
+    <string name="you_ve_received">You\'ve received</string>
+    <string name="more">more</string>
 </resources>
