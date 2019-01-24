@@ -305,9 +305,7 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         for (String key : sharedPreferences.getAll().keySet()) {
             editor.remove(key);
         }
-        Log.i("Items before", String.valueOf(sharedPreferences.getAll().size()));
         editor.commit(); // Synchronous on purpose
-        Log.i("Items after", String.valueOf(sharedPreferences.getAll().size()));
 
         // Notify Splash.java that the user has canceled their progress
         Intent intent = new Intent();

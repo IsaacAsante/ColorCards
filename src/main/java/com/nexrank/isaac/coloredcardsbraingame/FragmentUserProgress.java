@@ -218,7 +218,6 @@ public class FragmentUserProgress extends Fragment {
     }
 
     public void startTimer() {
-        System.out.println("Starting the timer now");
         timerRunning = true;
         timer = new CountDownTimer(millisForCurrentLevel, COUNTDOWN_INTERVAL) {
             @Override
@@ -230,7 +229,6 @@ public class FragmentUserProgress extends Fragment {
                 String timeLeft = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
                 textView_TimeLeft.setText(timeLeft);
                 if (communicator.getGameLevelNo() < LEVEL_INVINCIBLE) {
-                    System.out.println("Timer running");
                     // In Level 5, no need to check if the user has won as it's an eternal mode.
                     verifyIfUserHasWon();
                 }
@@ -248,7 +246,6 @@ public class FragmentUserProgress extends Fragment {
     public void cancelTimer() {
         if(timer != null) {
             timer.cancel();
-            System.out.println("The timer is " + millisForCurrentLevel);
         }
         timerRunning = false;
     }
