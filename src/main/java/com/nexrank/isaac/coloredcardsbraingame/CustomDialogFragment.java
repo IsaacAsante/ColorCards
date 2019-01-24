@@ -229,11 +229,12 @@ public class CustomDialogFragment extends DialogFragment {
                 }
             });
         } else if (gameViewingRewardedVideoAd) {
-            String dialogTitle = getString(R.string.watch_ad);
+            String dialogTitle = getString(R.string.get_one_minute_bonus);
             String dialogMSG = getString(R.string.ad_policy_message) + "\n\n" + getString(R.string.proceed_confirmation);
 
             textView_dialogTitle.setText(dialogTitle);
             textView_dialogMessage.setText(dialogMSG);
+            imageView_dialogMessage.setImageResource(R.drawable.tv);
             button_1.setText(VIEW_AD);
             button_2.setText(NO_RESUME);
             button_1.setOnClickListener(new View.OnClickListener() {
