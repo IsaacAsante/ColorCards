@@ -428,6 +428,7 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
             fragmentUserProgress.increasePointsToReach(); // Add to the game's difficulty
             fragmentUserProgress.displayPointToReach(); // Update points
             fragmentUserProgress.increaseGameLevelTime(gameLevelNo); // New level * default time
+            fragmentUserProgress.softIncreasePointsDeductor(gameLevelNo);
             fragmentUserProgress.startTimer(); // Must be the last method
         }
         if (gameLevelNo == 5) {

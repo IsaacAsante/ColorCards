@@ -79,10 +79,10 @@ public class Splash extends AppCompatActivity {
         if (requestCode == REQUEST_CODE && resultCode == -1) {
             if (data.getIntExtra(KEY_GAME_STATUS, 0) == EXISTING_GAME){
                 button_ResumeGame.setVisibility(View.VISIBLE);
-                button_PlayNow.setText("NEW GAME");
+                button_PlayNow.setText(getString(R.string.new_game));
             }
             else {
-                button_PlayNow.setText("PLAY NOW");
+                button_PlayNow.setText(getString(R.string.play_now));
                 button_ResumeGame.setVisibility(View.GONE);
             }
         }
@@ -92,10 +92,10 @@ public class Splash extends AppCompatActivity {
         SharedPreferences sharedPreferences = this.getSharedPreferences(getString(R.string.Existing_Game_Info), MODE_PRIVATE);
         // If all saved items are in the sharedPreferences file
         if (sharedPreferences.getAll().size() != 7) {
-            button_PlayNow.setText("PLAY NOW");
+            button_PlayNow.setText(getString(R.string.play_now));
             button_ResumeGame.setVisibility(View.GONE); // By default, it should not take any space
         } else {
-            button_PlayNow.setText("NEW GAME");
+            button_PlayNow.setText(getString(R.string.new_game));
             button_ResumeGame.setVisibility(View.VISIBLE); // By default, it should not take any space
         }
     }

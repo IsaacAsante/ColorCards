@@ -94,18 +94,24 @@ public class GameResultActivity extends AppCompatActivity {
 
         // Display wrong cards
         long wrongAnswerCount = gameResultBundle.getLong(KEY_WRONG_ANSWER_COUNT);
-        String wrongAnswersMSG = " " + wrongAnswerCount + " wrong picks.";
-        if (wrongAnswerCount > 0) {
-            textView_WrongAnswers.append(wrongAnswersMSG);
+        String singleWrongAnswerMSG = " " + getString(R.string.only) + " " + wrongAnswerCount + " wrong pick.";
+        String numerousWrongAnswersMSG = " " + wrongAnswerCount + " wrong picks.";
+        if (wrongAnswerCount > 0 && wrongAnswerCount < 2) {
+            textView_WrongAnswers.append(singleWrongAnswerMSG);
+        } else if (wrongAnswerCount >=  2) {
+            textView_WrongAnswers.append(numerousWrongAnswersMSG);
         } else {
             textView_WrongAnswers.setText(getString(R.string.you_did_not_get_anything_wrong));
         }
 
         // Display skipped cards
         long skippedAnswerCount = gameResultBundle.getLong(KEY_SKIPPED_ANSWER_COUNT);
-        String skippedAnswersMSG = " " + skippedAnswerCount + " times.";
-        if (skippedAnswerCount > 0) {
-            textView_SkippedAnswers.append(skippedAnswersMSG);
+        String singleSkippedAnswerMSG = " " + getString(R.string.only_once) + ".";
+        String numerousSkippedAnswersMSG = " " + skippedAnswerCount + " times.";
+        if (skippedAnswerCount > 0 && skippedAnswerCount < 2) {
+            textView_SkippedAnswers.append(singleSkippedAnswerMSG);
+        } else if (skippedAnswerCount >= 2) {
+            textView_SkippedAnswers.append(numerousSkippedAnswersMSG);
         } else {
             textView_SkippedAnswers.setText(getString(R.string.you_did_not_skip_any_card));
         }

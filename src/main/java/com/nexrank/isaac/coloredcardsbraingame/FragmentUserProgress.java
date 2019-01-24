@@ -31,9 +31,9 @@ public class FragmentUserProgress extends Fragment {
     private long pointsToReach; // Level-related points to collect to reach the game's next level
     private int pointsIncrementor; // The amount of points by which a correct answer will increase the points
     private int pointsDeductor; // The amount of points by which a wrong answer will decrease the points
-    private final int INITIAL_POINTS_TO_REACH = 50; // Points to finish Level 1
+    private final int INITIAL_POINTS_TO_REACH = 1500; // Points to finish Level 1
     private final int INITIAL_POINTS_INCREMENTOR = 20; // Points gained for every correct answer
-    private final int INITIAL_POINTS_DEDUCTOR = 25; // Points removed for wrong answers
+    private final int INITIAL_POINTS_DEDUCTOR = 40; // Points removed for wrong answers
     private final double INCREMENT_COEFFICIENT = 2; // Points accumulated will be multiplied by that value at each level increase
     private final int HIGH_DEDUCTOR = 250; // The number of points that the player loses for a wrong card.
     private final int SOFT_DEDUCTOR = 5;
@@ -43,7 +43,7 @@ public class FragmentUserProgress extends Fragment {
     private CountDownTimer timer;
     private boolean timerRunning;
     private long millisForCurrentLevel;
-    private final long INITIAL_TIME = 30000; // Must be 1min
+    private final long INITIAL_TIME = 60000; // Must be 1min
     private final long COUNTDOWN_INTERVAL = 1000;
     private final long BONUS_TIME = 60000;
 
@@ -257,6 +257,10 @@ public class FragmentUserProgress extends Fragment {
     // May be used for both restarts and new levels
     public void increaseGameLevelTime(int currentGameLevelNo) {
         millisForCurrentLevel = INITIAL_TIME * currentGameLevelNo;
+    }
+
+    public void softIncreasePointsDeductor(int currentGameLevelNo) {
+        pointsDeductor = INITIAL_POINTS_DEDUCTOR * currentGameLevelNo;
     }
 
     public void resetTime() {

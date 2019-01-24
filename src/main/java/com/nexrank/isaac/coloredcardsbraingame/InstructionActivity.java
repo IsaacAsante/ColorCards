@@ -54,7 +54,7 @@ public class InstructionActivity extends AppCompatActivity {
             instructions.add(singleInstruction); // Add the last instruction
         } catch (IOException e) {
             e.printStackTrace();
-            Toast.makeText(this, "There was an error loading instructions.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.error_with_the_instructions), Toast.LENGTH_SHORT).show();
         }
     }
 

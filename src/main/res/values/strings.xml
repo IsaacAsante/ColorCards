@@ -55,4 +55,12 @@
     <string name="get_one_minute_bonus">Get 1 Minute Bonus</string>
     <string name="ad_policy_message">You are about to view an ad in exchange for one extra minute to finish this level.</string>
     <string name="proceed_confirmation">Do you wish to proceed?</string>
+    <string name="new_game">NEW GAME</string>
+    <string name="play_now">PLAY NOW</string>
+    <string name="resume_game">RESUME GAME</string>
+    <string name="how_to_play">HOW TO PLAY</string>
+    <string name="brain_game_app_for_kids_and_adults">*Brain game app for kids and adults.</string>
+    <string name="error_with_the_instructions">There was an error loading instructions.</string>
+    <string name="only">only</string>
+    <string name="only_once">only once</string>
 </resources>
