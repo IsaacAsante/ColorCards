@@ -136,8 +136,8 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
 
         // TODO: Remove this test ad in the master branch
         // AppLovin enable test ads
-        final AppLovinSdk sdk = AppLovinSdk.getInstance(MainActivity.this);
-        sdk.getSettings().setTestAdsEnabled(true);
+        // final AppLovinSdk sdk = AppLovinSdk.getInstance(MainActivity.this);
+        // sdk.getSettings().setTestAdsEnabled(true);
 
         // Initialize Mobile Ads - Real App ID used
         MobileAds.initialize(this, "ca-app-pub-4887590264879985~8379773466");
@@ -145,10 +145,7 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         mAdView = findViewById(R.id.bottomAdViewBanner);
         // Test ads with my Nokia
         // TODO: Remove the test device and set the method Builder().build() in the master branch
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice("922A17FEBA1721235EF6CB6AFDD947AB")
-                .addTestDevice("94B23CCA4354AAC90D0AEEA8F2831FBF")
-                .build();
+        AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
         // AppLovin
@@ -567,10 +564,7 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
     // TODO: Remove the test device method
     private void loadRewardedVideoAd() {
         mRewardedVideoAd.loadAd("ca-app-pub-4887590264879985/5045460278",
-                new AdRequest.Builder()
-                        .addTestDevice("922A17FEBA1721235EF6CB6AFDD947AB")
-                        .addTestDevice("94B23CCA4354AAC90D0AEEA8F2831FBF")
-                        .build());
+                new AdRequest.Builder().build());
     }
     
     @Override
