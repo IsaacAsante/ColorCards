@@ -134,6 +134,7 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         // AppLovin User Consent (EU Laws)
         AppLovinPrivacySettings.setHasUserConsent(true, MainActivity.this);
 
+        // TODO: Remove this test ad in the master branch
         // AppLovin enable test ads
         final AppLovinSdk sdk = AppLovinSdk.getInstance(MainActivity.this);
         sdk.getSettings().setTestAdsEnabled(true);
@@ -151,7 +152,6 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         mAdView.loadAd(adRequest);
 
         // AppLovin
-        // TODO: Cancel Test Ads from AppLovin and show Live Ads.
         AppLovinSdk.initializeSdk(MainActivity.this);
 
         // Load Rewarded Videos
