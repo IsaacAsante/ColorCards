@@ -36,9 +36,9 @@
     <string name="no">NO</string>
     <string name="you_did_not_get_anything_wrong">You did not get anything wrong. Well done!</string>
     <string name="you_did_not_skip_any_card">You did not skip any card. This means you think and react very fast!</string>
-    <string name="you_failed">You Failed!</string>
+    <string name="time_is_up">Time is up!</string>
     <string name="you_did_not_gather_enough_points">Sorry, you did not gather enough points.</string>
-    <string name="finish_this_level">Finish this level by extending your time, or try again.</string>
+    <string name="complete_this_level">Complete this level by extending your time, or try again.</string>
     <string name="switching_to_instructions">Switching to Instructions</string>
     <string name="you_are_in_the_middle_of_a_game_continue">You are in the middle of a game. Do you want to continue to the instructions?</string>
     <string name="game_paused">Game Paused</string>

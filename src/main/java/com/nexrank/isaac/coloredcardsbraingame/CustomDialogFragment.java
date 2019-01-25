@@ -257,9 +257,9 @@ public class CustomDialogFragment extends DialogFragment {
         }
         else {
             // If the player lost
-            String dialogTitle = getString(R.string.you_failed);
+            String dialogTitle = getString(R.string.time_is_up);
             String dialogMsg = getString(R.string.you_did_not_gather_enough_points) + "\n\n" +
-                    getString(R.string.finish_this_level);
+                    getString(R.string.complete_this_level);
             String button1Text = ADD_TIME;
             String button2Text = RESTART;
 
