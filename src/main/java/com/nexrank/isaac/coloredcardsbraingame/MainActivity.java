@@ -572,10 +572,7 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
                         .addTestDevice("94B23CCA4354AAC90D0AEEA8F2831FBF")
                         .build());
     }
-
-
-    // TODO: Remove toast messages for the RewardedVideoAd.
-
+    
     @Override
     public void onRewardedVideoAdLoaded() {
         if (gameLevelNo == fragmentUserProgress.getLevelInvincibleConstant()) {
@@ -583,18 +580,18 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         } else {
             fragmentUserProgress.setBonusButtonVisibility(1); // Make the bonus visible
         }
-        Toast.makeText(this, "onRewardedVideoAdLoaded", Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this, "onRewardedVideoAdLoaded", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onRewardedVideoAdOpened() {
-        Toast.makeText(this, "onRewardedVideoAdOpened", Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this, "onRewardedVideoAdOpened", Toast.LENGTH_SHORT).show();
         fragmentUserProgress.cancelTimer();
     }
 
     @Override
     public void onRewardedVideoStarted() {
-        Toast.makeText(this, "onRewardedVideoStarted", Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this, "onRewardedVideoStarted", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -617,7 +614,7 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
         // Load the next rewarded video ad.
         loadRewardedVideoAd();
 
-        Toast.makeText(this, "onRewardedVideoAdClosed", Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this, "onRewardedVideoAdClosed", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -630,20 +627,19 @@ public class MainActivity extends AppCompatActivity implements Communicator, Rew
 
     @Override
     public void onRewardedVideoAdLeftApplication() {
-        Toast.makeText(this, "onRewardedVideoAdLeftApplication",
-                Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this, "onRewardedVideoAdLeftApplication", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onRewardedVideoAdFailedToLoad(int i) {
-        Toast.makeText(this, "onRewardedVideoAdFailedToLoad", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.error_loading_reward), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onRewardedVideoCompleted() {
         // Only give the reward if the user finished the video.
         fragmentUserProgress.addBonusTime();
-        Toast.makeText(this, "onRewardedVideoCompleted", Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this, "onRewardedVideoCompleted", Toast.LENGTH_SHORT).show();
     }
 
     @Override
